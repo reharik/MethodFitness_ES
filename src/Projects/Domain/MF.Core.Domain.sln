@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.Domain", "MF.Core.Domain\MF.Core.Domain.csproj", "{2CEB9C62-0331-4D11-AD4D-89C3C71AFA74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.Infrastructure", "MF.Core.Infrastructure\MF.Core.Infrastructure.csproj", "{23DC4154-011C-4950-B314-813B536D8398}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.MessageBinders", "MF.Core.MessageBinders\MF.Core.MessageBinders.csproj", "{96828673-36C2-4256-A029-3426C21A9FFE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.Messages", "MF.Core.Messages\MF.Core.Messages.csproj", "{989CC909-33F7-4435-94CE-F5A6C71A6A7B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.ReadModel", "MF.Core.ReadModel\MF.Core.ReadModel.csproj", "{7EC77E03-4CAE-42C0-9F79-CD9CB1D52AFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.ReadModelEventHandler", "MF.Core.ReadModelEventHandler\MF.Core.ReadModelEventHandler.csproj", "{CC93A856-29AA-49DC-B66B-505BEB9B80D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.Workflows", "MF.Core.Workflows\MF.Core.Workflows.csproj", "{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CEB9C62-0331-4D11-AD4D-89C3C71AFA74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CEB9C62-0331-4D11-AD4D-89C3C71AFA74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CEB9C62-0331-4D11-AD4D-89C3C71AFA74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CEB9C62-0331-4D11-AD4D-89C3C71AFA74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23DC4154-011C-4950-B314-813B536D8398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23DC4154-011C-4950-B314-813B536D8398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23DC4154-011C-4950-B314-813B536D8398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23DC4154-011C-4950-B314-813B536D8398}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96828673-36C2-4256-A029-3426C21A9FFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96828673-36C2-4256-A029-3426C21A9FFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96828673-36C2-4256-A029-3426C21A9FFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96828673-36C2-4256-A029-3426C21A9FFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{989CC909-33F7-4435-94CE-F5A6C71A6A7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{989CC909-33F7-4435-94CE-F5A6C71A6A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{989CC909-33F7-4435-94CE-F5A6C71A6A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{989CC909-33F7-4435-94CE-F5A6C71A6A7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7EC77E03-4CAE-42C0-9F79-CD9CB1D52AFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7EC77E03-4CAE-42C0-9F79-CD9CB1D52AFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7EC77E03-4CAE-42C0-9F79-CD9CB1D52AFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7EC77E03-4CAE-42C0-9F79-CD9CB1D52AFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC93A856-29AA-49DC-B66B-505BEB9B80D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC93A856-29AA-49DC-B66B-505BEB9B80D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC93A856-29AA-49DC-B66B-505BEB9B80D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC93A856-29AA-49DC-B66B-505BEB9B80D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
