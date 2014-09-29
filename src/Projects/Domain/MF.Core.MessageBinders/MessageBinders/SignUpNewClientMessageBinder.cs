@@ -8,19 +8,17 @@ using Newtonsoft.Json;
 
 namespace MF.Core.MessageBinders.MessageBinders
 {
-    public class HireTrainerMessageBinder : MessageBinderBase
+    public class SignUpNewClientMessageBinder : MessageBinderBase
     {
         private readonly IMongoRepository _mongoRepository;
 
-        public HireTrainerMessageBinder(IMongoRepository mongoRepository, IEventStoreConnection eventStoreConnection)
+        public SignUpNewClientMessageBinder(IMongoRepository mongoRepository, IEventStoreConnection eventStoreConnection)
             : base(eventStoreConnection)
         {
             _mongoRepository = mongoRepository;
         }
 
-        public void AcceptRequest(string userName,
-            string password,
-            string firstName,
+        public void AcceptRequest(string firstName,
             string lastName,
             string emailAddress,
             string address1,
@@ -30,18 +28,18 @@ namespace MF.Core.MessageBinders.MessageBinders
             string zipCode,
             string phoneMobile,
             string phoneSecondary,
-            DateTime dob)
+            string source,
+            string sourceNotes,
+            DateTime startDate)
         {
-            var user = _mongoRepository.Get<User>(x => x.UserName == userName);
+            var user = _mongoRepository.Get<Client>(x => x.EmailAddress == emailAddress);
             if (user != null)
             {
-                throw new Exception("User with that username already exists");
+                throw new Exception("Client with that email address already exists");
             }
 
             // validate email address.
-            var hireTrainer = new HireTrainer(
-                userName, 
-                password, 
+            var signUpNewClient = new SignUpNewClient(
                 firstName, 
                 lastName, 
                 emailAddress, 
@@ -52,8 +50,10 @@ namespace MF.Core.MessageBinders.MessageBinders
                 zipCode,
                 phoneMobile,
                 phoneSecondary,
-                dob);
-            PostEvent(hireTrainer, Guid.NewGuid());
+                source,
+                sourceNotes,
+                startDate);
+            PostEvent(signUpNewClient, Guid.NewGuid());
 
         }
     }
