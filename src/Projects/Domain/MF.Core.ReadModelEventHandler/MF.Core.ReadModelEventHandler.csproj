@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Handlers\ClientHandler.cs" />
     <Compile Include="ReadStoreDispatcher.cs" />
     <Compile Include="Handlers\UserHandler.cs" />
     <Compile Include="Program.cs" />

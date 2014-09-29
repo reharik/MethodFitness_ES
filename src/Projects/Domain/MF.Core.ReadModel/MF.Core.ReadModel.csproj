@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Client.cs" />
     <Compile Include="ReadModelRegistry.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserLogins.cs" />

@@ -10,20 +10,20 @@ using Newtonsoft.Json;
 
 namespace MF.Core.Workflows.Handlers
 {
-    public class RegisterUserWorkflow : HandlerBase, IHandler
+    public class HireTrainerWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
 
-        public RegisterUserWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
+        public HireTrainerWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
             : base(mongoRepository)
         {
             _getEventStoreRepository = getEventStoreRepository;
-            _handlerType = "RegisterUserWorkflow";
+            _handlerType = "HireTrainerWorkflow";
         }
 
         public bool HandlesEvent(IGESEvent @event)
         {
-            return @event.EventType == "RegisterUser";
+            return @event.EventType == "HireTrainer";
         }
 
         public ActionBlock<IGESEvent> ReturnActionBlock()
@@ -32,17 +32,10 @@ namespace MF.Core.Workflows.Handlers
             {
                 if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; };
                 
-                var registerUser = (RegisterUser)x;
+                var hireTrainer = (HireTrainer)x;
                 var user = new User(true);
-                user.Handle(registerUser);
+                user.Handle(hireTrainer);
                 _getEventStoreRepository.Save(user, Guid.NewGuid());
-                // noise
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.Write("Command Saved: ");
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write(JsonConvert.SerializeObject(user));
-                Console.Write(Environment.NewLine);
-                // noise
                 SetEventAsRecorded(x);
             });
         }

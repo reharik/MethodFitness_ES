@@ -22,7 +22,7 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         public bool HandlesEvent(IGESEvent @event)
         {
             if (@event.EventType == "UserCreated") { return true; }
-            if (@event.EventType == "UserRegistered") { return true; }
+            if (@event.EventType == "TrainerHired") { return true; }
             if (@event.EventType == "UserLoggedIn") { return true; }
             return false;
         } 
@@ -31,20 +31,13 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         {
             return new ActionBlock<IGESEvent>(x =>
                 {
-                    // noise
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.WriteLine("Handling User Event: ");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine(x.EventType);
-                    // noise
-
                     switch (x.EventType)
                     {
                         case "UserCreated":
                             HandleEvent(x,userCreated);
                             break;
-                        case "UserRegistered":
-                            HandleEvent(x,userRegistered);
+                        case "TrainerHired":
+                            HandleEvent(x,trainerHired);
                             break;
                         case "UserLoggedIn":
                             HandleEvent(x,userLoggedIn);
@@ -66,42 +59,26 @@ namespace MF.Core.ReadModelEventHandler.Handlers
                     Token = userLoggedIn.Token,
                     Date = userLoggedIn.Now
                 };
-            var input = JsonConvert.SerializeObject(userLoggedIn);
-            var output = JsonConvert.SerializeObject(userLogins);
-            // noise
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("input: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(input);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("output: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(output);
-            // noise
             return userLogins;
         }
 
-        private IReadModel userRegistered(IGESEvent x)
+        private IReadModel trainerHired(IGESEvent x)
         {
             Thread.Sleep(1000);
-            var userRegistered = (UserRegistered)x;
-            var user = _mongoRepository.Get<User>(u => u.Id == userRegistered.Id);
-            user.UserName = userRegistered.UserName;
-            user.FirstName = userRegistered.FirstName;
-            user.LastName = userRegistered.LastName;
-            user.Email = userRegistered.EmailAddress;
-            var input = JsonConvert.SerializeObject(userRegistered);
-            var output = JsonConvert.SerializeObject(user);
-            // noise
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("input: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(input);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("output: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(output);
-            // noise
+            var trainerHired = (TrainerHired)x;
+            var user = _mongoRepository.Get<User>(u => u.Id == trainerHired.Id);
+            user.UserName = trainerHired.UserName;
+            user.FirstName = trainerHired.FirstName;
+            user.LastName = trainerHired.LastName;
+            user.EmailAddress = trainerHired.EmailAddress;
+            user.Address1 = trainerHired.Address1;
+            user.Address2 = trainerHired.Address2;
+            user.City = trainerHired.City;
+            user.State = trainerHired.State;
+            user.ZipCode = trainerHired.ZipCode;
+            user.PhoneMobile = trainerHired.PhoneMobile;
+            user.PhoneSecondary = trainerHired.PhoneSecondary;
+            user.Dob = trainerHired.Dob;
             return user;
         }
 
@@ -109,18 +86,6 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         {
             var userCreated = (UserCreated)x;
             var user = new User {Id = userCreated.Id};
-            var input = JsonConvert.SerializeObject(userCreated);
-            var output = JsonConvert.SerializeObject(user);
-            // noise
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("input: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(input);
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("output: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine(output);
-            // noise
             return user;
         }
     }

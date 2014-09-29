@@ -56,10 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandDispatcher.cs" />
+    <Compile Include="Handlers\SignUpNewClientWorkflow.cs" />
     <Compile Include="Handlers\LoginUserWorkflow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkflowRegistry.cs" />
-    <Compile Include="Handlers\RegisterUserWorkflow.cs" />
+    <Compile Include="Handlers\HireTrainerWorkflow.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MF.Core.Domain\MF.Core.Domain.csproj">
