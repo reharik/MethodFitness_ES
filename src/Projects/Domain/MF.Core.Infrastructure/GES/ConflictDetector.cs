@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EventSpike.Infrastructure.GES.Interfaces;
+using MF.Core.Infrastructure.GES.Interfaces;
 
-namespace EventSpike.Infrastructure.GES
+namespace MF.Core.Infrastructure.GES
 {
     /// <summary>
 	/// The conflict detector is used to determine if the events to be committed represent

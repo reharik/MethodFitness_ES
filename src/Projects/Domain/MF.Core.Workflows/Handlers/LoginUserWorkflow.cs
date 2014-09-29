@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading.Tasks.Dataflow;
-using EventSpike.Domain.AggregateRoots;
-using EventSpike.Infrastructure;
-using EventSpike.Infrastructure.GES.Interfaces;
-using EventSpike.Infrastructure.Mongo;
-using EventSpike.Infrastructure.SharedModels;
-using EventSpike.Messages.Command;
+using MF.Core.Domain.AggregateRoots;
+using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.GES.Interfaces;
+using MF.Core.Infrastructure.Mongo;
+using MF.Core.Infrastructure.SharedModels;
+using MF.Core.Messages.Command;
 using Newtonsoft.Json;
 
-namespace EventSpike.Workflows.Handlers
+namespace MF.Core.Workflows.Handlers
 {
     public class LoginUserWorkflow : HandlerBase, IHandler
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using EventSpike.Infrastructure;
-using EventSpike.Infrastructure.GES.Interfaces;
-using EventSpike.Infrastructure.Mongo;
+using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.GES.Interfaces;
+using MF.Core.Infrastructure.Mongo;
 
-namespace EventSpike.Workflows
+namespace MF.Core.Workflows
 {
     public class CommandDispatcher : DispatcherBase
     {

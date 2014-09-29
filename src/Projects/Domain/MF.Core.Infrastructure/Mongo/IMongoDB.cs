@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace EventSpike.Infrastructure.Mongo
+namespace MF.Core.Infrastructure.Mongo
 {
     public interface IMongoDB
     {

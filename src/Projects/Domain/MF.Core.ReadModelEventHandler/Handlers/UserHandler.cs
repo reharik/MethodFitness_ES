@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks.Dataflow;
-using EventSpike.Infrastructure;
-using EventSpike.Infrastructure.Mongo;
-using EventSpike.Infrastructure.SharedModels;
-using EventSpike.Messages.Events;
-using EventSpike.ReadModel.Model;
+using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.Mongo;
+using MF.Core.Infrastructure.SharedModels;
+using MF.Core.Messages.Events;
+using MF.Core.ReadModel.Model;
 using Newtonsoft.Json;
 
-namespace EventSpike.EventHandler.Handlers
+namespace MF.Core.ReadModelEventHandler.Handlers
 {
     public class UserHandler : HandlerBase, IHandler
     {

@@ -1,9 +1,9 @@
-﻿using EventSpike.Infrastructure;
-using EventSpike.ReadModel;
+﻿using MF.Core.Infrastructure;
+using MF.Core.ReadModel;
 using StructureMap;
 using StructureMap.Graph;
 
-namespace EventSpike.EventHandler
+namespace MF.Core.ReadModelEventHandler
 {
     public class Bootstrapper
     {

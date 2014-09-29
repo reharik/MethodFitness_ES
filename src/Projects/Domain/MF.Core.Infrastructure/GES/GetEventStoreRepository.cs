@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EventSpike.Infrastructure.GES.Exceptions;
-using EventSpike.Infrastructure.GES.Interfaces;
 using EventStore.ClientAPI;
+using MF.Core.Infrastructure.GES.Exceptions;
+using MF.Core.Infrastructure.GES.Interfaces;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace EventSpike.Infrastructure.GES
+namespace MF.Core.Infrastructure.GES
 {
     public class GetEventStoreRepository : IGetEventStoreRepository
     {

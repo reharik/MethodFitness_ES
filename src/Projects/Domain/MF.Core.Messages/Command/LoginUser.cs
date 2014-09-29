@@ -1,8 +1,8 @@
 ﻿using System;
-using EventSpike.Infrastructure.SharedModels;
 using EventStore.ClientAPI;
+using MF.Core.Infrastructure.SharedModels;
 
-namespace EventSpike.Messages.Command
+namespace MF.Core.Messages.Command
 {
     public class LoginUser : IGESEvent
     {

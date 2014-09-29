@@ -2,7 +2,7 @@ using System;
 using EventStore.ClientAPI;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace EventSpike.Infrastructure.SharedModels
+namespace MF.Core.Infrastructure.SharedModels
 {
     public class LastProcessedPosition : IReadModel
     {

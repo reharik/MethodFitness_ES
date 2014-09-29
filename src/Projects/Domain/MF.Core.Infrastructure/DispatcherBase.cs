@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks.Dataflow;
-using EventSpike.Infrastructure.GES.Interfaces;
-using EventSpike.Infrastructure.Mongo;
-using EventSpike.Infrastructure.SharedModels;
 using EventStore.ClientAPI;
 using EventStore.ClientAPI.SystemData;
+using MF.Core.Infrastructure.GES.Interfaces;
+using MF.Core.Infrastructure.Mongo;
+using MF.Core.Infrastructure.SharedModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace EventSpike.Infrastructure
+namespace MF.Core.Infrastructure
 {
     public interface IDispatcher
     {

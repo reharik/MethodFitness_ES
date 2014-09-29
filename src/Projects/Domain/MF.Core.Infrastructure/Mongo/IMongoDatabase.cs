@@ -4,7 +4,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 
-namespace EventSpike.Infrastructure.Mongo
+namespace MF.Core.Infrastructure.Mongo
 {
     public interface IMongoDatabase
     {

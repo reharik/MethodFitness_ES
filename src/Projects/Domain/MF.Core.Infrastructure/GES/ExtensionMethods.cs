@@ -1,8 +1,8 @@
 using System.Globalization;
-using EventSpike.Infrastructure.GES.Exceptions;
-using EventSpike.Infrastructure.GES.Interfaces;
+using MF.Core.Infrastructure.GES.Exceptions;
+using MF.Core.Infrastructure.GES.Interfaces;
 
-namespace EventSpike.Infrastructure.GES
+namespace MF.Core.Infrastructure.GES
 {
     internal static class ExtensionMethods
 	{

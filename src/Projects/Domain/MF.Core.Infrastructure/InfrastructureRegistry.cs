@@ -1,11 +1,11 @@
-﻿using EventSpike.Infrastructure.GES;
-using EventSpike.Infrastructure.GES.Interfaces;
-using EventSpike.Infrastructure.Mongo;
-using EventStore.ClientAPI;
+﻿using EventStore.ClientAPI;
+using MF.Core.Infrastructure.GES;
+using MF.Core.Infrastructure.GES.Interfaces;
+using MF.Core.Infrastructure.Mongo;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 
-namespace EventSpike.Infrastructure
+namespace MF.Core.Infrastructure
 {
      public class InfrastructureRegistry : Registry
     {

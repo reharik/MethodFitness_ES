@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace EventSpike.Infrastructure.GES.Interfaces
+namespace MF.Core.Infrastructure.GES.Interfaces
 {
     public interface IAggregate
 	{

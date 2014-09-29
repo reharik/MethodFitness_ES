@@ -1,8 +1,8 @@
 ﻿using System;
-using EventSpike.Infrastructure.SharedModels;
 using EventStore.ClientAPI;
+using MF.Core.Infrastructure.SharedModels;
 
-namespace EventSpike.Messages.Events
+namespace MF.Core.Messages.Events
 {
     public class UserCreated :IGESEvent
     {

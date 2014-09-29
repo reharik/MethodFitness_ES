@@ -1,7 +1,7 @@
 ﻿using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 
-namespace EventSpike.MessageBinders
+namespace MF.Core.MessageBinders
 {
      public class MessageBinderRegistry : Registry
     {

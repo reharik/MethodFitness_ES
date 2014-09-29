@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks.Dataflow;
-using EventSpike.Infrastructure.SharedModels;
+using MF.Core.Infrastructure.SharedModels;
 
-namespace EventSpike.Infrastructure
+namespace MF.Core.Infrastructure
 {
     public interface IHandler
     {

@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EventSpike.Infrastructure.SharedModels;
 using EventStore.ClientAPI;
+using MF.Core.Infrastructure.SharedModels;
 using Newtonsoft.Json;
 
-namespace EventSpike.Infrastructure
+namespace MF.Core.Infrastructure
 {
     public class MessageBinderBase
     {

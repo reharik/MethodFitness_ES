@@ -1,9 +1,9 @@
 ﻿using System;
-using EventSpike.Infrastructure.GES;
-using EventSpike.Messages.Command;
-using EventSpike.Messages.Events;
+using MF.Core.Infrastructure.GES;
+using MF.Core.Messages.Command;
+using MF.Core.Messages.Events;
 
-namespace EventSpike.Domain.AggregateRoots
+namespace MF.Core.Domain.AggregateRoots
 {
     public class User : AggregateBase
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace EventSpike.Infrastructure.GES.Interfaces
+namespace MF.Core.Infrastructure.GES.Interfaces
 {
     public interface IGetEventStoreRepository
 	{

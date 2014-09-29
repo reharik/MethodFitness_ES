@@ -1,7 +1,7 @@
 ﻿using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 
-namespace EventSpike.ReadModel
+namespace MF.Core.ReadModel
 {
      public class ReadModelRegistry : Registry
     {

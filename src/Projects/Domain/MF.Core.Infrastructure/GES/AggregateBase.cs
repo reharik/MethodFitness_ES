@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using EventSpike.Infrastructure.GES.Interfaces;
+using MF.Core.Infrastructure.GES.Interfaces;
 
-namespace EventSpike.Infrastructure.GES
+namespace MF.Core.Infrastructure.GES
 {
     public abstract class AggregateBase : IAggregate, IEquatable<IAggregate>
     {

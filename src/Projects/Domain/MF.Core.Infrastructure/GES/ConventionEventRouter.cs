@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using EventSpike.Infrastructure.GES.Interfaces;
+using MF.Core.Infrastructure.GES.Interfaces;
 
-namespace EventSpike.Infrastructure.GES
+namespace MF.Core.Infrastructure.GES
 {
     public class ConventionEventRouter : IRouteEvents
 	{

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using EventStore.ClientAPI;
 
-namespace EventSpike.Infrastructure.GES.Interfaces
+namespace MF.Core.Infrastructure.GES.Interfaces
 {
     public interface IGESConnection
     {

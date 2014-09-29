@@ -1,7 +1,7 @@
 ﻿using System;
-using EventSpike.Infrastructure.SharedModels;
+using MF.Core.Infrastructure.SharedModels;
 
-namespace EventSpike.ReadModel.Model
+namespace MF.Core.ReadModel.Model
 {
     public class User : IReadModel
     {

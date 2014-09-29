@@ -1,10 +1,10 @@
 ﻿using System;
-using EventSpike.Infrastructure.Mongo;
-using EventSpike.Infrastructure.SharedModels;
 using EventStore.ClientAPI;
+using MF.Core.Infrastructure.Mongo;
+using MF.Core.Infrastructure.SharedModels;
 using Newtonsoft.Json;
 
-namespace EventSpike.Infrastructure
+namespace MF.Core.Infrastructure
 {
     public class HandlerBase
     {

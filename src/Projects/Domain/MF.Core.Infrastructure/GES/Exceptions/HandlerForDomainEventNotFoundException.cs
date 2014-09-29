@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace EventSpike.Infrastructure.GES.Exceptions
+namespace MF.Core.Infrastructure.GES.Exceptions
 {
     public class HandlerForDomainEventNotFoundException : Exception
 	{

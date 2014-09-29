@@ -1,6 +1,6 @@
 using System;
 
-namespace EventSpike.Infrastructure.GES.Exceptions
+namespace MF.Core.Infrastructure.GES.Exceptions
 {
     public class AggregateVersionException : Exception
     {

@@ -1,8 +1,8 @@
 ﻿using System;
-using EventSpike.Infrastructure;
+using MF.Core.Infrastructure;
 using StructureMap;
 
-namespace EventSpike.EventHandler
+namespace MF.Core.ReadModelEventHandler
 {
     class Program
     {

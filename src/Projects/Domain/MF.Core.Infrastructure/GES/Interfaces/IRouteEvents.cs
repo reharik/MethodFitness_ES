@@ -1,6 +1,6 @@
 using System;
 
-namespace EventSpike.Infrastructure.GES.Interfaces
+namespace MF.Core.Infrastructure.GES.Interfaces
 {
     public interface IRouteEvents
 	{

@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using EventSpike.Infrastructure.SharedModels;
+using MF.Core.Infrastructure.SharedModels;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 
-namespace EventSpike.Infrastructure.Mongo
+namespace MF.Core.Infrastructure.Mongo
 {
     public interface IMongoRepository
     {

@@ -1,12 +1,12 @@
 ﻿using System;
-using EventSpike.Infrastructure;
-using EventSpike.Infrastructure.Mongo;
-using EventSpike.Messages.Command;
-using EventSpike.ReadModel.Model;
 using EventStore.ClientAPI;
+using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.Mongo;
+using MF.Core.Messages.Command;
+using MF.Core.ReadModel.Model;
 using Newtonsoft.Json;
 
-namespace EventSpike.MessageBinders.MessageBinders
+namespace MF.Core.MessageBinders.MessageBinders
 {
     public class RegisterUserMessageBinder : MessageBinderBase
     {

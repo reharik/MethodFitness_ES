@@ -1,8 +1,8 @@
-﻿using EventSpike.Infrastructure;
+﻿using MF.Core.Infrastructure;
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 
-namespace EventSpike.Workflows
+namespace MF.Core.Workflows
 {
      public class WorkflowRegistry : Registry
     {
