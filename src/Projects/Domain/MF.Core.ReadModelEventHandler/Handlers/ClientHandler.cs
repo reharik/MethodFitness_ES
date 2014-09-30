@@ -22,7 +22,8 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         public bool HandlesEvent(IGESEvent @event)
         {
             if (@event.EventType == "ClientCreated") { return true; }
-            if (@event.EventType == "NewClientSignedUp") { return true; }
+            if (@event.EventType == "HouseGeneratedClientSignedUp") { return true; }
+            if (@event.EventType == "TrainerGeneratedClientSignedUp") { return true; }
             return false;
         } 
        
@@ -35,8 +36,11 @@ namespace MF.Core.ReadModelEventHandler.Handlers
                         case "ClientCreated":
                             HandleEvent(x,clientCreated);
                             break;
-                        case "NewClientSignedUp":
-                            HandleEvent(x, newClientSignedUp);
+                        case "HouseGeneratedClientSignedUp":
+                            HandleEvent(x, HandleHouseGenerated);
+                            break;
+                        case "TrainerGeneratedClientSignedUp":
+                            HandleEvent(x, HandleTrainerGenerated);
                             break;
                     }
                 }, new ExecutionDataflowBlockOptions()
@@ -45,21 +49,32 @@ namespace MF.Core.ReadModelEventHandler.Handlers
                 });
         }
 
-        private IReadModel newClientSignedUp(IGESEvent x)
+        private IReadModel HandleHouseGenerated(IGESEvent x)
         {
             Thread.Sleep(1000);
-            var trainerHired = (TrainerHired)x;
-            var client = _mongoRepository.Get<Client>(u => u.Id == trainerHired.Id);
-            client.FirstName = trainerHired.FirstName;
-            client.LastName = trainerHired.LastName;
-            client.EmailAddress = trainerHired.EmailAddress;
-            client.Address1 = trainerHired.Address1;
-            client.Address2 = trainerHired.Address2;
-            client.City = trainerHired.City;
-            client.State = trainerHired.State;
-            client.ZipCode = trainerHired.ZipCode;
-            client.PhoneMobile = trainerHired.PhoneMobile;
-            client.PhoneSecondary = trainerHired.PhoneSecondary;
+            var clientSignedUp = (HouseGeneratedClientSignedUp)x;
+            var client = _mongoRepository.Get<Client>(u => u.Id == clientSignedUp.Id);
+            client.FirstName = clientSignedUp.FirstName;
+            client.LastName = clientSignedUp.LastName;
+            client.EmailAddress = clientSignedUp.EmailAddress;
+            client.Phone = clientSignedUp.Phone;
+            client.Source = clientSignedUp.Source;
+            client.SourceNotes = clientSignedUp.SourceNotes;
+            return client;
+        }
+
+        private IReadModel HandleTrainerGenerated(IGESEvent x)
+        {
+            Thread.Sleep(1000);
+            var clientSignedUp = (TrainerGeneratedClientSignedUp)x;
+            var client = _mongoRepository.Get<Client>(u => u.Id == clientSignedUp.Id);
+            client.FirstName = clientSignedUp.FirstName;
+            client.LastName = clientSignedUp.LastName;
+            client.EmailAddress = clientSignedUp.EmailAddress;
+            client.Phone = clientSignedUp.Phone;
+            //TODO this should be populated ... somewhere higher up.
+//            client.Source = clientSignedUp.Source;
+            client.SourceNotes = clientSignedUp.SourceNotes;
             return client;
         }
 

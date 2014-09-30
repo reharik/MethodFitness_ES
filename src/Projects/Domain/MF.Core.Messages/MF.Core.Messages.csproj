@@ -42,10 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Command\SignUpNewClient.cs" />
+    <Compile Include="Command\SignUpHouseGeneratedClient.cs" />
+    <Compile Include="Command\SignUpTrainerGeneratedClient.cs" />
     <Compile Include="Command\LoginUser.cs" />
     <Compile Include="Events\ClientCreated.cs" />
-    <Compile Include="Events\NewClientSignedUp.cs" />
+    <Compile Include="Events\HouseGeneratedClientSignedUp.cs" />
+    <Compile Include="Events\TrainerGeneratedClientSignedUp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Command\HireTrainer.cs" />
     <Compile Include="Events\UserCreated.cs" />

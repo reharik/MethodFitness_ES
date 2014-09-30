@@ -14,8 +14,7 @@ namespace MF.Core.ReadModel.Model
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        public string PhoneMobile { get; set; }
-        public string PhoneSecondary { get; set; }
+        public string Phone { get; set; }
         public string Source { get; set; }
         public string SourceNotes { get; set; }
         public DateTime StartDate { get; set; }

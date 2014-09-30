@@ -10,20 +10,20 @@ using Newtonsoft.Json;
 
 namespace MF.Core.Workflows.Handlers
 {
-    public class SignUpNewClientWorkflow : HandlerBase, IHandler
+    public class SignUpTrainerGeneratedClientWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
 
-        public SignUpNewClientWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
+        public SignUpTrainerGeneratedClientWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
             : base(mongoRepository)
         {
             _getEventStoreRepository = getEventStoreRepository;
-            _handlerType = "SignUpNewClientWorkflow";
+            _handlerType = "SignUpTrainerGeneratedClientWorkflow";
         }
 
         public bool HandlesEvent(IGESEvent @event)
         {
-            return @event.EventType == "SignUpNewClient";
+            return @event.EventType == "SignUpTrainerGeneratedClient";
         }
 
         public ActionBlock<IGESEvent> ReturnActionBlock()
@@ -32,7 +32,7 @@ namespace MF.Core.Workflows.Handlers
             {
                 if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; };
 
-                var signUpNewClient = (SignUpNewClient)x;
+                var signUpNewClient = (SignUpTrainerGeneratedClient)x;
                 var client = new Client(true);
                 client.Handle(signUpNewClient);
                 _getEventStoreRepository.Save(client, Guid.NewGuid());

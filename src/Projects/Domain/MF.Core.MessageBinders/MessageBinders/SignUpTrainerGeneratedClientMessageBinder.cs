@@ -8,11 +8,11 @@ using Newtonsoft.Json;
 
 namespace MF.Core.MessageBinders.MessageBinders
 {
-    public class SignUpNewClientMessageBinder : MessageBinderBase
+    public class SignUpTrainerGeneratedClientMessageBinder : MessageBinderBase
     {
         private readonly IMongoRepository _mongoRepository;
 
-        public SignUpNewClientMessageBinder(IMongoRepository mongoRepository, IEventStoreConnection eventStoreConnection)
+        public SignUpTrainerGeneratedClientMessageBinder(IMongoRepository mongoRepository, IEventStoreConnection eventStoreConnection)
             : base(eventStoreConnection)
         {
             _mongoRepository = mongoRepository;
@@ -21,14 +21,8 @@ namespace MF.Core.MessageBinders.MessageBinders
         public void AcceptRequest(string firstName,
             string lastName,
             string emailAddress,
-            string address1,
-            string address2,
-            string city,
-            string state,
-            string zipCode,
-            string phoneMobile,
-            string phoneSecondary,
-            string source,
+            string phone,
+            Guid trainerId,
             string sourceNotes,
             DateTime startDate)
         {
@@ -39,18 +33,12 @@ namespace MF.Core.MessageBinders.MessageBinders
             }
 
             // validate email address.
-            var signUpNewClient = new SignUpNewClient(
+            var signUpNewClient = new SignUpTrainerGeneratedClient(
                 firstName, 
                 lastName, 
                 emailAddress, 
-                address1,
-                address2,
-                city,
-                state,
-                zipCode,
-                phoneMobile,
-                phoneSecondary,
-                source,
+                phone,
+                trainerId,
                 sourceNotes,
                 startDate);
             PostEvent(signUpNewClient, Guid.NewGuid());

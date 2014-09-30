@@ -22,20 +22,28 @@ namespace MF.Core.Domain.AggregateRoots
         }
 
         #region Handle
-        public void Handle(SignUpNewClient cmd)
+        public void Handle(SignUpTrainerGeneratedClient cmd)
         {
             ExpectEmailAddressValid(cmd.EmailAddress);
-            RaiseEvent(new NewClientSignedUp(Id,
+            RaiseEvent(new TrainerGeneratedClientSignedUp(Id,
                                         cmd.FirstName,
                                         cmd.LastName,
                                         cmd.EmailAddress,
-                                        cmd.Address1,
-                                        cmd.Address2,
-                                        cmd.City,
-                                        cmd.State,
-                                        cmd.ZipCode,
-                                        cmd.PhoneMobile,
-                                        cmd.PhoneSecondary,
+                                        cmd.Phone,
+                                        cmd.TrainerId,
+                                        cmd.SourceNotes,
+                                        cmd.StartDate));
+        }
+
+        public void Handle(SignUpHouseGeneratedClient cmd)
+        {
+            ExpectEmailAddressValid(cmd.EmailAddress);
+            RaiseEvent(new HouseGeneratedClientSignedUp(Id,
+                                        cmd.FirstName,
+                                        cmd.LastName,
+                                        cmd.EmailAddress,
+                                        cmd.Phone,
+                                        cmd.TrainerId,
                                         cmd.Source,
                                         cmd.SourceNotes,
                                         cmd.StartDate));
@@ -48,7 +56,12 @@ namespace MF.Core.Domain.AggregateRoots
             Id = vent.Id;
         }
 
-        public void Apply(NewClientSignedUp vent)
+        public void Apply(TrainerGeneratedClientSignedUp vent)
+        {
+            _startDate = vent.StartDate;
+        }
+
+        public void Apply(HouseGeneratedClientSignedUp vent)
         {
             _startDate = vent.StartDate;
         }
