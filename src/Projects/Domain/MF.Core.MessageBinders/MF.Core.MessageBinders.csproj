@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessageBinderRegistry.cs" />
+    <Compile Include="MessageBinders\ArchiveTrainerMessageBinder.cs" />
     <Compile Include="MessageBinders\SignUpHouseGeneratedClientMessageBinder.cs" />
     <Compile Include="MessageBinders\SignUpTrainerGeneratedClientMessageBinder.cs" />
     <Compile Include="MessageBinders\LoginUserMessageBinder.cs" />

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\ArchiveUser.cs" />
     <Compile Include="Command\SignUpHouseGeneratedClient.cs" />
     <Compile Include="Command\SignUpTrainerGeneratedClient.cs" />
     <Compile Include="Command\LoginUser.cs" />
