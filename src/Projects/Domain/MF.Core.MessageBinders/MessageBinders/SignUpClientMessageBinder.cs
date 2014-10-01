@@ -8,11 +8,11 @@ using Newtonsoft.Json;
 
 namespace MF.Core.MessageBinders.MessageBinders
 {
-    public class SignUpTrainerGeneratedClientMessageBinder : MessageBinderBase
+    public class SignUpClientMessageBinder : MessageBinderBase
     {
         private readonly IMongoRepository _mongoRepository;
 
-        public SignUpTrainerGeneratedClientMessageBinder(IMongoRepository mongoRepository, IEventStoreConnection eventStoreConnection)
+        public SignUpClientMessageBinder(IMongoRepository mongoRepository, IEventStoreConnection eventStoreConnection)
             : base(eventStoreConnection)
         {
             _mongoRepository = mongoRepository;
@@ -23,6 +23,7 @@ namespace MF.Core.MessageBinders.MessageBinders
             string emailAddress,
             string phone,
             Guid trainerId,
+            string source,
             string sourceNotes,
             DateTime startDate)
         {
@@ -32,17 +33,17 @@ namespace MF.Core.MessageBinders.MessageBinders
                 throw new Exception("Client with that email address already exists");
             }
 
-            // validate email address.
-            var signUpNewClient = new SignUpTrainerGeneratedClient(
-                firstName, 
-                lastName, 
-                emailAddress, 
-                phone,
-                trainerId,
-                sourceNotes,
-                startDate);
-            PostEvent(signUpNewClient, Guid.NewGuid());
-
+            if (source == "TrainerGenerated")
+            {
+                var trainerGeneratedClient = new SignUpTrainerGeneratedClient(firstName, lastName, emailAddress, phone, trainerId, sourceNotes, startDate);
+                PostEvent(trainerGeneratedClient, Guid.NewGuid());
+            }
+            else
+            {
+                // validate email address.
+                var houseGeneratedClient = new SignUpHouseGeneratedClient(firstName, lastName, emailAddress, phone, trainerId, source, sourceNotes, startDate);
+                PostEvent(houseGeneratedClient, Guid.NewGuid());
+            }
         }
     }
 }

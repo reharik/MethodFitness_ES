@@ -35,7 +35,7 @@ namespace MF.Core.Messages.Events
             TrainerId = trainerId;
             SourceNotes = sourceNotes;
             StartDate = startDate;
-            EventType = "TrainerGeneratedClientSignedUp";
+            EventType = GetType().Name;
         }
 
     }

@@ -18,12 +18,11 @@ namespace MF.Core.Workflows.Handlers
             : base(mongoRepository)
         {
             _getEventStoreRepository = getEventStoreRepository;
-            _handlerType = "SignUpTrainerGeneratedClientWorkflow";
         }
 
         public bool HandlesEvent(IGESEvent @event)
         {
-            return @event.EventType == "SignUpTrainerGeneratedClient";
+            return @event.EventType == typeof(SignUpTrainerGeneratedClient).Name;
         }
 
         public ActionBlock<IGESEvent> ReturnActionBlock()

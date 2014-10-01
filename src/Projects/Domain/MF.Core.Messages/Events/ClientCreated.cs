@@ -13,7 +13,7 @@ namespace MF.Core.Messages.Events
         public ClientCreated(Guid id)
         {
             Id = id;
-            EventType = "ClientCreated";
+            EventType = GetType().Name;
         }
     }
 }

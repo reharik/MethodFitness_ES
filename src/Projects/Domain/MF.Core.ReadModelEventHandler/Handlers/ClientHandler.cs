@@ -15,15 +15,13 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         public ClientHandler(IMongoRepository mongoRepository) : base(mongoRepository)
         {
             _mongoRepository = mongoRepository;
-            _handlerType = "ClientHandler";
-            _lastProcessedPosition = new LastProcessedPosition();
         }
 
         public bool HandlesEvent(IGESEvent @event)
         {
-            if (@event.EventType == "ClientCreated") { return true; }
-            if (@event.EventType == "HouseGeneratedClientSignedUp") { return true; }
-            if (@event.EventType == "TrainerGeneratedClientSignedUp") { return true; }
+            if (@event.EventType == typeof(ClientCreated).Name) { return true; }
+            if (@event.EventType == typeof(HouseGeneratedClientSignedUp).Name) { return true; }
+            if (@event.EventType == typeof(TrainerGeneratedClientSignedUp).Name) { return true; }
             return false;
         } 
        

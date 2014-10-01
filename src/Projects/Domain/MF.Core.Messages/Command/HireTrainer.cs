@@ -34,7 +34,7 @@ namespace MF.Core.Messages.Command
             LastName = lastName;
             FirstName = firstName;
             Password = password;
-            EventType = "HireTrainer";
+            EventType = GetType().Name;
         }
 
         public string UserName { get; private set; }

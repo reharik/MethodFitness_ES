@@ -53,7 +53,7 @@ namespace MF.Core.Messages.Events
             PhoneMobile = phoneMobile;
             PhoneSecondary = phoneSecondary;
             Dob = dob;
-            EventType = "TrainerHired";
+            EventType = GetType().Name;
         }
 
     }

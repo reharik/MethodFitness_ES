@@ -15,6 +15,8 @@ namespace MF.Core.Infrastructure
         public HandlerBase(IMongoRepository mongoRepository)
         {
             _mongoRepository = mongoRepository;
+            _handlerType = GetType().Name;
+            _lastProcessedPosition = new LastProcessedPosition();
         }
 
         protected void SetEventAsRecorded(IGESEvent @event)
@@ -46,12 +48,7 @@ namespace MF.Core.Infrastructure
             if (ExpectEventPositionIsGreaterThanLastRecorded(@event)) { return; };
             var view = handleBy(@event);
             _mongoRepository.Save(view);
-            // noise
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("ReadModel Saved: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(JsonConvert.SerializeObject(view));
-            // noise
+           
             SetEventAsRecorded(@event);
         }
         // this is used by all handlers

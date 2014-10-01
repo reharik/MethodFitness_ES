@@ -83,13 +83,6 @@ namespace MF.Core.Infrastructure
 
         public void HandleEvent(IGESEvent _event)
         {
-            // noise
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Handing Event to broadcast block: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(_event.EventType);
-            Console.Write(Environment.NewLine);
-            // noise
             _broadcastBlock.Post(_event);
         }
 

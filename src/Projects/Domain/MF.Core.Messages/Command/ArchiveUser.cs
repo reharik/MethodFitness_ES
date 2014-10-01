@@ -9,7 +9,7 @@ namespace MF.Core.Messages.Command
         public ArchiveUser(Guid trainerId)
         {
             TrainerId = trainerId;
-            EventType = "ArchiveUser";
+            EventType = GetType().Name;
         }
 
         public Guid TrainerId { get; private set; }
@@ -22,7 +22,7 @@ namespace MF.Core.Messages.Command
         public UnArchiveUser(Guid trainerId)
         {
             TrainerId = trainerId;
-            EventType = "UnArchiveUser";
+            EventType = GetType().Name;
         }
 
         public Guid TrainerId { get; private set; }

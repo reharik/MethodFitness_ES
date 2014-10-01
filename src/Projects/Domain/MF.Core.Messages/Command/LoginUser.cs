@@ -11,8 +11,8 @@ namespace MF.Core.Messages.Command
             Id = id;
             Password = password;
             UserName = userName;
-            EventType = "LoginUser";
-        }
+                        EventType = GetType().Name;
+}
 
         public Guid Id { get; set; }
         public string Password { get;  set; }

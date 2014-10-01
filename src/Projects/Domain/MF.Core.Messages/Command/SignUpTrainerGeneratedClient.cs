@@ -22,7 +22,7 @@ namespace MF.Core.Messages.Command
             StartDate = startDate;
             LastName = lastName;
             FirstName = firstName;
-            EventType = "SignUpTrainerGeneratedClient";
+            EventType = GetType().Name;
         }
 
         public string FirstName { get; private set; }

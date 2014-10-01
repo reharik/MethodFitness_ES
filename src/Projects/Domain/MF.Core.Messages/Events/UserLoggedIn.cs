@@ -19,8 +19,7 @@ namespace MF.Core.Messages.Events
             UserName = userName;
             Token = token;
             Now = now;
-            EventType = "UserLoggedIn";
+            EventType = GetType().Name;
         }
-
     }
 }

@@ -38,7 +38,7 @@ namespace MF.Core.Messages.Events
             Source = source;
             SourceNotes = sourceNotes;
             StartDate = startDate;
-            EventType = "HouseGeneratedClientSignedUp";
+            EventType = GetType().Name;
         }
 
     }

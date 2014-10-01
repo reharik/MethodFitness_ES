@@ -15,15 +15,13 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         public UserHandler(IMongoRepository mongoRepository) : base(mongoRepository)
         {
             _mongoRepository = mongoRepository;
-            _handlerType = "UserHandler";
-            _lastProcessedPosition = new LastProcessedPosition();
         }
 
         public bool HandlesEvent(IGESEvent @event)
         {
-            if (@event.EventType == "UserCreated") { return true; }
-            if (@event.EventType == "TrainerHired") { return true; }
-            if (@event.EventType == "UserLoggedIn") { return true; }
+            if (@event.EventType == typeof(UserCreated).Name) { return true; }
+            if (@event.EventType == typeof(TrainerHired).Name) { return true; }
+            if (@event.EventType == typeof(UserLoggedIn).Name) { return true; }
             return false;
         } 
        
