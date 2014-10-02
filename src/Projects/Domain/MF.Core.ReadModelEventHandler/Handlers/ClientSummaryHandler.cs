@@ -55,10 +55,10 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         {
             var clientSignedUp = (HouseGeneratedClientSignedUp)x;
             var client = new ClientSummary();
-            client.FirstName = clientSignedUp.FirstName;
-            client.LastName = clientSignedUp.LastName;
-            client.EmailAddress = clientSignedUp.EmailAddress;
-            client.Phone = clientSignedUp.Phone;
+            client.FirstName = clientSignedUp.Contact.FirstName;
+            client.LastName = clientSignedUp.Contact.LastName;
+            client.EmailAddress = clientSignedUp.Contact.EmailAddress;
+            client.Phone = clientSignedUp.Contact.PhoneMobile;
             return client;
         }
 
@@ -67,10 +67,10 @@ namespace MF.Core.ReadModelEventHandler.Handlers
             var clientSignedUp = (TrainerGeneratedClientSignedUp)x;
             var 
                 client = new ClientSummary();
-            client.FirstName = clientSignedUp.FirstName;
-            client.LastName = clientSignedUp.LastName;
-            client.EmailAddress = clientSignedUp.EmailAddress;
-            client.Phone = clientSignedUp.Phone;
+            client.FirstName = clientSignedUp.Contact.FirstName;
+            client.LastName = clientSignedUp.Contact.LastName;
+            client.EmailAddress = clientSignedUp.Contact.EmailAddress;
+            client.Phone = clientSignedUp.Contact.PhoneMobile;
             return client;
         }
 

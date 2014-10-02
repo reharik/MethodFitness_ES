@@ -51,10 +51,10 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         {
             var trainerHired = (TrainerHired)x;
             var user = new UserSummary();
-            user.FirstName = trainerHired.FirstName;
-            user.LastName = trainerHired.LastName;
-            user.EmailAddress = trainerHired.EmailAddress;
-            user.PhoneMobile = trainerHired.PhoneMobile;
+            user.FirstName = trainerHired.Contact.FirstName;
+            user.LastName = trainerHired.Contact.LastName;
+            user.EmailAddress = trainerHired.Contact.EmailAddress;
+            user.PhoneMobile = trainerHired.Contact.PhoneMobile;
             return user;
         }
 

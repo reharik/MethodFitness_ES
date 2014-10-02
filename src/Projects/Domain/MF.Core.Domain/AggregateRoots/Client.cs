@@ -8,28 +8,14 @@ namespace MF.Core.Domain.AggregateRoots
     public class Client : AggregateBase
     {
         private DateTime _startDate;
-
-        public Client() :  this(false)
-        {
-        }
-
-        public Client(bool isNew)
-        {
-            if (isNew)
-            {
-                RaiseEvent(new ClientCreated(Guid.NewGuid()));
-            }
-        }
+        private bool _isArchived;
 
         #region Handle
         public void Handle(SignUpTrainerGeneratedClient cmd)
         {
-            ExpectEmailAddressValid(cmd.EmailAddress);
+            ExpectEmailAddressValid(cmd.Contact.EmailAddress);
             RaiseEvent(new TrainerGeneratedClientSignedUp(Id,
-                                        cmd.FirstName,
-                                        cmd.LastName,
-                                        cmd.EmailAddress,
-                                        cmd.Phone,
+                                        cmd.Contact,
                                         cmd.TrainerId,
                                         cmd.SourceNotes,
                                         cmd.StartDate));
@@ -37,12 +23,9 @@ namespace MF.Core.Domain.AggregateRoots
 
         public void Handle(SignUpHouseGeneratedClient cmd)
         {
-            ExpectEmailAddressValid(cmd.EmailAddress);
+            ExpectEmailAddressValid(cmd.Contact.EmailAddress);
             RaiseEvent(new HouseGeneratedClientSignedUp(Id,
-                                        cmd.FirstName,
-                                        cmd.LastName,
-                                        cmd.EmailAddress,
-                                        cmd.Phone,
+                                        cmd.Contact,
                                         cmd.TrainerId,
                                         cmd.Source,
                                         cmd.SourceNotes,
@@ -51,21 +34,19 @@ namespace MF.Core.Domain.AggregateRoots
 
         public void Handle(UnArchiveClient unArchiveClient)
         {
-            throw new NotImplementedException();
+            ExpectArchived();
+            RaiseEvent(new ClientUnArchived(Id, DateTime.Now));
         }
 
         public void Handle(ArchiveClient archiveClient)
         {
-            throw new NotImplementedException();
+            ExpectNotArchived();
+            RaiseEvent(new ClientArchived(Id, DateTime.Now));
         }
 
         #endregion 
         #region Apply
-        public void Apply(ClientCreated vent)
-        {
-            Id = vent.Id;
-        }
-
+   
         public void Apply(TrainerGeneratedClientSignedUp vent)
         {
             _startDate = vent.StartDate;
@@ -74,6 +55,16 @@ namespace MF.Core.Domain.AggregateRoots
         public void Apply(HouseGeneratedClientSignedUp vent)
         {
             _startDate = vent.StartDate;
+        }
+
+        public void Apply(ClientArchived vent)
+        {
+            _isArchived = true;
+        }
+
+        public void Apply(ClientUnArchived vent)
+        {
+            _isArchived = false;
         }
         #endregion 
         #region Expect
@@ -86,6 +77,22 @@ namespace MF.Core.Domain.AggregateRoots
             }
         }
 
+        private void ExpectNotArchived()
+        {
+            if (_isArchived)
+            {
+                throw new Exception("User already archived!");
+            }
+        }
+
+        private void ExpectArchived()
+        {
+            if (!_isArchived)
+            {
+                throw new Exception("User is not archived!");
+            }
+        }
+        
         #endregion
 
         

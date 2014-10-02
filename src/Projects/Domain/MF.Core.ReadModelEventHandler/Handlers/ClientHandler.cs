@@ -56,10 +56,10 @@ namespace MF.Core.ReadModelEventHandler.Handlers
             var clientSignedUp = (HouseGeneratedClientSignedUp)x;
             var client = new Client();
             client.Id = clientSignedUp.Id;
-            client.FirstName = clientSignedUp.FirstName;
-            client.LastName = clientSignedUp.LastName;
-            client.EmailAddress = clientSignedUp.EmailAddress;
-            client.Phone = clientSignedUp.Phone;
+            client.FirstName = clientSignedUp.Contact.FirstName;
+            client.LastName = clientSignedUp.Contact.LastName;
+            client.EmailAddress = clientSignedUp.Contact.EmailAddress;
+            client.Phone = clientSignedUp.Contact.PhoneMobile;
             client.Source = clientSignedUp.Source;
             client.SourceNotes = clientSignedUp.SourceNotes;
             return client;
@@ -70,10 +70,10 @@ namespace MF.Core.ReadModelEventHandler.Handlers
             var clientSignedUp = (TrainerGeneratedClientSignedUp)x;
             var client = new Client();
             client.Id = clientSignedUp.Id;
-            client.FirstName = clientSignedUp.FirstName;
-            client.LastName = clientSignedUp.LastName;
-            client.EmailAddress = clientSignedUp.EmailAddress;
-            client.Phone = clientSignedUp.Phone;
+            client.FirstName = clientSignedUp.Contact.FirstName;
+            client.LastName = clientSignedUp.Contact.LastName;
+            client.EmailAddress = clientSignedUp.Contact.EmailAddress;
+            client.Phone = clientSignedUp.Contact.PhoneMobile;
             //TODO this should be populated ... somewhere higher up.
 //            client.Source = clientSignedUp.Source;
             client.SourceNotes = clientSignedUp.SourceNotes;

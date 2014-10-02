@@ -3,6 +3,7 @@ using EventStore.ClientAPI;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Messages.Command;
+using MF.Core.Messages.Events;
 using MF.Core.ReadModel.Model;
 using Newtonsoft.Json;
 
@@ -27,14 +28,8 @@ namespace MF.Core.MessageBinders.MessageBinders
             }
 
             // validate email address.
-            var loginUser = new LoginUser(user.Id, password, user.UserName);
-            // noise
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write("Command Created: ");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write(JsonConvert.SerializeObject(loginUser));
-            // noise
-
+            var loginUser = new LoginUser(user.Id, new Credentials(userName,password));
+          
             PostEvent(loginUser,Guid.NewGuid());
         }
     }

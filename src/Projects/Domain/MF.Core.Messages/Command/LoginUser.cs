@@ -1,22 +1,21 @@
 ﻿using System;
 using EventStore.ClientAPI;
 using MF.Core.Infrastructure.SharedModels;
+using MF.Core.Messages.Events;
 
 namespace MF.Core.Messages.Command
 {
     public class LoginUser : IGESEvent
     {
-        public LoginUser(Guid id, string password, string userName)
+        public LoginUser(Guid id, Credentials credentials)
         {
             Id = id;
-            Password = password;
-            UserName = userName;
-                        EventType = GetType().Name;
-}
+            Credentials = credentials;
+            EventType = GetType().Name;
+        }
 
         public Guid Id { get; set; }
-        public string Password { get;  set; }
-        public string UserName { get; set; }
+        public Credentials Credentials { get; set; }
         public string EventType { get; private set; }
         public Position? OriginalPosition { get; set; }
     }

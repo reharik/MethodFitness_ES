@@ -3,6 +3,7 @@ using EventStore.ClientAPI;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Messages.Command;
+using MF.Core.Messages.Events;
 using MF.Core.ReadModel.Model;
 using Newtonsoft.Json;
 
@@ -35,13 +36,13 @@ namespace MF.Core.MessageBinders.MessageBinders
 
             if (source == "TrainerGenerated")
             {
-                var trainerGeneratedClient = new SignUpTrainerGeneratedClient(firstName, lastName, emailAddress, phone, trainerId, sourceNotes, startDate);
+                var trainerGeneratedClient = new SignUpTrainerGeneratedClient(new Contact(firstName, lastName, emailAddress, phone), trainerId, sourceNotes, startDate);
                 PostEvent(trainerGeneratedClient, Guid.NewGuid());
             }
             else
             {
                 // validate email address.
-                var houseGeneratedClient = new SignUpHouseGeneratedClient(firstName, lastName, emailAddress, phone, trainerId, source, sourceNotes, startDate);
+                var houseGeneratedClient = new SignUpHouseGeneratedClient(new Contact(firstName, lastName, emailAddress, phone), trainerId, source, sourceNotes, startDate);
                 PostEvent(houseGeneratedClient, Guid.NewGuid());
             }
         }

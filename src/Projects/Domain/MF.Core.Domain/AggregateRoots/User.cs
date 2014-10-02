@@ -11,46 +11,24 @@ namespace MF.Core.Domain.AggregateRoots
         private bool _loggedIn;
         private bool _isArchived;
 
-        public User() :  this(false)
-        {
-        }
-
-        public User(bool isNew)
-        {
-            Register<UserLoggedIn>(e => { });
-            if (isNew)
-            {
-                RaiseEvent(new UserCreated(Guid.NewGuid()));
-            }
-        }
-
         #region Handle
         public void Handle(HireTrainer cmd)
         {
-            ExpectPasswordSecure(cmd.Password);
-            ExpectEmailAddressValid(cmd.EmailAddress);
+            ExpectPasswordSecure(cmd.Credentials.Password);
+            ExpectEmailAddressValid(cmd.Contact.EmailAddress);
             RaiseEvent(new TrainerHired(Id,
-                                        cmd.UserName,
-                                        cmd.Password,
-                                        cmd.FirstName,
-                                        cmd.LastName,
-                                        cmd.EmailAddress,
-                                        cmd.Address1,
-                                        cmd.Address2,
-                                        cmd.City,
-                                        cmd.State,
-                                        cmd.ZipCode,
-                                        cmd.PhoneMobile,
-                                        cmd.PhoneSecondary,
+                                        cmd.Credentials, 
+                                        cmd.Contact, 
+                                        cmd.Address,
                                         cmd.Dob));
         }
 
         public void Handle(LoginUser cmd)
         {
             ExpectNotLoggedOn();
-            ExpectCorrectPassword(cmd.Password);
+            ExpectCorrectPassword(cmd.Credentials.Password);
             var token = CreateToken();
-            RaiseEvent(new UserLoggedIn(Id, cmd.UserName, token, DateTime.Now));
+            RaiseEvent(new UserLoggedIn(Id, cmd.Credentials.UserName, token, DateTime.Now));
         }
 
         public void Handle(ArchiveUser cmd)
@@ -72,14 +50,9 @@ namespace MF.Core.Domain.AggregateRoots
 
         #endregion 
         #region Apply
-        public void Apply(UserCreated vent)
-        {
-            Id = vent.Id;
-        }
-
         public void Apply(TrainerHired vent)
         {
-            _password = vent.Password;
+            _password = vent.Credentials.Password;
         }
 
         public void Apply(UserArchived vent)

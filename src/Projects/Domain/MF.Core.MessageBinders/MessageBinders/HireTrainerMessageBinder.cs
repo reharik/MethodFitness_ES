@@ -3,6 +3,7 @@ using EventStore.ClientAPI;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Messages.Command;
+using MF.Core.Messages.Events;
 using MF.Core.ReadModel.Model;
 using Newtonsoft.Json;
 
@@ -39,19 +40,9 @@ namespace MF.Core.MessageBinders.MessageBinders
             }
 
             // validate email address.
-            var hireTrainer = new HireTrainer(
-                userName, 
-                password, 
-                firstName, 
-                lastName, 
-                emailAddress, 
-                address1,
-                address2,
-                city,
-                state,
-                zipCode,
-                phoneMobile,
-                phoneSecondary,
+            var hireTrainer = new HireTrainer(new Contact(firstName, lastName, emailAddress, phoneMobile, phoneSecondary),
+                new Credentials(userName,password),
+                new Address(address1,address2,city,state,zipCode), 
                 dob);
             PostEvent(hireTrainer, Guid.NewGuid());
 

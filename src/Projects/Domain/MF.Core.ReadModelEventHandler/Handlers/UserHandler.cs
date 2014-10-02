@@ -66,17 +66,17 @@ namespace MF.Core.ReadModelEventHandler.Handlers
             var trainerHired = (TrainerHired)x;
             var user = new User();
             user.Id = trainerHired.Id;
-            user.UserName = trainerHired.UserName;
-            user.FirstName = trainerHired.FirstName;
-            user.LastName = trainerHired.LastName;
-            user.EmailAddress = trainerHired.EmailAddress;
-            user.Address1 = trainerHired.Address1;
-            user.Address2 = trainerHired.Address2;
-            user.City = trainerHired.City;
-            user.State = trainerHired.State;
-            user.ZipCode = trainerHired.ZipCode;
-            user.PhoneMobile = trainerHired.PhoneMobile;
-            user.PhoneSecondary = trainerHired.PhoneSecondary;
+            user.UserName = trainerHired.Credentials.UserName;
+            user.FirstName = trainerHired.Contact.FirstName;
+            user.LastName = trainerHired.Contact.LastName;
+            user.EmailAddress = trainerHired.Contact.EmailAddress;
+            user.Address1 = trainerHired.Address.Address1;
+            user.Address2 = trainerHired.Address.Address2;
+            user.City = trainerHired.Address.City;
+            user.State = trainerHired.Address.State;
+            user.ZipCode = trainerHired.Address.ZipCode;
+            user.PhoneMobile = trainerHired.Contact.PhoneMobile;
+            user.PhoneSecondary = trainerHired.Contact.PhoneSecondary;
             user.Dob = trainerHired.Dob;
             return user;
         }
