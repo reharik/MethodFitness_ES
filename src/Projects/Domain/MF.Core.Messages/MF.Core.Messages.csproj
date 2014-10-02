@@ -43,10 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Command\ArchiveUser.cs" />
+    <Compile Include="Command\ArchiveClient.cs" />
     <Compile Include="Command\SignUpHouseGeneratedClient.cs" />
     <Compile Include="Command\SignUpTrainerGeneratedClient.cs" />
     <Compile Include="Command\LoginUser.cs" />
     <Compile Include="Events\ClientCreated.cs" />
+    <Compile Include="Events\ClientArchived.cs" />
+    <Compile Include="Events\AppointmentCreated.cs" />
     <Compile Include="Events\UserArchived.cs" />
     <Compile Include="Events\HouseGeneratedClientSignedUp.cs" />
     <Compile Include="Events\TrainerGeneratedClientSignedUp.cs" />

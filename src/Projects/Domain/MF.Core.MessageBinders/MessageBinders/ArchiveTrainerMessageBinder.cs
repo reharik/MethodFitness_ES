@@ -16,12 +16,12 @@ namespace MF.Core.MessageBinders.MessageBinders
         {
             if (archive)
             {
-                var archiveUser = new ArchiveUser(trainerId);
+                var archiveUser = new ArchiveUser(trainerId, DateTime.Now);
                 PostEvent(archiveUser, Guid.NewGuid());
             }
             else
             {
-                var unArchiveUser = new UnArchiveUser(trainerId);
+                var unArchiveUser = new UnArchiveUser(trainerId, DateTime.Now);
                 PostEvent(unArchiveUser, Guid.NewGuid());
             }
         }

@@ -5,22 +5,18 @@ using MF.Core.Messages.Events;
 
 namespace MF.Core.Domain.AggregateRoots
 {
-    public class User : AggregateBase
+    public class Appointment : AggregateBase
     {
-        private string _password;
-        private bool _loggedIn;
-        private bool _isArchived;
 
-        public User() :  this(false)
+        public Appointment() :  this(false)
         {
         }
 
-        public User(bool isNew)
+        public Appointment(bool isNew)
         {
-            Register<UserLoggedIn>(e => { });
             if (isNew)
             {
-                RaiseEvent(new UserCreated(Guid.NewGuid()));
+                RaiseEvent(new AppointmentScheduled(Guid.NewGuid()));
             }
         }
 

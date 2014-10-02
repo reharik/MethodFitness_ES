@@ -57,6 +57,9 @@
   <ItemGroup>
     <Compile Include="CommandDispatcher.cs" />
     <Compile Include="Handlers\ArchiveUserWorkflow.cs" />
+    <Compile Include="Handlers\ArchiveClientWorkflow.cs" />
+    <Compile Include="Handlers\UnArchiveClientWorkflow.cs" />
+    <Compile Include="Handlers\UnArchiveUserWorkflow.cs" />
     <Compile Include="Handlers\SignUpHouseGeneratedClientWorkflow.cs" />
     <Compile Include="Handlers\SignUpTrainerGeneratedClientWorkflow.cs" />
     <Compile Include="Handlers\LoginUserWorkflow.cs" />

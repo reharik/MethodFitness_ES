@@ -1,12 +1,9 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks.Dataflow;
+﻿using System.Threading.Tasks.Dataflow;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Infrastructure.SharedModels;
 using MF.Core.Messages.Events;
 using MF.Core.ReadModel.Model;
-using Newtonsoft.Json;
 
 namespace MF.Core.ReadModelEventHandler.Handlers
 {
@@ -19,9 +16,10 @@ namespace MF.Core.ReadModelEventHandler.Handlers
 
         public bool HandlesEvent(IGESEvent @event)
         {
-            if (@event.EventType == typeof(UserCreated).Name) { return true; }
             if (@event.EventType == typeof(TrainerHired).Name) { return true; }
             if (@event.EventType == typeof(UserLoggedIn).Name) { return true; }
+            if (@event.EventType == typeof(UserArchived).Name) { return true; }
+            if (@event.EventType == typeof(UserUnArchived).Name) { return true; }
             return false;
         } 
        
@@ -31,14 +29,17 @@ namespace MF.Core.ReadModelEventHandler.Handlers
                 {
                     switch (x.EventType)
                     {
-                        case "UserCreated":
-                            HandleEvent(x,userCreated);
-                            break;
                         case "TrainerHired":
                             HandleEvent(x,trainerHired);
                             break;
                         case "UserLoggedIn":
                             HandleEvent(x,userLoggedIn);
+                            break;
+                        case "UserArchived":
+                            HandleEvent(x, userArchived);
+                            break;
+                        case "UserUnArchived":
+                            HandleEvent(x, userUnArchived);
                             break;
                     }
                 }, new ExecutionDataflowBlockOptions()
@@ -62,9 +63,9 @@ namespace MF.Core.ReadModelEventHandler.Handlers
 
         private IReadModel trainerHired(IGESEvent x)
         {
-            Thread.Sleep(1000);
             var trainerHired = (TrainerHired)x;
-            var user = _mongoRepository.Get<User>(u => u.Id == trainerHired.Id);
+            var user = new User();
+            user.Id = trainerHired.Id;
             user.UserName = trainerHired.UserName;
             user.FirstName = trainerHired.FirstName;
             user.LastName = trainerHired.LastName;
@@ -80,10 +81,21 @@ namespace MF.Core.ReadModelEventHandler.Handlers
             return user;
         }
 
-        private IReadModel userCreated(IGESEvent x)
+        private IReadModel userArchived(IGESEvent x)
         {
-            var userCreated = (UserCreated)x;
-            var user = new User {Id = userCreated.Id};
+            var userArchived = (UserArchived)x;
+            var user = _mongoRepository.Get<User>(u => u.Id == userArchived.UserId);
+            user.Archived = true;
+            user.ArchivedDate = userArchived.ArchivedDate;
+            return user;
+        }
+
+        private IReadModel userUnArchived(IGESEvent x)
+        {
+            var userUnArchived = (UserUnArchived)x;
+            var user = _mongoRepository.Get<User>(u => u.Id == userUnArchived.UserId);
+            user.Archived = false;
+            user.ArchivedDate = userUnArchived.UnArchivedDate;
             return user;
         }
     }

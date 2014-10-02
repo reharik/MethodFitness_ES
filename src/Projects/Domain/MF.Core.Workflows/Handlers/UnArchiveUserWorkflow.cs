@@ -10,11 +10,11 @@ using Newtonsoft.Json;
 
 namespace MF.Core.Workflows.Handlers
 {
-    public class ArchiveUserWorkflow : HandlerBase, IHandler
+    public class UnArchiveUserWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
 
-        public ArchiveUserWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
+        public UnArchiveUserWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
             : base(mongoRepository)
         {
             _getEventStoreRepository = getEventStoreRepository;
@@ -22,7 +22,7 @@ namespace MF.Core.Workflows.Handlers
 
         public bool HandlesEvent(IGESEvent @event)
         {
-            return @event.EventType == typeof(ArchiveUser).Name;
+            return @event.EventType == typeof(UnArchiveUser).Name;
         }
 
         public ActionBlock<IGESEvent> ReturnActionBlock()
@@ -30,10 +30,10 @@ namespace MF.Core.Workflows.Handlers
             return new ActionBlock<IGESEvent>(async x =>
                 {
                     if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; }
-                    var archiveUser = (ArchiveUser)x;
+                    var unArchiveUser = (UnArchiveUser)x;
 
-                    User user = await _getEventStoreRepository.GetById<User>(archiveUser.TrainerId);
-                    user.Handle(archiveUser);
+                    User user = await _getEventStoreRepository.GetById<User>(unArchiveUser.TrainerId);
+                    user.Handle(unArchiveUser);
                     _getEventStoreRepository.Save(user, Guid.NewGuid());
                 
                     SetEventAsRecorded(x);

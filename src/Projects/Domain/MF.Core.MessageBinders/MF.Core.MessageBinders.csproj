@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="MessageBinderRegistry.cs" />
     <Compile Include="MessageBinders\ArchiveTrainerMessageBinder.cs" />
+    <Compile Include="MessageBinders\ArchiveClientMessageBinder.cs" />
     <Compile Include="MessageBinders\SignUpClientMessageBinder.cs" />
     <Compile Include="MessageBinders\LoginUserMessageBinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

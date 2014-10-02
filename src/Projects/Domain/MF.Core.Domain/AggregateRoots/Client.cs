@@ -49,6 +49,16 @@ namespace MF.Core.Domain.AggregateRoots
                                         cmd.StartDate));
         }
 
+        public void Handle(UnArchiveClient unArchiveClient)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Handle(ArchiveClient archiveClient)
+        {
+            throw new NotImplementedException();
+        }
+
         #endregion 
         #region Apply
         public void Apply(ClientCreated vent)
@@ -78,5 +88,6 @@ namespace MF.Core.Domain.AggregateRoots
 
         #endregion
 
+        
     }
 }

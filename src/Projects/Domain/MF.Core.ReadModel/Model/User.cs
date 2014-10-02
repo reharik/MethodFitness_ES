@@ -17,6 +17,8 @@ namespace MF.Core.ReadModel.Model
         public string ZipCode { get; set; }
         public string PhoneMobile { get; set; }
         public string PhoneSecondary { get; set; }
+        public bool Archived { get; set; }
+        public DateTime ArchivedDate { get; set; }
         public DateTime Dob { get; set; }
     }
 }

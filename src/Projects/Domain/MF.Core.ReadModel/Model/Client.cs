@@ -17,6 +17,8 @@ namespace MF.Core.ReadModel.Model
         public string Phone { get; set; }
         public string Source { get; set; }
         public string SourceNotes { get; set; }
+        public bool Archived { get; set; }
+        public DateTime ArchivedDate { get; set; }
         public DateTime StartDate { get; set; }
     }
 }

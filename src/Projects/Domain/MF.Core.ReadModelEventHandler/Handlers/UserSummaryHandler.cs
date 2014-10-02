@@ -19,16 +19,32 @@ namespace MF.Core.ReadModelEventHandler.Handlers
 
         public bool HandlesEvent(IGESEvent @event)
         {
-            if (@event.EventType ==typeof(TrainerHired).Name) { return true; }
+            if (@event.EventType == typeof(TrainerHired).Name) { return true; }
+            if (@event.EventType == typeof(UserArchived).Name) { return true; }
+            if (@event.EventType == typeof(UserUnArchived).Name) { return true; }
             return false;
         } 
        
         public ActionBlock<IGESEvent> ReturnActionBlock()
         {
-            return new ActionBlock<IGESEvent>(x => HandleEvent(x,trainerHired), new ExecutionDataflowBlockOptions()
+            return new ActionBlock<IGESEvent>(x =>
+            {
+                switch (x.EventType)
                 {
-                    MaxDegreeOfParallelism = 4
-                });
+                    case "TrainerHired":
+                        HandleEvent(x, trainerHired);
+                        break;
+                    case "UserArchived":
+                        HandleEvent(x, userArchived);
+                        break;
+                    case "UserUnArchived":
+                        HandleEvent(x, userUnArchived);
+                        break;
+                }
+            }, new ExecutionDataflowBlockOptions()
+            {
+                MaxDegreeOfParallelism = 4
+            });
         }
 
         private IReadModel trainerHired(IGESEvent x)
@@ -39,6 +55,24 @@ namespace MF.Core.ReadModelEventHandler.Handlers
             user.LastName = trainerHired.LastName;
             user.EmailAddress = trainerHired.EmailAddress;
             user.PhoneMobile = trainerHired.PhoneMobile;
+            return user;
+        }
+
+        private IReadModel userArchived(IGESEvent x)
+        {
+            var userArchived = (UserArchived)x;
+            var user = _mongoRepository.Get<UserSummary>(u => u.Id == userArchived.UserId);
+            user.Archived = true;
+            user.ArchivedDate = userArchived.ArchivedDate;
+            return user;
+        }
+
+        private IReadModel userUnArchived(IGESEvent x)
+        {
+            var userUnArchived = (UserUnArchived)x;
+            var user = _mongoRepository.Get<UserSummary>(u => u.Id == userUnArchived.UserId);
+            user.Archived = false;
+            user.ArchivedDate = userUnArchived.UnArchivedDate;
             return user;
         }
     }

@@ -7,12 +7,14 @@ namespace MF.Core.Messages.Events
     public class UserArchived : IGESEvent
     {
         public Guid UserId { get; private set; }
+        public DateTime ArchivedDate { get; private set; }
         public string EventType { get; private set; }
         public Position? OriginalPosition { get; set; }
 
-        public UserArchived(Guid userId)
+        public UserArchived(Guid userId, DateTime archivedDate)
         {
             UserId = userId;
+            ArchivedDate = archivedDate;
             EventType = GetType().Name;
         }
     }
@@ -20,12 +22,14 @@ namespace MF.Core.Messages.Events
     public class UserUnArchived : IGESEvent
     {
         public Guid UserId { get; private set; }
+        public DateTime UnArchivedDate { get; private set; }
         public string EventType { get; private set; }
         public Position? OriginalPosition { get; set; }
 
-        public UserUnArchived(Guid userId)
+        public UserUnArchived(Guid userId, DateTime unArchivedDate)
         {
             UserId = userId;
+            UnArchivedDate = unArchivedDate;
             EventType = GetType().Name;
         }
     }

@@ -22,7 +22,8 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         {
             if (@event.EventType ==typeof(HouseGeneratedClientSignedUp).Name) { return true; }
             if (@event.EventType == typeof(TrainerGeneratedClientSignedUp).Name) { return true; }
-            return false;
+            if (@event.EventType == typeof(ClientArchived).Name) { return true; }
+            if (@event.EventType == typeof(ClientUnArchived).Name) { return true; } return false;
         }
 
         public ActionBlock<IGESEvent> ReturnActionBlock()
@@ -36,6 +37,12 @@ namespace MF.Core.ReadModelEventHandler.Handlers
                         break;
                     case "TrainerGeneratedClientSignedUp":
                         HandleEvent(x, HandleTrainerGenerated);
+                        break;
+                    case "ClientArchived":
+                        HandleEvent(x, clientArchived);
+                        break;
+                    case "ClientUnArchived":
+                        HandleEvent(x, clientUnArchived);
                         break;
                 }
             }, new ExecutionDataflowBlockOptions()
@@ -58,11 +65,30 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         private IReadModel HandleTrainerGenerated(IGESEvent x)
         {
             var clientSignedUp = (TrainerGeneratedClientSignedUp)x;
-            var client = new ClientSummary();
+            var 
+                client = new ClientSummary();
             client.FirstName = clientSignedUp.FirstName;
             client.LastName = clientSignedUp.LastName;
             client.EmailAddress = clientSignedUp.EmailAddress;
             client.Phone = clientSignedUp.Phone;
+            return client;
+        }
+
+        private IReadModel clientArchived(IGESEvent x)
+        {
+            var clientArchived = (ClientArchived)x;
+            var client = _mongoRepository.Get<ClientSummary>(u => u.Id == clientArchived.ClientId);
+            client.Archived = true;
+            client.ArchivedDate = clientArchived.ArchivedDate;
+            return client;
+        }
+
+        private IReadModel clientUnArchived(IGESEvent x)
+        {
+            var clientUnArchived = (ClientUnArchived)x;
+            var client = _mongoRepository.Get<ClientSummary>(u => u.Id == clientUnArchived.ClientId);
+            client.Archived = false;
+            client.ArchivedDate = clientUnArchived.UnArchivedDate;
             return client;
         }
     }

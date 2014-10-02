@@ -19,9 +19,10 @@ namespace MF.Core.ReadModelEventHandler.Handlers
 
         public bool HandlesEvent(IGESEvent @event)
         {
-            if (@event.EventType == typeof(ClientCreated).Name) { return true; }
             if (@event.EventType == typeof(HouseGeneratedClientSignedUp).Name) { return true; }
             if (@event.EventType == typeof(TrainerGeneratedClientSignedUp).Name) { return true; }
+            if (@event.EventType == typeof(ClientArchived).Name) { return true; }
+            if (@event.EventType == typeof(ClientUnArchived).Name) { return true; } 
             return false;
         } 
        
@@ -31,14 +32,17 @@ namespace MF.Core.ReadModelEventHandler.Handlers
                 {
                     switch (x.EventType)
                     {
-                        case "ClientCreated":
-                            HandleEvent(x,clientCreated);
-                            break;
                         case "HouseGeneratedClientSignedUp":
                             HandleEvent(x, HandleHouseGenerated);
                             break;
                         case "TrainerGeneratedClientSignedUp":
                             HandleEvent(x, HandleTrainerGenerated);
+                            break;
+                        case "ClientArchived":
+                            HandleEvent(x, clientArchived);
+                            break;
+                        case "ClientUnArchived":
+                            HandleEvent(x, clientUnArchived);
                             break;
                     }
                 }, new ExecutionDataflowBlockOptions()
@@ -49,9 +53,9 @@ namespace MF.Core.ReadModelEventHandler.Handlers
 
         private IReadModel HandleHouseGenerated(IGESEvent x)
         {
-            Thread.Sleep(1000);
             var clientSignedUp = (HouseGeneratedClientSignedUp)x;
-            var client = _mongoRepository.Get<Client>(u => u.Id == clientSignedUp.Id);
+            var client = new Client();
+            client.Id = clientSignedUp.Id;
             client.FirstName = clientSignedUp.FirstName;
             client.LastName = clientSignedUp.LastName;
             client.EmailAddress = clientSignedUp.EmailAddress;
@@ -63,9 +67,9 @@ namespace MF.Core.ReadModelEventHandler.Handlers
 
         private IReadModel HandleTrainerGenerated(IGESEvent x)
         {
-            Thread.Sleep(1000);
             var clientSignedUp = (TrainerGeneratedClientSignedUp)x;
-            var client = _mongoRepository.Get<Client>(u => u.Id == clientSignedUp.Id);
+            var client = new Client();
+            client.Id = clientSignedUp.Id;
             client.FirstName = clientSignedUp.FirstName;
             client.LastName = clientSignedUp.LastName;
             client.EmailAddress = clientSignedUp.EmailAddress;
@@ -76,10 +80,21 @@ namespace MF.Core.ReadModelEventHandler.Handlers
             return client;
         }
 
-        private IReadModel clientCreated(IGESEvent x)
+        private IReadModel clientArchived(IGESEvent x)
         {
-            var clientCreated = (ClientCreated)x;
-            var client = new Client {Id = clientCreated.Id};
+            var clientArchived = (ClientArchived)x;
+            var client = _mongoRepository.Get<Client>(u => u.Id == clientArchived.ClientId);
+            client.Archived = true;
+            client.ArchivedDate = clientArchived.ArchivedDate;
+            return client;
+        }
+
+        private IReadModel clientUnArchived(IGESEvent x)
+        {
+            var clientUnArchived = (ClientUnArchived)x;
+            var client = _mongoRepository.Get<Client>(u => u.Id == clientUnArchived.ClientId);
+            client.Archived = false;
+            client.ArchivedDate = clientUnArchived.UnArchivedDate;
             return client;
         }
     }
