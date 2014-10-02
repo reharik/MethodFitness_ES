@@ -5,7 +5,7 @@ using MF.Core.Messages.Events;
 
 namespace MF.Core.Domain.AggregateRoots
 {
-    public class Appointment : AggregateBase
+    public class Day : AggregateBase
     {
         #region Handle
         public void Handle(BookHalfHourSession cmd)

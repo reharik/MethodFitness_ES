@@ -1,6 +1,7 @@
 ﻿using System;
 using EventStore.ClientAPI;
 using MF.Core.Infrastructure.SharedModels;
+using MF.Core.Messages.Events;
 
 namespace MF.Core.Messages.Command
 {
@@ -8,11 +9,8 @@ namespace MF.Core.Messages.Command
     {
         public Guid Id { get; private set; }
         public string Location { get; private set; }
-        public Guid TrainerId { get; private set; }
-        public string TrainerName { get; private set; }
-        public Guid ClientId { get; set; }
-        public Guid ClieentId { get; private set; }
-        public string ClientName { get; private set; }
+        public TrainerDisplay TrainerDisplay { get; set; }
+        public ClientDisplay ClientDisplay { get; set; }
         public DateTime AppointmentDate { get; private set; }
         public string StartTime { get; private set; }
         public string Notes { get; private set; }
@@ -21,19 +19,15 @@ namespace MF.Core.Messages.Command
         public Position? OriginalPosition { get; set; }
 
         public BookHalfHourSession(string location,
-                                   Guid trainerId,
-                                   string trainerName,
-                                   Guid clientId,
-                                   string clientName,
+                                   TrainerDisplay trainerDisplay,
+                                   ClientDisplay clientDisplay,
                                    DateTime appointmentDate,
                                    string startTime,
                                    string notes)
         {
             Location = location;
-            TrainerId = trainerId;
-            TrainerName = trainerName;
-            ClientId = clientId;
-            ClientName = clientName;
+            TrainerDisplay = trainerDisplay;
+            ClientDisplay = clientDisplay;
             AppointmentDate = appointmentDate;
             StartTime = startTime;
             Notes = notes;

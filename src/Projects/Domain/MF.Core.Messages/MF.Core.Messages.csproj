@@ -50,9 +50,11 @@
     <Compile Include="Command\LoginUser.cs" />
     <Compile Include="Events\Address.cs" />
     <Compile Include="Events\ClientArchived.cs" />
+    <Compile Include="Events\ClientDisplay.cs" />
     <Compile Include="Events\Contact.cs" />
     <Compile Include="Events\Credentials.cs" />
     <Compile Include="Events\HalfHourSessionBooked.cs" />
+    <Compile Include="Events\TrainerDisplay.cs" />
     <Compile Include="Events\UserArchived.cs" />
     <Compile Include="Events\HouseGeneratedClientSignedUp.cs" />
     <Compile Include="Events\TrainerGeneratedClientSignedUp.cs" />
