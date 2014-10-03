@@ -12,6 +12,7 @@ namespace MF.Core.Messages.Events
         public string Location { get; private set; }
         public DateTime AppointmentDate { get; private set; }
         public string StartTime { get; private set; }
+        public string EndTime { get; private set; }
         public string Notes { get; private set; }
 
         public string EventType { get; private set; }
@@ -23,6 +24,7 @@ namespace MF.Core.Messages.Events
                                      ClientDisplay clientDisplay,
                                      DateTime appointmentDate,
                                      string startTime,
+                                     string endTime,
                                      string notes)
         {
             Id = id;
@@ -31,6 +33,7 @@ namespace MF.Core.Messages.Events
             ClientDisplay = clientDisplay;
             AppointmentDate = appointmentDate;
             StartTime = startTime;
+            EndTime = endTime;
             Notes = notes;
             EventType = GetType().Name;
         }
