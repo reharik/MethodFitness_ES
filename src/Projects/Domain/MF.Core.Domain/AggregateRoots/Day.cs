@@ -10,11 +10,27 @@ namespace MF.Core.Domain.AggregateRoots
 {
     public class Day : AggregateBase
     {
-        private IEnumerable<Appointment> _appointments;
+        private List<Appointment> _appointments;
         #region Handle
         public void Handle(BookHalfHourSession cmd)
         {
             var startEndTime = new StartEndTime(cmd.StartTime, 30);
+            ExpectNoConflictingAppointmentsForTrainer(cmd.TrainerDisplay.TrainerId, startEndTime);
+
+            RaiseEvent(new HalfHourSessionBooked(
+                           Guid.NewGuid(),
+                           cmd.Location,
+                           cmd.TrainerDisplay,
+                           cmd.ClientDisplay,
+                           cmd.AppointmentDate,
+                           cmd.StartTime,
+                           startEndTime.EndTime,
+                           cmd.Notes));
+        }
+
+        public void Handle(BookFullHourSession cmd)
+        {
+            var startEndTime = new StartEndTime(cmd.StartTime, 60);
             ExpectNoConflictingAppointmentsForTrainer(cmd.TrainerDisplay.TrainerId, startEndTime);
 
             RaiseEvent(new HalfHourSessionBooked(
@@ -34,9 +50,22 @@ namespace MF.Core.Domain.AggregateRoots
 
         public void Apply(HalfHourSessionBooked vent)
         {
+            _appointments.Add(new Appointment(vent.Id,
+                                new StartEndTime(vent.StartTime, 30),
+                                vent.Location,
+                                vent.TrainerDisplay.TrainerId, 
+                                vent.AppointmentDate));
         }
 
-     
+        public void Apply(FullHourSessionBooked vent)
+        {
+            _appointments.Add(new Appointment(vent.Id,
+                                new StartEndTime(vent.StartTime, 30),
+                                vent.Location,
+                                vent.TrainerDisplay.TrainerId,
+                                vent.AppointmentDate));
+        }
+
         #endregion 
         #region Expect
         private void ExpectNoConflictingAppointmentsForTrainer(Guid trainerId, StartEndTime set)
@@ -44,7 +73,6 @@ namespace MF.Core.Domain.AggregateRoots
             _appointments.Where(x => x.TrainerId == trainerId).ForEach(x => set.ExpectAppointmentNotConcurrent(x));
         }
         #endregion
-
     }
 
     public class StartEndTime
