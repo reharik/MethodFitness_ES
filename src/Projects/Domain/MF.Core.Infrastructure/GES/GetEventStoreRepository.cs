@@ -97,8 +97,14 @@ namespace MF.Core.Infrastructure.GES
             return JsonConvert.DeserializeObject(Encoding.UTF8.GetString(data), Type.GetType((string)eventClrTypeName));
         }
 
-        public async void Save(IAggregate aggregate, Guid commitId, IDictionary<string, object> updateHeaders = null )
-        { 
+        public void Save<TAggregate>(TAggregate aggregate)
+        {
+            Save((IAggregate)aggregate, null);
+        }
+
+        public async void Save(IAggregate aggregate, IDictionary<string, object> updateHeaders = null)
+        {
+            var commitId = Guid.NewGuid();
             // standard data for metadata portion of persisted event
             var commitHeaders = new Dictionary<string, object>
             {

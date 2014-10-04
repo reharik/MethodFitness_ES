@@ -20,7 +20,6 @@ namespace MF.Core.Infrastructure
 
     public class DispatcherBase : IDispatcher
     {
-        protected readonly IMongoRepository _mongoRepository;
         private readonly List<IHandler> _eventHandlers;
         protected IEventStoreConnection _gesConnection;
         private bool _stopRequested;
@@ -28,10 +27,10 @@ namespace MF.Core.Infrastructure
         private BroadcastBlock<IGESEvent> _broadcastBlock;
         protected string _targetClrTypeName;
         protected Func<ResolvedEvent, bool> _eventFilter;
+        private Position position = Position.Start;
 
-        public DispatcherBase(IMongoRepository mongoRepository, IGESConnection gesConnection, List<IHandler> eventHandlers)
+        public DispatcherBase(IGESConnection gesConnection, List<IHandler> eventHandlers)
         {
-            _mongoRepository = mongoRepository;
             _gesConnection = gesConnection.BuildConnection();
             _gesConnection.ConnectAsync();
             _eventHandlers = eventHandlers;
@@ -43,10 +42,14 @@ namespace MF.Core.Infrastructure
 
         private void GetLastEventProcessedForHandlers()
         {
-            //TODO calculate the lowest numbered LEP of all the handlers and use that for the start position 
-            // ask each registered handler to get there last processed event and hold on to it.
-            var actionBlock = new ActionBlock<IHandler>(x => x.GetLastPositionProcessed(), new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = 8 });
-            _eventHandlers.ForEach(async x=> await actionBlock.SendAsync(x));
+            var actionBlock = new ActionBlock<IHandler>(x => 
+                x.GetLastPositionProcessed(), new ExecutionDataflowBlockOptions { MaxDegreeOfParallelism = 8 });
+            _eventHandlers.ForEach(async x =>
+                {
+                    await actionBlock.SendAsync(x);
+                    // this calculates the lowest position of all the handlers so we can start subscription from there
+                    position = position.CommitPosition > x.LPP.CommitPosition ? x.LPP.Position : position;
+                });
         }
 
         public void RegisterHandlers()
@@ -54,14 +57,14 @@ namespace MF.Core.Infrastructure
             // add all handlers to the broadcast block so they receive news of events
             _broadcastBlock = new BroadcastBlock<IGESEvent>(x => x);
             // pass the two methods of the handler to the block, one determines if we are interested in this event, the other processes it.
-            _eventHandlers.ForEach(x => _broadcastBlock.LinkTo(x.ReturnActionBlock(), x.HandlesEvent));
+            _eventHandlers.ForEach(x => _broadcastBlock.LinkTo(x.ReturnActionBlock(), y => x.Handles.ContainsKey(y.GetType())));
             _broadcastBlock.LinkTo(DataflowBlock.NullTarget<IGESEvent>());
         }
 
         public void StartDispatching()
         {
             _stopRequested = false;
-            _subscription = _gesConnection.SubscribeToAllFrom(Position.Start, false, HandleNewEvent,null,null,new UserCredentials("admin","changeit"));
+            _subscription = _gesConnection.SubscribeToAllFrom(position, false, HandleNewEvent, null, null, new UserCredentials("admin", "changeit"));
         }
 
         public void StopDispatching()

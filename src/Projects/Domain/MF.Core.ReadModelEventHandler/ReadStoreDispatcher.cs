@@ -9,8 +9,8 @@ namespace MF.Core.ReadModelEventHandler
 
     public class ReadStoreDispatcher : DispatcherBase
     {
-        public ReadStoreDispatcher(IMongoRepository mongoRepository, IGESConnection gesConnection, List<IHandler> eventHandlers)
-            : base(mongoRepository, gesConnection, eventHandlers)
+        public ReadStoreDispatcher(IGESConnection gesConnection, List<IHandler> eventHandlers)
+            : base(gesConnection, eventHandlers)
         {
             _targetClrTypeName = "EventClrTypeName";
             _eventFilter = x =>

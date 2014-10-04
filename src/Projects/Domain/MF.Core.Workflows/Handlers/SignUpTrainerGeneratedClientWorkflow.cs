@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
@@ -12,31 +13,19 @@ namespace MF.Core.Workflows.Handlers
 {
     public class SignUpHouseGeneratedClientWorkflow : HandlerBase, IHandler
     {
-        private readonly IGetEventStoreRepository _getEventStoreRepository;
-
-        public SignUpHouseGeneratedClientWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
+        public SignUpHouseGeneratedClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
             : base(mongoRepository)
         {
-            _getEventStoreRepository = getEventStoreRepository;
+            _repository = getEventStoreRepository;
+            register(typeof(SignUpHouseGeneratedClient), archiveUser);
         }
 
-        public bool HandlesEvent(IGESEvent @event)
+        private Client archiveUser(IGESEvent x)
         {
-            return @event.EventType == typeof(SignUpHouseGeneratedClient).Name;
-        }
-
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(x =>
-            {
-                if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; };
-
-                var signUpNewClient = (SignUpHouseGeneratedClient)x;
-                var client = new Client(true);
-                client.Handle(signUpNewClient);
-                _getEventStoreRepository.Save(client, Guid.NewGuid());
-                SetEventAsRecorded(x);
-            });
+            var vent = (SignUpHouseGeneratedClient)x;
+            var item = new Client();
+            item.Handle(vent);
+            return item;
         }
     }
 }

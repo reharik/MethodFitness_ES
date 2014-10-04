@@ -12,43 +12,16 @@ namespace MF.Core.ReadModelEventHandler.Handlers
 {
     public class ClientSummaryHandler : HandlerBase, IHandler
     {
-        public ClientSummaryHandler(IMongoRepository mongoRepository)
-            : base(mongoRepository)
-        {
-            _mongoRepository = mongoRepository;
-        }
+        private readonly IMongoRepository _repository;
 
-        public bool HandlesEvent(IGESEvent @event)
+        public ClientSummaryHandler(IMongoRepository repository)
+            : base(repository)
         {
-            if (@event.EventType ==typeof(HouseGeneratedClientSignedUp).Name) { return true; }
-            if (@event.EventType == typeof(TrainerGeneratedClientSignedUp).Name) { return true; }
-            if (@event.EventType == typeof(ClientArchived).Name) { return true; }
-            if (@event.EventType == typeof(ClientUnArchived).Name) { return true; } return false;
-        }
-
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(x =>
-            {
-                switch (x.EventType)
-                {
-                    case "HouseGeneratedClientSignedUp":
-                        HandleEvent(x, HandleHouseGenerated);
-                        break;
-                    case "TrainerGeneratedClientSignedUp":
-                        HandleEvent(x, HandleTrainerGenerated);
-                        break;
-                    case "ClientArchived":
-                        HandleEvent(x, clientArchived);
-                        break;
-                    case "ClientUnArchived":
-                        HandleEvent(x, clientUnArchived);
-                        break;
-                }
-            }, new ExecutionDataflowBlockOptions()
-            {
-                MaxDegreeOfParallelism = 4
-            });
+            _repository = repository;
+            register(typeof(HouseGeneratedClientSignedUp), HandleHouseGenerated);
+            register(typeof(TrainerGeneratedClientSignedUp), HandleTrainerGenerated);
+            register(typeof(ClientArchived), clientArchived);
+            register(typeof(ClientUnArchived), clientUnArchived);
         }
 
         private IReadModel HandleHouseGenerated(IGESEvent x)
@@ -77,7 +50,7 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         private IReadModel clientArchived(IGESEvent x)
         {
             var clientArchived = (ClientArchived)x;
-            var client = _mongoRepository.Get<ClientSummary>(u => u.Id == clientArchived.ClientId);
+            var client = _repository.Get<ClientSummary>(u => u.Id == clientArchived.ClientId);
             client.Archived = true;
             client.ArchivedDate = clientArchived.ArchivedDate;
             return client;
@@ -86,7 +59,7 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         private IReadModel clientUnArchived(IGESEvent x)
         {
             var clientUnArchived = (ClientUnArchived)x;
-            var client = _mongoRepository.Get<ClientSummary>(u => u.Id == clientUnArchived.ClientId);
+            var client = _repository.Get<ClientSummary>(u => u.Id == clientUnArchived.ClientId);
             client.Archived = false;
             client.ArchivedDate = clientUnArchived.UnArchivedDate;
             return client;

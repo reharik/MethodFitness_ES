@@ -8,8 +8,8 @@ namespace MF.Core.Workflows
 {
     public class CommandDispatcher : DispatcherBase
     {
-        public CommandDispatcher(IMongoRepository mongoRepository, IGESConnection gesConnection, List<IHandler> eventHandlers) 
-            : base(mongoRepository, gesConnection, eventHandlers)
+        public CommandDispatcher(IGESConnection gesConnection, List<IHandler> eventHandlers) 
+            : base(gesConnection, eventHandlers)
         {
             _targetClrTypeName = "CommandClrTypeName";
             _eventFilter = x =>

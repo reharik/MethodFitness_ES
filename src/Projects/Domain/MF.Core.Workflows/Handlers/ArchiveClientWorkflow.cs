@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
@@ -13,31 +14,19 @@ namespace MF.Core.Workflows.Handlers
     public class ArchiveClientWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
-
-        public ArchiveClientWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
-            : base(mongoRepository)
+        public ArchiveClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository) : base(mongoRepository)
         {
+            _repository = getEventStoreRepository;
             _getEventStoreRepository = getEventStoreRepository;
+            register(typeof(ArchiveClient),archiveClient);
         }
 
-        public bool HandlesEvent(IGESEvent @event)
+        private async Task<Client> archiveClient(IGESEvent x)
         {
-            return @event.EventType == typeof(ArchiveClient).Name;
-        }
-
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(async x =>
-                {
-                    if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; }
-                    var archiveClient = (ArchiveClient)x;
-
-                    Client client = await _getEventStoreRepository.GetById<Client>(archiveClient.ClientId);
-                    client.Handle(archiveClient);
-                    _getEventStoreRepository.Save(client, Guid.NewGuid());
-                
-                    SetEventAsRecorded(x);
-                });
+            var archiveClient = (ArchiveClient) x;
+            Client client = await _getEventStoreRepository.GetById<Client>(archiveClient.ClientId);
+            client.Handle(archiveClient);
+            return client;
         }
     }
 }

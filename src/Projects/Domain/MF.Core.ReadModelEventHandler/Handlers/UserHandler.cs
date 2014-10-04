@@ -9,43 +9,16 @@ namespace MF.Core.ReadModelEventHandler.Handlers
 {
     public class UserHandler : HandlerBase, IHandler
     {
-        public UserHandler(IMongoRepository mongoRepository) : base(mongoRepository)
-        {
-            _mongoRepository = mongoRepository;
-        }
+        private readonly IMongoRepository _repository;
 
-        public bool HandlesEvent(IGESEvent @event)
+        public UserHandler(IMongoRepository repository) : base(repository)
         {
-            if (@event.EventType == typeof(TrainerHired).Name) { return true; }
-            if (@event.EventType == typeof(UserLoggedIn).Name) { return true; }
-            if (@event.EventType == typeof(UserArchived).Name) { return true; }
-            if (@event.EventType == typeof(UserUnArchived).Name) { return true; }
-            return false;
-        } 
-       
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(x =>
-                {
-                    switch (x.EventType)
-                    {
-                        case "TrainerHired":
-                            HandleEvent(x,trainerHired);
-                            break;
-                        case "UserLoggedIn":
-                            HandleEvent(x,userLoggedIn);
-                            break;
-                        case "UserArchived":
-                            HandleEvent(x, userArchived);
-                            break;
-                        case "UserUnArchived":
-                            HandleEvent(x, userUnArchived);
-                            break;
-                    }
-                }, new ExecutionDataflowBlockOptions()
-                {
-                    MaxDegreeOfParallelism = 4
-                });
+            _repository = repository;
+            register(typeof(TrainerHired), trainerHired);
+            register(typeof(UserLoggedIn), userLoggedIn);
+            register(typeof(UserArchived), userArchived);
+            register(typeof(UserUnArchived), userUnArchived);
+
         }
 
         private IReadModel userLoggedIn(IGESEvent x)
@@ -84,7 +57,7 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         private IReadModel userArchived(IGESEvent x)
         {
             var userArchived = (UserArchived)x;
-            var user = _mongoRepository.Get<User>(u => u.Id == userArchived.UserId);
+            var user = _repository.Get<User>(u => u.Id == userArchived.UserId);
             user.Archived = true;
             user.ArchivedDate = userArchived.ArchivedDate;
             return user;
@@ -93,7 +66,7 @@ namespace MF.Core.ReadModelEventHandler.Handlers
         private IReadModel userUnArchived(IGESEvent x)
         {
             var userUnArchived = (UserUnArchived)x;
-            var user = _mongoRepository.Get<User>(u => u.Id == userUnArchived.UserId);
+            var user = _repository.Get<User>(u => u.Id == userUnArchived.UserId);
             user.Archived = false;
             user.ArchivedDate = userUnArchived.UnArchivedDate;
             return user;

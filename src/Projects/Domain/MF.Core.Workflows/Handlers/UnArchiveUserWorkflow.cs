@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
@@ -13,31 +14,20 @@ namespace MF.Core.Workflows.Handlers
     public class UnArchiveUserWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
-
-        public UnArchiveUserWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
+        public UnArchiveUserWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
             : base(mongoRepository)
         {
+            _repository = getEventStoreRepository;
             _getEventStoreRepository = getEventStoreRepository;
+            register(typeof(UnArchiveUser), unArchiveUser);
         }
 
-        public bool HandlesEvent(IGESEvent @event)
+        private async Task<User> unArchiveUser(IGESEvent x)
         {
-            return @event.EventType == typeof(UnArchiveUser).Name;
-        }
-
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(async x =>
-                {
-                    if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; }
-                    var unArchiveUser = (UnArchiveUser)x;
-
-                    User user = await _getEventStoreRepository.GetById<User>(unArchiveUser.TrainerId);
-                    user.Handle(unArchiveUser);
-                    _getEventStoreRepository.Save(user, Guid.NewGuid());
-                
-                    SetEventAsRecorded(x);
-                });
+            var vent = (UnArchiveUser)x;
+            var item = await _getEventStoreRepository.GetById<User>(vent.TrainerId);
+            item.Handle(vent);
+            return item;
         }
     }
 }

@@ -70,7 +70,7 @@ namespace MF.Core.Domain.AggregateRoots
         #region Expect
         private void ExpectNoConflictingAppointmentsForTrainer(Guid trainerId, StartEndTime set)
         {
-            _appointments.Where(x => x.TrainerId == trainerId).ForEach(x => set.ExpectAppointmentNotConcurrent(x));
+            _appointments.Where(x => x.TrainerId == trainerId).ToList().ForEach(set.ExpectAppointmentNotConcurrent);
         }
         #endregion
     }

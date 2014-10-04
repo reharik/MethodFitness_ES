@@ -1,12 +1,8 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks.Dataflow;
-using MF.Core.Infrastructure;
+﻿using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Infrastructure.SharedModels;
 using MF.Core.Messages.Events;
 using MF.Core.ReadModel.Model;
-using Newtonsoft.Json;
 
 namespace MF.Core.ReadModelEventHandler.Handlers
 {
@@ -14,41 +10,10 @@ namespace MF.Core.ReadModelEventHandler.Handlers
     {
         public ClientHandler(IMongoRepository mongoRepository) : base(mongoRepository)
         {
-            _mongoRepository = mongoRepository;
-        }
-
-        public bool HandlesEvent(IGESEvent @event)
-        {
-            if (@event.EventType == typeof(HouseGeneratedClientSignedUp).Name) { return true; }
-            if (@event.EventType == typeof(TrainerGeneratedClientSignedUp).Name) { return true; }
-            if (@event.EventType == typeof(ClientArchived).Name) { return true; }
-            if (@event.EventType == typeof(ClientUnArchived).Name) { return true; } 
-            return false;
-        } 
-       
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(x =>
-                {
-                    switch (x.EventType)
-                    {
-                        case "HouseGeneratedClientSignedUp":
-                            HandleEvent(x, HandleHouseGenerated);
-                            break;
-                        case "TrainerGeneratedClientSignedUp":
-                            HandleEvent(x, HandleTrainerGenerated);
-                            break;
-                        case "ClientArchived":
-                            HandleEvent(x, clientArchived);
-                            break;
-                        case "ClientUnArchived":
-                            HandleEvent(x, clientUnArchived);
-                            break;
-                    }
-                }, new ExecutionDataflowBlockOptions()
-                {
-                    MaxDegreeOfParallelism = 4
-                });
+            register(typeof(HouseGeneratedClientSignedUp), HandleHouseGenerated);
+            register(typeof(TrainerGeneratedClientSignedUp), HandleTrainerGenerated);
+            register(typeof(ClientArchived), clientArchived);
+            register(typeof(ClientUnArchived), clientUnArchived);
         }
 
         private IReadModel HandleHouseGenerated(IGESEvent x)

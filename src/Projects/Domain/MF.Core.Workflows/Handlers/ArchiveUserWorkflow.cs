@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
@@ -14,30 +15,20 @@ namespace MF.Core.Workflows.Handlers
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
 
-        public ArchiveUserWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
+        public ArchiveUserWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
             : base(mongoRepository)
         {
+            _repository = getEventStoreRepository;
             _getEventStoreRepository = getEventStoreRepository;
+            register(typeof(ArchiveUser), archiveUser);
         }
 
-        public bool HandlesEvent(IGESEvent @event)
+        private async Task<User> archiveUser(IGESEvent x)
         {
-            return @event.EventType == typeof(ArchiveUser).Name;
-        }
-
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(async x =>
-                {
-                    if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; }
-                    var archiveUser = (ArchiveUser)x;
-
-                    User user = await _getEventStoreRepository.GetById<User>(archiveUser.TrainerId);
-                    user.Handle(archiveUser);
-                    _getEventStoreRepository.Save(user, Guid.NewGuid());
-                
-                    SetEventAsRecorded(x);
-                });
+            var archiveUser = (ArchiveUser)x;
+            User user = await _getEventStoreRepository.GetById<User>(archiveUser.TrainerId);
+            user.Handle(archiveUser);
+            return user;
         }
     }
 }

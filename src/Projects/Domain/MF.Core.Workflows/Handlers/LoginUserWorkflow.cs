@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
@@ -13,37 +14,20 @@ namespace MF.Core.Workflows.Handlers
     public class LoginUserWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
-
-        public LoginUserWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
+        public LoginUserWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
             : base(mongoRepository)
         {
+            _repository = getEventStoreRepository;
             _getEventStoreRepository = getEventStoreRepository;
+            register(typeof(LoginUser), loginUser);
         }
 
-        public bool HandlesEvent(IGESEvent @event)
+        private async Task<User> loginUser(IGESEvent x)
         {
-            return @event.EventType == typeof(LoginUser).Name;
-        }
-
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(async x =>
-                {
-                    if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; }
-
-                    var loginUser = (LoginUser)x;
-                    User user = await _getEventStoreRepository.GetById<User>(loginUser.Id);
-                    user.Handle(loginUser);
-                    _getEventStoreRepository.Save(user, Guid.NewGuid());
-                    // noise
-                    Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.Write("Command Saved: ");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write(JsonConvert.SerializeObject(user));
-                    Console.Write(Environment.NewLine);
-                    // noise
-                    SetEventAsRecorded(x);
-                });
+            var loginUser = (LoginUser)x;
+            User user = await _getEventStoreRepository.GetById<User>(loginUser.Id);
+            user.Handle(loginUser);
+            return user;
         }
     }
 }

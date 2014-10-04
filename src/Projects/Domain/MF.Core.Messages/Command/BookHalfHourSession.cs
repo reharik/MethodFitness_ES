@@ -14,13 +14,13 @@ namespace MF.Core.Messages.Command
         public DateTime AppointmentDate { get; protected set; }
         public string StartTime { get; protected set; }
         public string Notes { get; protected set; }
-        public string EventType { get; protected  set; }
+        public string EventType { get; protected set; }
         public Position? OriginalPosition { get; set; }
     }
 
     public class BookHalfHourSession : BookSingleSession
     {
-         public BookHalfHourSession(string location,
+        public BookHalfHourSession(string location,
                                    TrainerDisplay trainerDisplay,
                                    ClientDisplay clientDisplay,
                                    DateTime appointmentDate,
@@ -39,7 +39,7 @@ namespace MF.Core.Messages.Command
 
     public class BookFullHourSession : BookSingleSession
     {
-         public BookFullHourSession(string location,
+        public BookFullHourSession(string location,
                                    TrainerDisplay trainerDisplay,
                                    ClientDisplay clientDisplay,
                                    DateTime appointmentDate,
@@ -54,4 +54,5 @@ namespace MF.Core.Messages.Command
             Notes = notes;
             EventType = GetType().Name;
         }
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
@@ -12,31 +13,19 @@ namespace MF.Core.Workflows.Handlers
 {
     public class SignUpTrainerGeneratedClientWorkflow : HandlerBase, IHandler
     {
-        private readonly IGetEventStoreRepository _getEventStoreRepository;
-
-        public SignUpTrainerGeneratedClientWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
+        public SignUpTrainerGeneratedClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
             : base(mongoRepository)
         {
-            _getEventStoreRepository = getEventStoreRepository;
+            _repository = getEventStoreRepository;
+            register(typeof(SignUpTrainerGeneratedClient), signUpTrainerGeneratedClient);
         }
 
-        public bool HandlesEvent(IGESEvent @event)
+        private Client signUpTrainerGeneratedClient(IGESEvent x)
         {
-            return @event.EventType == typeof(SignUpTrainerGeneratedClient).Name;
-        }
-
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(x =>
-            {
-                if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; };
-
-                var signUpNewClient = (SignUpTrainerGeneratedClient)x;
-                var client = new Client(true);
-                client.Handle(signUpNewClient);
-                _getEventStoreRepository.Save(client, Guid.NewGuid());
-                SetEventAsRecorded(x);
-            });
+            var signUpNewClient = (SignUpTrainerGeneratedClient)x;
+            var client = new Client();
+            client.Handle(signUpNewClient);
+            return client;
         }
     }
 }

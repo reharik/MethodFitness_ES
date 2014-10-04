@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
@@ -12,31 +13,19 @@ namespace MF.Core.Workflows.Handlers
 {
     public class HireTrainerWorkflow : HandlerBase, IHandler
     {
-        private readonly IGetEventStoreRepository _getEventStoreRepository;
-
-        public HireTrainerWorkflow(IGetEventStoreRepository getEventStoreRepository, IMongoRepository mongoRepository)
+        public HireTrainerWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
             : base(mongoRepository)
         {
-            _getEventStoreRepository = getEventStoreRepository;
+            _repository = getEventStoreRepository;
+            register(typeof(HireTrainer), hireTrainer);
         }
 
-        public bool HandlesEvent(IGESEvent @event)
+        private User hireTrainer(IGESEvent x)
         {
-            return @event.EventType == typeof(HireTrainer).Name;
-        }
-
-        public ActionBlock<IGESEvent> ReturnActionBlock()
-        {
-            return new ActionBlock<IGESEvent>(x =>
-            {
-                if (ExpectEventPositionIsGreaterThanLastRecorded(x)) { return; };
-                
-                var hireTrainer = (HireTrainer)x;
-                var user = new User(true);
-                user.Handle(hireTrainer);
-                _getEventStoreRepository.Save(user, Guid.NewGuid());
-                SetEventAsRecorded(x);
-            });
+            var archiveUser = (HireTrainer)x;
+            var user = new User();
+            user.Handle(archiveUser);
+            return user;
         }
     }
 }
