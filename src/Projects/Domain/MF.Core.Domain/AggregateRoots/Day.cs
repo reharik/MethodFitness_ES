@@ -33,7 +33,7 @@ namespace MF.Core.Domain.AggregateRoots
             var startEndTime = new StartEndTime(cmd.StartTime, 60);
             ExpectNoConflictingAppointmentsForTrainer(cmd.TrainerDisplay.TrainerId, startEndTime);
 
-            RaiseEvent(new HalfHourSessionBooked(
+            RaiseEvent(new FullHourSessionBooked(
                            Guid.NewGuid(),
                            cmd.Location,
                            cmd.TrainerDisplay,
