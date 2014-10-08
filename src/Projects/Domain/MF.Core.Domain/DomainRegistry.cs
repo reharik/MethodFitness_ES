@@ -2,11 +2,11 @@
 using StructureMap.Configuration.DSL;
 using StructureMap.Graph;
 
-namespace MF.Core.Workflows
+namespace MF.Core.Domain
 {
-     public class WorkflowRegistry : Registry
+    public class DomainRegistry : Registry
     {
-        public WorkflowRegistry()
+        public DomainRegistry()
         {
             Scan(x =>
             {

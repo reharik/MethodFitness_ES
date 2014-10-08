@@ -9,11 +9,12 @@ using MongoDB.Driver.Builders;
 
 namespace MF.Core.Infrastructure.Mongo
 {
-    public interface IMongoRepository : IRepository
+    public interface IMongoRepository
     {
         T Get<T>(Guid id) where T : IReadModel;
         T Get<T>(Expression<Func<T, bool>> filter) where T : IReadModel;
         IEnumerable<T> GetAll<T>(Expression<Func<T, bool>> filter = null) where T : IReadModel;
+        void Save<T>(T value) where T : IReadModel;
         void Save<T>(IEnumerable<T> values) where T : IReadModel;
     }
 
@@ -44,7 +45,7 @@ namespace MF.Core.Infrastructure.Mongo
             return GetAll(filter).FirstOrDefault();
         }
 
-        public virtual void Save<T>(T value)
+        public virtual void Save<T>(T value) where T : IReadModel
         {
             var collection = _mongoDatabase.GetCollection<T>(value.GetType().Name.ToLower());
             var result = collection.Save(value);

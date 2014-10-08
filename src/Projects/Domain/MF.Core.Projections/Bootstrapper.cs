@@ -3,7 +3,7 @@ using MF.Core.ReadModel;
 using StructureMap;
 using StructureMap.Graph;
 
-namespace MF.Core.ReadModelEventHandler
+namespace MF.Core.Projections
 {
     public class Bootstrapper
     {

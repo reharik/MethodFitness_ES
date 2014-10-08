@@ -2,9 +2,8 @@
 using System.Text;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.GES.Interfaces;
-using MF.Core.Infrastructure.Mongo;
 
-namespace MF.Core.ReadModelEventHandler
+namespace MF.Core.Projections
 {
 
     public class ReadStoreDispatcher : DispatcherBase

@@ -1,22 +1,19 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Threading.Tasks.Dataflow;
+﻿using System.Threading.Tasks;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.GES.Interfaces;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Infrastructure.SharedModels;
 using MF.Core.Messages.Command;
-using Newtonsoft.Json;
 
-namespace MF.Core.Workflows.Handlers
+namespace MF.Core.Domain.Handlers
 {
-    public class ArchiveClientWorkflow : HandlerBase, IHandler
+    public class ArchiveClientWorkflow : WorkflowBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
-        public ArchiveClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository) : base(mongoRepository)
+        public ArchiveClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
+            : base(getEventStoreRepository, mongoRepository)
         {
-            _repository = getEventStoreRepository;
             _getEventStoreRepository = getEventStoreRepository;
             register(typeof(ArchiveClient),archiveClient);
         }

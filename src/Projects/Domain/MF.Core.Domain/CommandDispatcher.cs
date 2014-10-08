@@ -2,9 +2,8 @@
 using System.Text;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.GES.Interfaces;
-using MF.Core.Infrastructure.Mongo;
 
-namespace MF.Core.Workflows
+namespace MF.Core.Domain
 {
     public class CommandDispatcher : DispatcherBase
     {

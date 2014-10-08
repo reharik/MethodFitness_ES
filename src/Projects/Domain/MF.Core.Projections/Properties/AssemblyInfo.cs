@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MF.Core.Workflows")]
+[assembly: AssemblyTitle("MF.Core.Projections")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MF.Core.Workflows")]
+[assembly: AssemblyProduct("MF.Core.Projections")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("a84fdb45-e48f-4742-8c22-196a3fe3b120")]
+[assembly: Guid("c527f79e-fdaf-4d9e-8597-e1440122a63a")]
 
 // Version information for an assembly consists of the following four values:
 //

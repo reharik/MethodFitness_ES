@@ -2,7 +2,7 @@
 using MF.Core.Infrastructure;
 using StructureMap;
 
-namespace MF.Core.ReadModelEventHandler
+namespace MF.Core.Projections
 {
     class Program
     {

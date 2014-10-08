@@ -12,7 +12,6 @@ namespace MF.Core.Infrastructure
     public class HandlerBase
     {
         protected readonly IMongoRepository _mongoRepository;
-        protected IRepository _repository;
         protected string _handlerType;
         public LastProcessedPosition LPP { get; set; }
         public Dictionary<Type, Func<IGESEvent, object>> Handles { get; set; }
@@ -20,8 +19,6 @@ namespace MF.Core.Infrastructure
         public HandlerBase(IMongoRepository mongoRepository)
         {
             _mongoRepository = mongoRepository;
-            if (_repository == null) { _repository = mongoRepository; }
-
             _handlerType = GetType().Name;
             Handles=new Dictionary<Type, Func<IGESEvent, object>>();
         }
@@ -37,13 +34,25 @@ namespace MF.Core.Infrastructure
             Handles.Add(t, func);
         }
 
-        protected void HandleEvent(IGESEvent @event, Func<IGESEvent, object> handleBy)
+        protected virtual void HandleEvent(IGESEvent @event, Func<IGESEvent, object> handleBy)
         {
-            if (ExpectEventPositionIsGreaterThanLastRecorded(@event)) { return; };
-            var view = handleBy(@event);
-            _repository.Save(view);
-           
-            SetEventAsRecorded(@event);
+            try
+            {
+                if (ExpectEventPositionIsGreaterThanLastRecorded(@event)) { return; };
+                var view = handleBy(@event);
+                // some events don't need you to save, so they will return null; bit smelly
+                if (view != null) { _mongoRepository.Save((IReadModel)view); }
+                SetEventAsRecorded(@event);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //TODO Publish a message with this error
+            }
+            finally
+            {
+                //TODO Possibly publish message
+            }
         }
 
         #region Event Position Handling
@@ -61,7 +70,7 @@ namespace MF.Core.Infrastructure
 
             LPP.CommitPosition = @event.OriginalPosition.Value.CommitPosition;
             LPP.PreparePosition = @event.OriginalPosition.Value.PreparePosition;
-            _repository.Save(LPP);
+            _mongoRepository.Save(LPP);
         }
 
         // this is used by dispatchers on restart

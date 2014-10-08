@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks.Dataflow;
-using MF.Core.Infrastructure;
+﻿using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Infrastructure.SharedModels;
 using MF.Core.Messages.Events;
 using MF.Core.ReadModel.Model;
 
-namespace MF.Core.ReadModelEventHandler.Handlers
+namespace MF.Core.Projections.Handlers
 {
     public class UserHandler : HandlerBase, IHandler
     {
