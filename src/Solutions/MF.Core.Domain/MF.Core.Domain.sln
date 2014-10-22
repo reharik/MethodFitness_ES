@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.Infrastructure", ".
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.Messages", "..\..\Projects\Domain\MF.Core.Messages\MF.Core.Messages.csproj", "{989CC909-33F7-4435-94CE-F5A6C71A6A7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MF.Core.Workflows", "..\..\Projects\Domain\MF.Core.Workflows\MF.Core.Workflows.csproj", "{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,10 +25,6 @@ Global
 		{989CC909-33F7-4435-94CE-F5A6C71A6A7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{989CC909-33F7-4435-94CE-F5A6C71A6A7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{989CC909-33F7-4435-94CE-F5A6C71A6A7B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BC6EBA1-7DC1-4142-AD5E-9C99CCE7C97C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

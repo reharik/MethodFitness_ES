@@ -1,4 +1,5 @@
-﻿using MF.Core.Domain.AggregateRoots;
+﻿using System;
+using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.GES.Interfaces;
 using MF.Core.Infrastructure.Mongo;
@@ -7,20 +8,23 @@ using MF.Core.Messages.Command;
 
 namespace MF.Core.Domain.Handlers
 {
-    public class SignUpTrainerGeneratedClientWorkflow : WorkflowBase, IHandler
+    public class SignUpTrainerGeneratedClientWorkflow : HandlerBase, IHandler
     {
+        private readonly IGetEventStoreRepository _getEventStoreRepository;
+
         public SignUpTrainerGeneratedClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
-            : base(getEventStoreRepository, mongoRepository)
+            : base(mongoRepository)
         {
+            _getEventStoreRepository = getEventStoreRepository;
             register(typeof(SignUpTrainerGeneratedClient), signUpTrainerGeneratedClient);
         }
 
-        private Client signUpTrainerGeneratedClient(IGESEvent x)
+        private void signUpTrainerGeneratedClient(IGESEvent x)
         {
             var signUpNewClient = (SignUpTrainerGeneratedClient)x;
             var client = new Client();
             client.Handle(signUpNewClient);
-            return client;
+            _getEventStoreRepository.Save(client, Guid.NewGuid());
         }
     }
 }

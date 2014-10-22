@@ -54,8 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\CalendarAppointment.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\ClientSummary.cs" />
+    <Compile Include="Model\State.cs" />
     <Compile Include="Model\UserSummary.cs" />
     <Compile Include="ReadModelRegistry.cs" />
     <Compile Include="Model\User.cs" />

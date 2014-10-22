@@ -6,6 +6,7 @@ using MF.Core.Infrastructure.GES.Interfaces;
 using MF.Core.Infrastructure.SharedModels;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
+using MongoDB.Driver.Linq;
 
 namespace MF.Core.Infrastructure.Mongo
 {
@@ -14,8 +15,10 @@ namespace MF.Core.Infrastructure.Mongo
         T Get<T>(Guid id) where T : IReadModel;
         T Get<T>(Expression<Func<T, bool>> filter) where T : IReadModel;
         IEnumerable<T> GetAll<T>(Expression<Func<T, bool>> filter = null) where T : IReadModel;
+        IQueryable<T> Queryable<T>() where T : IReadModel;
         void Save<T>(T value) where T : IReadModel;
         void Save<T>(IEnumerable<T> values) where T : IReadModel;
+
     }
 
     public class MongoRepository : IMongoRepository
@@ -38,6 +41,12 @@ namespace MF.Core.Infrastructure.Mongo
             var collection = _mongoDatabase.GetCollection<T>(typeof(T).Name.ToLower());
             var query = filter == null ? null : Query<T>.Where(filter);
             return (null == query ? collection.FindAllAs<T>() : collection.FindAs<T>(query)).ToList();
+        }
+
+        public IQueryable<T> Queryable<T>() where T : IReadModel
+        {
+            var collection = _mongoDatabase.GetCollection<T>(typeof(T).Name.ToLower());
+            return collection.AsQueryable();
         }
 
         public virtual T Get<T>(Expression<Func<T, bool>> filter) where T : IReadModel

@@ -13,8 +13,8 @@ namespace MF.Core.Infrastructure.GES
 {
     public class GetEventStoreRepository : IGetEventStoreRepository
     {
-        private const string EventClrTypeHeader = "EventClrTypeName";
-        private const string AggregateClrTypeHeader = "AggregateClrTypeName";
+        private const string EventTypeHeader = "EventTypeName";
+        private const string AggregateTypeHeader = "AggregateTypeName";
         private const string CommitIdHeader = "CommitId";
         private const int WritePageSize = 500;
         private const int ReadPageSize = 500;
@@ -93,8 +93,8 @@ namespace MF.Core.Infrastructure.GES
 
         private static object DeserializeEvent(byte[] metadata, byte[] data)
         {
-            var eventClrTypeName = JObject.Parse(Encoding.UTF8.GetString(metadata)).Property(EventClrTypeHeader).Value;
-            return JsonConvert.DeserializeObject(Encoding.UTF8.GetString(data), Type.GetType((string)eventClrTypeName));
+            var eventTypeName = JObject.Parse(Encoding.UTF8.GetString(metadata)).Property(EventTypeHeader).Value;
+            return JsonConvert.DeserializeObject(Encoding.UTF8.GetString(data), Type.GetType((string)eventTypeName));
         }
 
        public async void Save(IAggregate aggregate, Guid commitId, IDictionary<string, object> updateHeaders = null)
@@ -105,7 +105,7 @@ namespace MF.Core.Infrastructure.GES
                 // handy tracking id
                 {CommitIdHeader, commitId},
                 // type of aggregate being persisted 
-                {AggregateClrTypeHeader, aggregate.GetType().AssemblyQualifiedName}
+                {AggregateTypeHeader, aggregate.GetType().AssemblyQualifiedName}
             };
             // add extra data to metadata portion of presisted event
             commitHeaders = (updateHeaders ?? new Dictionary<string, object>())
@@ -154,7 +154,7 @@ namespace MF.Core.Infrastructure.GES
             var eventHeaders = new Dictionary<string, object>(headers)
             {
                 {
-                    EventClrTypeHeader, evnt.GetType().AssemblyQualifiedName
+                    EventTypeHeader, evnt.GetType().AssemblyQualifiedName
                 }
             };
             var metadata = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(eventHeaders, SerializerSettings));

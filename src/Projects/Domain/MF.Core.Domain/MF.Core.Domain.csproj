@@ -64,6 +64,7 @@
     <Compile Include="CommandDispatcher.cs" />
     <Compile Include="Handlers\ArchiveClientWorkflow.cs" />
     <Compile Include="Handlers\ArchiveUserWorkflow.cs" />
+    <Compile Include="Handlers\BootstrapApplicationWorkflow.cs" />
     <Compile Include="Handlers\HireTrainerWorkflow.cs" />
     <Compile Include="Handlers\LoginUserWorkflow.cs" />
     <Compile Include="Handlers\SignUpHouseGeneratedClientWorkflow.cs" />
@@ -81,6 +82,10 @@
     <ProjectReference Include="..\MF.Core.Messages\MF.Core.Messages.csproj">
       <Project>{989CC909-33F7-4435-94CE-F5A6C71A6A7B}</Project>
       <Name>MF.Core.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MF.Core.ReadModel\MF.Core.ReadModel.csproj">
+      <Project>{7ec77e03-4cae-42c0-9f79-cd9cb1d52afd}</Project>
+      <Name>MF.Core.ReadModel</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

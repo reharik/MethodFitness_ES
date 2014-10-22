@@ -8,8 +8,7 @@ namespace MF.Core.Infrastructure
     public interface IHandler
     {
         ActionBlock<IGESEvent> ReturnActionBlock();
-        void GetLastPositionProcessed();
-        Dictionary<Type, Func<IGESEvent, object>> Handles { get; set; }
-        LastProcessedPosition LPP { get; set; }
+        Dictionary<string, Action<IGESEvent>> Handles { get; set; }
+        LastProcessedPosition LastProcessedPosition { get; }
     }
 }

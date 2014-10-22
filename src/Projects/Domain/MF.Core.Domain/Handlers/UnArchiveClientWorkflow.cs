@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.GES.Interfaces;
@@ -8,22 +9,22 @@ using MF.Core.Messages.Command;
 
 namespace MF.Core.Domain.Handlers
 {
-    public class UnArchiveClientWorkflow : WorkflowBase, IHandler
+    public class UnArchiveClientWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
         public UnArchiveClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
-            : base(getEventStoreRepository, mongoRepository)
+            : base(mongoRepository)
         {
             _getEventStoreRepository = getEventStoreRepository;
             register(typeof(UnArchiveClient), archiveClient);
         }
 
-        private async Task<Client> archiveClient(IGESEvent x)
+        private void archiveClient(IGESEvent x)
         {
             var vent = (UnArchiveClient)x;
-            var item = await _getEventStoreRepository.GetById<Client>(vent.ClientId);
+            var item = _getEventStoreRepository.GetById<Client>(vent.ClientId).Result;
             item.Handle(vent);
-            return item;
+            _getEventStoreRepository.Save(item, Guid.NewGuid());
         }
     }
 }

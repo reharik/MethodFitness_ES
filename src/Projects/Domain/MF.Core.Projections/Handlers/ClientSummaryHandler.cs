@@ -20,7 +20,7 @@ namespace MF.Core.Projections.Handlers
             register(typeof(ClientUnArchived), clientUnArchived);
         }
 
-        private IReadModel HandleHouseGenerated(IGESEvent x)
+        private void HandleHouseGenerated(IGESEvent x)
         {
             var clientSignedUp = (HouseGeneratedClientSignedUp)x;
             var client = new ClientSummary();
@@ -28,10 +28,10 @@ namespace MF.Core.Projections.Handlers
             client.LastName = clientSignedUp.Contact.LastName;
             client.EmailAddress = clientSignedUp.Contact.EmailAddress;
             client.Phone = clientSignedUp.Contact.PhoneMobile;
-            return client;
+            _mongoRepository.Save(client);
         }
 
-        private IReadModel HandleTrainerGenerated(IGESEvent x)
+        private void HandleTrainerGenerated(IGESEvent x)
         {
             var clientSignedUp = (TrainerGeneratedClientSignedUp)x;
             var 
@@ -40,25 +40,25 @@ namespace MF.Core.Projections.Handlers
             client.LastName = clientSignedUp.Contact.LastName;
             client.EmailAddress = clientSignedUp.Contact.EmailAddress;
             client.Phone = clientSignedUp.Contact.PhoneMobile;
-            return client;
+            _mongoRepository.Save(client);
         }
 
-        private IReadModel clientArchived(IGESEvent x)
+        private void clientArchived(IGESEvent x)
         {
             var clientArchived = (ClientArchived)x;
             var client = _repository.Get<ClientSummary>(u => u.Id == clientArchived.ClientId);
             client.Archived = true;
             client.ArchivedDate = clientArchived.ArchivedDate;
-            return client;
+            _mongoRepository.Save(client);
         }
 
-        private IReadModel clientUnArchived(IGESEvent x)
+        private void clientUnArchived(IGESEvent x)
         {
             var clientUnArchived = (ClientUnArchived)x;
             var client = _repository.Get<ClientSummary>(u => u.Id == clientUnArchived.ClientId);
             client.Archived = false;
             client.ArchivedDate = clientUnArchived.UnArchivedDate;
-            return client;
+            _mongoRepository.Save(client);
         }
     }
 }

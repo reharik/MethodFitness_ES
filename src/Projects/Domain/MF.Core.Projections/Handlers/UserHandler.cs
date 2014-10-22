@@ -17,10 +17,9 @@ namespace MF.Core.Projections.Handlers
             register(typeof(UserLoggedIn), userLoggedIn);
             register(typeof(UserArchived), userArchived);
             register(typeof(UserUnArchived), userUnArchived);
-
         }
 
-        private IReadModel userLoggedIn(IGESEvent x)
+        private void userLoggedIn(IGESEvent x)
         {
             var userLoggedIn = (UserLoggedIn) x;
             var userLogins = new UserLogins
@@ -30,10 +29,10 @@ namespace MF.Core.Projections.Handlers
                     Token = userLoggedIn.Token,
                     Date = userLoggedIn.Now
                 };
-            return userLogins;
+            _mongoRepository.Save(userLogins);
         }
 
-        private IReadModel trainerHired(IGESEvent x)
+        private void trainerHired(IGESEvent x)
         {
             var trainerHired = (TrainerHired)x;
             var user = new User();
@@ -50,25 +49,25 @@ namespace MF.Core.Projections.Handlers
             user.PhoneMobile = trainerHired.Contact.PhoneMobile;
             user.PhoneSecondary = trainerHired.Contact.PhoneSecondary;
             user.Dob = trainerHired.Dob;
-            return user;
+            _mongoRepository.Save(user);
         }
 
-        private IReadModel userArchived(IGESEvent x)
+        private void userArchived(IGESEvent x)
         {
             var userArchived = (UserArchived)x;
             var user = _repository.Get<User>(u => u.Id == userArchived.UserId);
             user.Archived = true;
             user.ArchivedDate = userArchived.ArchivedDate;
-            return user;
+            _mongoRepository.Save(user);
         }
 
-        private IReadModel userUnArchived(IGESEvent x)
+        private void userUnArchived(IGESEvent x)
         {
             var userUnArchived = (UserUnArchived)x;
             var user = _repository.Get<User>(u => u.Id == userUnArchived.UserId);
             user.Archived = false;
             user.ArchivedDate = userUnArchived.UnArchivedDate;
-            return user;
+            _mongoRepository.Save(user);
         }
     }
 }

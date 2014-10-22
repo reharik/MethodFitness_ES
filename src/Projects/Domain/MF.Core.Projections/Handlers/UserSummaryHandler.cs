@@ -16,10 +16,9 @@ namespace MF.Core.Projections.Handlers
             register(typeof(TrainerHired), trainerHired);
             register(typeof(UserArchived), userArchived);
             register(typeof(UserUnArchived), userUnArchived);
-
         }
 
-        private IReadModel trainerHired(IGESEvent x)
+        private void trainerHired(IGESEvent x)
         {
             var trainerHired = (TrainerHired)x;
             var user = new UserSummary();
@@ -27,25 +26,25 @@ namespace MF.Core.Projections.Handlers
             user.LastName = trainerHired.Contact.LastName;
             user.EmailAddress = trainerHired.Contact.EmailAddress;
             user.PhoneMobile = trainerHired.Contact.PhoneMobile;
-            return user;
+            _mongoRepository.Save(user);
         }
 
-        private IReadModel userArchived(IGESEvent x)
+        private void userArchived(IGESEvent x)
         {
             var userArchived = (UserArchived)x;
             var user = _repository.Get<UserSummary>(u => u.Id == userArchived.UserId);
             user.Archived = true;
             user.ArchivedDate = userArchived.ArchivedDate;
-            return user;
+            _mongoRepository.Save(user);
         }
 
-        private IReadModel userUnArchived(IGESEvent x)
+        private void userUnArchived(IGESEvent x)
         {
             var userUnArchived = (UserUnArchived)x;
             var user = _repository.Get<UserSummary>(u => u.Id == userUnArchived.UserId);
             user.Archived = false;
             user.ArchivedDate = userUnArchived.UnArchivedDate;
-            return user;
+            _mongoRepository.Save(user);
         }
     }
 }

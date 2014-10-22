@@ -11,12 +11,12 @@ namespace MF.Core.Projections
         public ReadStoreDispatcher(IGESConnection gesConnection, List<IHandler> eventHandlers)
             : base(gesConnection, eventHandlers)
         {
-            _targetClrTypeName = "EventClrTypeName";
+            _targetTypeName = "EventTypeName";
             _eventFilter = x =>
             {
                 if (x.OriginalEvent.Metadata.Length <= 0 || x.OriginalEvent.Data.Length <= 0)
                 { return false; }
-                var jProperty = Newtonsoft.Json.Linq.JObject.Parse(Encoding.UTF8.GetString(x.Event.Metadata)).Property(_targetClrTypeName);
+                var jProperty = Newtonsoft.Json.Linq.JObject.Parse(Encoding.UTF8.GetString(x.Event.Metadata)).Property(_targetTypeName);
                 return !x.Event.EventType.StartsWith("$") && jProperty != null && jProperty.HasValues;
             };
         }
