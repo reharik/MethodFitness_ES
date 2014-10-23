@@ -40,7 +40,7 @@ namespace MF.Core.Infrastructure
         private  void GetLastEventProcessedForHandlers()
         {
             var positions = new List<Position>();
-            _eventHandlers.AsParallel().ForAll(x => positions.Add(x.LastProcessedPosition.Position)); 
+            _eventHandlers.ForEach(x => positions.Add(x.LastProcessedPosition.Position)); 
             position = positions.FirstOrDefault(p => p.CommitPosition == positions.Min(c => c.CommitPosition));
         }
 
@@ -49,7 +49,7 @@ namespace MF.Core.Infrastructure
             // add all handlers to the broadcast block so they receive news of events
             _broadcastBlock = new BroadcastBlock<IGESEvent>(x => x);
             // pass the two methods of the handler to the block, one determines if we are interested in this event, the other processes it.
-            _eventHandlers.ForEach(x => _broadcastBlock.LinkTo(x.ReturnActionBlock(), y => x.Handles.ContainsKey(y.GetType().Name)));
+            _eventHandlers.ForEach(x => _broadcastBlock.LinkTo(x.ReturnActionBlock(), y => x.Handles.ContainsKey(y.GetType())));
             _broadcastBlock.LinkTo(DataflowBlock.NullTarget<IGESEvent>());
         }
 

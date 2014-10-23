@@ -75,21 +75,21 @@
     <Compile Include="DomainRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\MF.Core.Infrastructure\MF.Core.Infrastructure.csproj">
-      <Project>{23DC4154-011C-4950-B314-813B536D8398}</Project>
+      <Project>{23dc4154-011c-4950-b314-813b536d8398}</Project>
       <Name>MF.Core.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\MF.Core.Messages\MF.Core.Messages.csproj">
-      <Project>{989CC909-33F7-4435-94CE-F5A6C71A6A7B}</Project>
+      <Project>{989cc909-33f7-4435-94ce-f5a6c71a6a7b}</Project>
       <Name>MF.Core.Messages</Name>
     </ProjectReference>
     <ProjectReference Include="..\MF.Core.ReadModel\MF.Core.ReadModel.csproj">
       <Project>{7ec77e03-4cae-42c0-9f79-cd9cb1d52afd}</Project>
       <Name>MF.Core.ReadModel</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

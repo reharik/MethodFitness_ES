@@ -12,25 +12,25 @@ namespace MF.Core.Infrastructure
         protected readonly IMongoRepository _mongoRepository;
         protected string _handlerType;
         private LastProcessedPosition _lastProcessedPosition;
-        public Dictionary<string, Action<IGESEvent>> Handles { get; set; }
+        public Dictionary<Type, Action<IGESEvent>> Handles { get; set; }
 
         public HandlerBase(IMongoRepository mongoRepository)
         {
             _mongoRepository = mongoRepository;
 
             _handlerType = GetType().Name;
-            Handles = new Dictionary<string, Action<IGESEvent>>();
+            Handles = new Dictionary<Type, Action<IGESEvent>>();
         }
 
         public ActionBlock<IGESEvent> ReturnActionBlock()
         {
-            return new ActionBlock<IGESEvent>(x => HandleEvent(x, Handles[x.GetType().Name]),
+            return new ActionBlock<IGESEvent>(x => HandleEvent(x, Handles[x.GetType()]),
                 new ExecutionDataflowBlockOptions() { MaxDegreeOfParallelism = 4 });
         }
 
         protected void register(Type t, Action<IGESEvent> func)
         {
-            Handles.Add(t.Name, func);
+            Handles.Add(t, func);
         }
 
         protected virtual void HandleEvent(IGESEvent @event, Action<IGESEvent> handleBy)

@@ -6,7 +6,7 @@ namespace MF.Core.Domain
 {
     public class DomainRegistry : Registry
     {
-        public DomainRegistry()
+        public    DomainRegistry()
         {
             Scan(x =>
             {

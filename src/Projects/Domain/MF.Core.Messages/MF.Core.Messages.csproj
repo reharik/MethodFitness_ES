@@ -66,13 +66,13 @@
     <Compile Include="Events\TrainerHired.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MF.Core.Infrastructure\MF.Core.Infrastructure.csproj">
-      <Project>{23DC4154-011C-4950-B314-813B536D8398}</Project>
-      <Name>MF.Core.Infrastructure</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\MF.Core.Infrastructure\MF.Core.Infrastructure.csproj">
+      <Project>{23dc4154-011c-4950-b314-813b536d8398}</Project>
+      <Name>MF.Core.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -11,6 +11,7 @@ namespace MF.Core.Domain
             : base(gesConnection, eventHandlers)
         {
             _targetTypeName = "CommandTypeName";
+
             _eventFilter = x =>
                 {
                     if (x.OriginalEvent.Metadata.Length <= 0 || x.OriginalEvent.Data.Length <= 0)

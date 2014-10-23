@@ -19,6 +19,7 @@ public class Bootstrapper
                 x.Scan(z =>
                 {
                     z.TheCallingAssembly();
+                    z.AddAllTypesOf<IHandler>();
                     z.WithDefaultConventions();
                 });
                 x.For<IDispatcher>().Use<CommandDispatcher>();
@@ -27,7 +28,7 @@ public class Bootstrapper
                 x.AddRegistry(new InfrastructureRegistry());
                                 x.AddRegistry(new ReadModelRegistry());
             });
-            ObjectFactory.Container.AssertConfigurationIsValid();
+//            ObjectFactory.Container.AssertConfigurationIsValid();
 
         }
     }

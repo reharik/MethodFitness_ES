@@ -22,6 +22,7 @@ namespace MF.Core.Domain.Handlers
 
         private void bootstrap(IGESEvent x)
         {
+            Console.WriteLine("bootstrapping");
             if (_mongoRepository.Queryable<State>().Any()) return;
             var list = new List<State>
                 {
@@ -77,6 +78,8 @@ namespace MF.Core.Domain.Handlers
                     new State {Code = "WI", Name = "Wisconsin"},
                     new State {Code = "WY", Name = "Wyoming"}
                 };
+            Console.WriteLine("count = "+list.Count);
+
             _mongoRepository.Save(list.AsEnumerable());
         }
     }

@@ -35,7 +35,7 @@ namespace MF.Core.Infrastructure.Mongo
                 _client = new MongoClient(connStr);
 
             return (_db ?? (_db = _client.GetServer()
-                .GetDatabase("test",
+                .GetDatabase("methodfitness-dev",
                     new MongoDatabaseSettings
                     {
                         GuidRepresentation = GuidRepresentation.Standard
