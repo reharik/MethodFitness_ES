@@ -21,7 +21,7 @@ namespace MF.Core.MessageBinders.MessageBinders
 
         public void AcceptRequest(string userName, string password)
         {
-            var user = _mongoRepository.Get<User>(x => x.UserName == userName);
+            var user = _mongoRepository.Get<Users>(x => x.UserName == userName);
             if (user == null)
             {
                 throw new Exception("Username not found");

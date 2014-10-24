@@ -19,7 +19,7 @@ namespace MF.Core.Projections.Handlers
         private void HandleHouseGenerated(IGESEvent x)
         {
             var clientSignedUp = (HouseGeneratedClientSignedUp)x;
-            var client = new Client();
+            var client = new Clients();
             client.Id = clientSignedUp.Id;
             client.FirstName = clientSignedUp.Contact.FirstName;
             client.LastName = clientSignedUp.Contact.LastName;
@@ -34,7 +34,7 @@ namespace MF.Core.Projections.Handlers
         private void HandleTrainerGenerated(IGESEvent x)
         {
             var clientSignedUp = (TrainerGeneratedClientSignedUp)x;
-            var client = new Client();
+            var client = new Clients();
             client.Id = clientSignedUp.Id;
             client.FirstName = clientSignedUp.Contact.FirstName;
             client.LastName = clientSignedUp.Contact.LastName;
@@ -49,7 +49,7 @@ namespace MF.Core.Projections.Handlers
         private void clientArchived(IGESEvent x)
         {
             var clientArchived = (ClientArchived)x;
-            var client = _mongoRepository.Get<Client>(u => u.Id == clientArchived.ClientId);
+            var client = _mongoRepository.Get<Clients>(u => u.Id == clientArchived.ClientId);
             client.Archived = true;
             client.ArchivedDate = clientArchived.ArchivedDate;
             _mongoRepository.Save(client);
@@ -58,7 +58,7 @@ namespace MF.Core.Projections.Handlers
         private void clientUnArchived(IGESEvent x)
         {
             var clientUnArchived = (ClientUnArchived)x;
-            var client = _mongoRepository.Get<Client>(u => u.Id == clientUnArchived.ClientId);
+            var client = _mongoRepository.Get<Clients>(u => u.Id == clientUnArchived.ClientId);
             client.Archived = false;
             client.ArchivedDate = clientUnArchived.UnArchivedDate;
             _mongoRepository.Save(client);

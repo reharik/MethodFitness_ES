@@ -8,23 +8,23 @@ using MF.Core.Messages.Command;
 
 namespace MF.Core.Domain.Handlers
 {
-    public class SignUpTrainerGeneratedClientWorkflow : HandlerBase, IHandler
+    public class SignUpHouseGeneratedClientWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
 
-        public SignUpTrainerGeneratedClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
+        public SignUpHouseGeneratedClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
             : base(mongoRepository)
         {
             _getEventStoreRepository = getEventStoreRepository;
-            register(typeof(SignUpTrainerGeneratedClient), signUpTrainerGeneratedClient);
+            register(typeof(SignUpHouseGeneratedClient), archiveUser);
         }
 
-        private void signUpTrainerGeneratedClient(IGESEvent x)
+        private void archiveUser(IGESEvent x)
         {
-            var signUpNewClient = (SignUpTrainerGeneratedClient)x;
-            var client = new Client();
-            client.Handle(signUpNewClient);
-            _getEventStoreRepository.Save(client, Guid.NewGuid());
+            var vent = (SignUpHouseGeneratedClient)x;
+            var item = new Client();
+            item.Handle(vent);
+            _getEventStoreRepository.Save(item, Guid.NewGuid());
         }
     }
 }

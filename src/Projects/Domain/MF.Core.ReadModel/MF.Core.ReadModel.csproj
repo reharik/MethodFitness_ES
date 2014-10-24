@@ -54,13 +54,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\CalendarAppointment.cs" />
-    <Compile Include="Model\Client.cs" />
-    <Compile Include="Model\ClientSummary.cs" />
-    <Compile Include="Model\State.cs" />
-    <Compile Include="Model\UserSummary.cs" />
+    <Compile Include="Model\CalendarAppointments.cs" />
+    <Compile Include="Model\Clients.cs" />
+    <Compile Include="Model\ClientSummaries.cs" />
+    <Compile Include="Model\States.cs" />
+    <Compile Include="Model\UserSummaries.cs" />
     <Compile Include="ReadModelRegistry.cs" />
-    <Compile Include="Model\User.cs" />
+    <Compile Include="Model\Users.cs" />
     <Compile Include="Model\UserLogins.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

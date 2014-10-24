@@ -89,6 +89,7 @@
     <Compile Include="GES\RegistrationEventRouter.cs" />
     <Compile Include="SharedModels\IReadModel.cs" />
     <Compile Include="SharedModels\LastProcessedPosition.cs" />
+    <Compile Include="UIResponsePoster.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

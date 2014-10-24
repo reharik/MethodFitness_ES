@@ -33,7 +33,7 @@ namespace MF.Core.MessageBinders.MessageBinders
             string phoneSecondary,
             DateTime dob)
         {
-            var user = _mongoRepository.Get<User>(x => x.UserName == userName);
+            var user = _mongoRepository.Get<Users>(x => x.UserName == userName);
             if (user != null)
             {
                 throw new Exception("User with that username already exists");

@@ -35,7 +35,7 @@ namespace MF.Core.Projections.Handlers
         private void trainerHired(IGESEvent x)
         {
             var trainerHired = (TrainerHired)x;
-            var user = new User();
+            var user = new Users();
             user.Id = trainerHired.Id;
             user.UserName = trainerHired.Credentials.UserName;
             user.FirstName = trainerHired.Contact.FirstName;
@@ -55,7 +55,7 @@ namespace MF.Core.Projections.Handlers
         private void userArchived(IGESEvent x)
         {
             var userArchived = (UserArchived)x;
-            var user = _repository.Get<User>(u => u.Id == userArchived.UserId);
+            var user = _repository.Get<Users>(u => u.Id == userArchived.UserId);
             user.Archived = true;
             user.ArchivedDate = userArchived.ArchivedDate;
             _mongoRepository.Save(user);
@@ -64,7 +64,7 @@ namespace MF.Core.Projections.Handlers
         private void userUnArchived(IGESEvent x)
         {
             var userUnArchived = (UserUnArchived)x;
-            var user = _repository.Get<User>(u => u.Id == userUnArchived.UserId);
+            var user = _repository.Get<Users>(u => u.Id == userUnArchived.UserId);
             user.Archived = false;
             user.ArchivedDate = userUnArchived.UnArchivedDate;
             _mongoRepository.Save(user);

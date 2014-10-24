@@ -18,7 +18,7 @@ namespace MF.Core.Projections.Handlers
         private void singleSessionBooked(IGESEvent x)
         {
             var vent = (SingleSessionBooked)x;
-            var item = new CalendarAppointment
+            var item = new CalendarAppointments
                 {
                     Id = Guid.NewGuid(),
                     TrainerId = vent.TrainerDisplay.TrainerId,

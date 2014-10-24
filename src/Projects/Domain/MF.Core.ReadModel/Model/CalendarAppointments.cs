@@ -3,7 +3,7 @@ using MF.Core.Infrastructure.SharedModels;
 
 namespace MF.Core.ReadModel.Model
 {
-    public class CalendarAppointment : IReadModel
+    public class CalendarAppointments : IReadModel
     {
         public Guid Id { get; set; }
         public Guid TrainerId { get; set; }

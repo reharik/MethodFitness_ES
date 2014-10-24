@@ -67,8 +67,8 @@
     <Compile Include="Handlers\BootstrapApplicationWorkflow.cs" />
     <Compile Include="Handlers\HireTrainerWorkflow.cs" />
     <Compile Include="Handlers\LoginUserWorkflow.cs" />
-    <Compile Include="Handlers\SignUpHouseGeneratedClientWorkflow.cs" />
     <Compile Include="Handlers\SignUpTrainerGeneratedClientWorkflow.cs" />
+    <Compile Include="Handlers\SignUpHouseGeneratedClientWorkflow.cs" />
     <Compile Include="Handlers\UnArchiveClientWorkflow.cs" />
     <Compile Include="Handlers\UnArchiveUserWorkflow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

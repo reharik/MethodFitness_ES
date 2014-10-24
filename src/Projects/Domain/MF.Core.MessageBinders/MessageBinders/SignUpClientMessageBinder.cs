@@ -28,7 +28,7 @@ namespace MF.Core.MessageBinders.MessageBinders
             string sourceNotes,
             DateTime startDate)
         {
-            var user = _mongoRepository.Get<Client>(x => x.EmailAddress == emailAddress);
+            var user = _mongoRepository.Get<Clients>(x => x.EmailAddress == emailAddress);
             if (user != null)
             {
                 throw new Exception("Client with that email address already exists");

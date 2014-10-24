@@ -1,12 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using MF.Core.Infrastructure;
 using StructureMap;
 
-namespace MF.Core.Projections
+namespace MF.Core.Projections.Console
 {
     class Program
     {
-        private static void Main(string[] args)
+        static void Main(string[] args)
         {
             Bootstrapper.Bootstrap();
             try
@@ -17,9 +21,9 @@ namespace MF.Core.Projections
             catch (Exception ex)
             {
                 // do something with exception.  emit event or something
-                Console.WriteLine(ex.Message);
+                System.Console.WriteLine(ex.Message);
             }
-            Console.Read();
+            System.Console.Read();
         }
     }
-}   
+}

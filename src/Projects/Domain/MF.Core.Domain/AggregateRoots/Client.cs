@@ -14,7 +14,7 @@ namespace MF.Core.Domain.AggregateRoots
         public void Handle(SignUpTrainerGeneratedClient cmd)
         {
             ExpectEmailAddressValid(cmd.Contact.EmailAddress);
-            RaiseEvent(new TrainerGeneratedClientSignedUp(Id,
+            RaiseEvent(new TrainerGeneratedClientSignedUp(Guid.NewGuid(),
                                         cmd.Contact,
                                         cmd.TrainerId,
                                         cmd.SourceNotes,
@@ -24,7 +24,7 @@ namespace MF.Core.Domain.AggregateRoots
         public void Handle(SignUpHouseGeneratedClient cmd)
         {
             ExpectEmailAddressValid(cmd.Contact.EmailAddress);
-            RaiseEvent(new HouseGeneratedClientSignedUp(Id,
+            RaiseEvent(new HouseGeneratedClientSignedUp(Guid.NewGuid(),
                                         cmd.Contact,
                                         cmd.TrainerId,
                                         cmd.Source,
@@ -49,12 +49,12 @@ namespace MF.Core.Domain.AggregateRoots
    
         public void Apply(TrainerGeneratedClientSignedUp vent)
         {
-            _startDate = vent.StartDate;
+            Id = vent.Id;
         }
 
         public void Apply(HouseGeneratedClientSignedUp vent)
         {
-            _startDate = vent.StartDate;
+            Id = vent.Id;
         }
 
         public void Apply(ClientArchived vent)

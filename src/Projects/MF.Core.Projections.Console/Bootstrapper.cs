@@ -3,11 +3,11 @@ using MF.Core.ReadModel;
 using StructureMap;
 using StructureMap.Graph;
 
-namespace MF.Core.Projections
+namespace MF.Core.Projections.Console
 {
     public class Bootstrapper
     {
-        public static void Bootstrap()
+         public static void  Bootstrap()
         {
             new Bootstrapper().Start();
         }
@@ -16,7 +16,7 @@ namespace MF.Core.Projections
         {
             ObjectFactory.Initialize(x =>
             {
-                x.Scan(z=>
+                x.Scan(z =>
                 {
                     z.TheCallingAssembly();
                     z.AddAllTypesOf<IHandler>();
@@ -25,7 +25,10 @@ namespace MF.Core.Projections
                 x.For<IDispatcher>().Use<ReadStoreDispatcher>();
                 x.AddRegistry(new InfrastructureRegistry());
                 x.AddRegistry(new ReadModelRegistry());
+                x.AddRegistry(new ProjectionsRegistry());
             });
+//            ObjectFactory.Container.AssertConfigurationIsValid();
+
         }
     }
 }

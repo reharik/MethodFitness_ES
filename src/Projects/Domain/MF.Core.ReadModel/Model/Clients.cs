@@ -3,7 +3,7 @@ using MF.Core.Infrastructure.SharedModels;
 
 namespace MF.Core.ReadModel.Model
 {
-    public class Client : IReadModel
+    public class Clients : IReadModel
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }
