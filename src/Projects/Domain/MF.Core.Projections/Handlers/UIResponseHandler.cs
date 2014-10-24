@@ -35,7 +35,7 @@ namespace MF.Core.Projections.Handlers
             client.FirstName = clientSignedUp.Contact.FirstName;
             client.LastName = clientSignedUp.Contact.LastName;
             client.EmailAddress = clientSignedUp.Contact.EmailAddress;
-            client.Phone = clientSignedUp.Contact.PhoneMobile;
+            client.Phone = clientSignedUp.Contact.Phone;
             _mongoRepository.Save(client);
         }
     }

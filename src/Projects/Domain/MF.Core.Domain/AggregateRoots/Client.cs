@@ -16,6 +16,7 @@ namespace MF.Core.Domain.AggregateRoots
             ExpectEmailAddressValid(cmd.Contact.EmailAddress);
             RaiseEvent(new TrainerGeneratedClientSignedUp(Guid.NewGuid(),
                                         cmd.Contact,
+                                        cmd.Address,
                                         cmd.TrainerId,
                                         cmd.SourceNotes,
                                         cmd.StartDate));
@@ -26,6 +27,7 @@ namespace MF.Core.Domain.AggregateRoots
             ExpectEmailAddressValid(cmd.Contact.EmailAddress);
             RaiseEvent(new HouseGeneratedClientSignedUp(Guid.NewGuid(),
                                         cmd.Contact,
+                                        cmd.Address,
                                         cmd.TrainerId,
                                         cmd.Source,
                                         cmd.SourceNotes,

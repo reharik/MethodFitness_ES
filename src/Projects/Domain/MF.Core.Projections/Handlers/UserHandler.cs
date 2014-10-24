@@ -46,7 +46,7 @@ namespace MF.Core.Projections.Handlers
             user.City = trainerHired.Address.City;
             user.State = trainerHired.Address.State;
             user.ZipCode = trainerHired.Address.ZipCode;
-            user.PhoneMobile = trainerHired.Contact.PhoneMobile;
+            user.PhoneMobile = trainerHired.Contact.Phone;
             user.PhoneSecondary = trainerHired.Contact.PhoneSecondary;
             user.Dob = trainerHired.Dob;
             _mongoRepository.Save(user);

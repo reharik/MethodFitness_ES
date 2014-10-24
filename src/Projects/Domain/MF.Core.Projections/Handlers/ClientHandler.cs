@@ -24,7 +24,7 @@ namespace MF.Core.Projections.Handlers
             client.FirstName = clientSignedUp.Contact.FirstName;
             client.LastName = clientSignedUp.Contact.LastName;
             client.EmailAddress = clientSignedUp.Contact.EmailAddress;
-            client.Phone = clientSignedUp.Contact.PhoneMobile;
+            client.Phone = clientSignedUp.Contact.Phone;
             client.Source = clientSignedUp.Source;
             client.SourceNotes = clientSignedUp.SourceNotes;
             _mongoRepository.Save(client);
@@ -39,7 +39,7 @@ namespace MF.Core.Projections.Handlers
             client.FirstName = clientSignedUp.Contact.FirstName;
             client.LastName = clientSignedUp.Contact.LastName;
             client.EmailAddress = clientSignedUp.Contact.EmailAddress;
-            client.Phone = clientSignedUp.Contact.PhoneMobile;
+            client.Phone = clientSignedUp.Contact.Phone;
             //TODO this should be populated ... somewhere higher up.
 //            client.Source = clientSignedUp.Source;
             client.SourceNotes = clientSignedUp.SourceNotes;

@@ -24,8 +24,7 @@ namespace MF.Core.Infrastructure
 
         public ActionBlock<IGESEvent> ReturnActionBlock()
         {
-            return new ActionBlock<IGESEvent>(x => HandleEvent(x, Handles[x.GetType()]),
-                new ExecutionDataflowBlockOptions() { MaxDegreeOfParallelism = 4 });
+            return new ActionBlock<IGESEvent>(x => HandleEvent(x, Handles[x.GetType()]));
         }
 
         protected void register(Type t, Action<IGESEvent> func)

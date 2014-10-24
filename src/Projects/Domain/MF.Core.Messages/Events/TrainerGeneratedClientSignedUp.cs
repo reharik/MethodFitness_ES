@@ -8,6 +8,7 @@ namespace MF.Core.Messages.Events
     {
         private readonly Contact _contact;
         public Guid Id { get; private set; }
+        public Address Address { get; set; }
         public Contact Contact { get; set; }
         public Guid TrainerId { get; private set; }
         public string SourceNotes { get; private set; }
@@ -18,13 +19,15 @@ namespace MF.Core.Messages.Events
 
         public TrainerGeneratedClientSignedUp(Guid id,
           Contact contact,
+            Address address,
             Guid trainerId,
             string sourceNotes,
             DateTime startDate)
         {
             _contact = contact;
             Id = id;
-           
+            Address = address;
+
             TrainerId = trainerId;
             SourceNotes = sourceNotes;
             StartDate = startDate;

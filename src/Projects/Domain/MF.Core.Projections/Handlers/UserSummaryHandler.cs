@@ -25,7 +25,7 @@ namespace MF.Core.Projections.Handlers
             user.FirstName = trainerHired.Contact.FirstName;
             user.LastName = trainerHired.Contact.LastName;
             user.EmailAddress = trainerHired.Contact.EmailAddress;
-            user.PhoneMobile = trainerHired.Contact.PhoneMobile;
+            user.PhoneMobile = trainerHired.Contact.Phone;
             _mongoRepository.Save(user);
         }
 

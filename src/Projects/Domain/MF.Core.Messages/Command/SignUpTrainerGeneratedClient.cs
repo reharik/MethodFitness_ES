@@ -9,11 +9,13 @@ namespace MF.Core.Messages.Command
     {
         public SignUpTrainerGeneratedClient(
             Contact contact,
+            Address address,
             Guid trainerId,
             string sourceNotes,
             DateTime startDate)
         {
             Contact = contact;
+            Address = address;
             TrainerId = trainerId;
             SourceNotes = sourceNotes;
             StartDate = startDate;
@@ -21,6 +23,7 @@ namespace MF.Core.Messages.Command
         }
 
         public Contact Contact { get; set; }
+        public Address Address { get; set; }
         public Guid TrainerId { get; private set; }
         public string SourceNotes { get; private set; }
         public DateTime StartDate { get; private set; }
