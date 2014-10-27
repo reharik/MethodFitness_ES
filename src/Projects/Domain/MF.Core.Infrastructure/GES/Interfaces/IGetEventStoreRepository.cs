@@ -8,6 +8,6 @@ namespace MF.Core.Infrastructure.GES.Interfaces
     {
         Task<TAggregate> GetById<TAggregate>(Guid id) where TAggregate : class, IAggregate;
         Task<TAggregate> GetById<TAggregate>(Guid id, int version) where TAggregate : class, IAggregate;
-        void Save(IAggregate aggregate, Guid commitId, IDictionary<string, object> updateHeaders = null);
+        void Save(IAggregate aggregate, Guid commitId, Dictionary<string, object> updateHeaders = null);
     }
 }

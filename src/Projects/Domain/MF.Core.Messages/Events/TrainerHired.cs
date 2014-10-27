@@ -4,7 +4,7 @@ using MF.Core.Infrastructure.SharedModels;
 
 namespace MF.Core.Messages.Events
 {
-    public class TrainerHired : IGESEvent
+    public class TrainerHired : GESEvent
     {
         public Guid Id { get; private set; }
         public Address Address { get; private set; }

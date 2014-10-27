@@ -14,7 +14,7 @@ namespace MF.Core.Projections
             _targetTypeName = "EventTypeName";
             _eventFilter = x =>
             {
-                if (x.OriginalEvent.Metadata.Length <= 0 || x.OriginalEvent.Data.Length <= 0)
+                if (x.OriginalEvent.Metadata.Length <= 0 || x.OriginalEvent.Data.Length <= 0 || (!_isLive&&x.Event.EventType == "UIProjection"))
                 { return false; }
                 var jProperty = Newtonsoft.Json.Linq.JObject.Parse(Encoding.UTF8.GetString(x.Event.Metadata)).Property(_targetTypeName);
                 return !x.Event.EventType.StartsWith("$") && jProperty != null && jProperty.HasValues;

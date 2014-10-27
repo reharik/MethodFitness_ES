@@ -4,7 +4,7 @@ using MF.Core.Infrastructure.SharedModels;
 
 namespace MF.Core.Messages.Events
 {
-    public class TrainerGeneratedClientSignedUp : IGESEvent
+    public class TrainerGeneratedClientSignedUp : GESEvent
     {
         private readonly Contact _contact;
         public Guid Id { get; private set; }
@@ -13,6 +13,7 @@ namespace MF.Core.Messages.Events
         public Guid TrainerId { get; private set; }
         public string SourceNotes { get; private set; }
         public DateTime StartDate { get; private set; }
+        public DateTime Dob { get; private set; }
 
         public string EventType { get; private set; }
         public Position? OriginalPosition { get; set; }
@@ -22,7 +23,8 @@ namespace MF.Core.Messages.Events
             Address address,
             Guid trainerId,
             string sourceNotes,
-            DateTime startDate)
+            DateTime startDate,
+            DateTime dob)
         {
             _contact = contact;
             Id = id;
@@ -31,6 +33,7 @@ namespace MF.Core.Messages.Events
             TrainerId = trainerId;
             SourceNotes = sourceNotes;
             StartDate = startDate;
+            Dob = dob;
             EventType = GetType().Name;
         }
 

@@ -97,7 +97,7 @@ namespace MF.Core.Infrastructure.GES
             return JsonConvert.DeserializeObject(Encoding.UTF8.GetString(data), Type.GetType((string)eventTypeName));
         }
 
-       public async void Save(IAggregate aggregate, Guid commitId, IDictionary<string, object> updateHeaders = null)
+       public async void Save(IAggregate aggregate, Guid commitId, Dictionary<string, object> updateHeaders = null)
        {
            // standard data for metadata portion of persisted event
             var commitHeaders = new Dictionary<string, object>
@@ -108,10 +108,7 @@ namespace MF.Core.Infrastructure.GES
                 {AggregateTypeHeader, aggregate.GetType().AssemblyQualifiedName}
             };
             // add extra data to metadata portion of presisted event
-            commitHeaders = (updateHeaders ?? new Dictionary<string, object>())
-                .Concat(commitHeaders)
-                .GroupBy(d => d.Key)
-                .ToDictionary(d => d.Key, d => d.First().Value);
+           commitHeaders = commitHeaders.AddDictionary(updateHeaders);
 
             // streamname is created by func, by default agg type concat to agg id
             var streamName = _aggregateIdToStreamName(aggregate.GetType(), aggregate.Id);

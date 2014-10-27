@@ -14,7 +14,7 @@ namespace MF.Core.Projections.Handlers
         private readonly IUIResponsePoster _uiResponsePoster;
 
         public UIResponseHandler(IMongoRepository repository, IUIResponsePoster uiResponsePoster)
-            : base(repository)
+            : base(repository, uiResponsePoster)
         {
             _repository = repository;
             _uiResponsePoster = uiResponsePoster;

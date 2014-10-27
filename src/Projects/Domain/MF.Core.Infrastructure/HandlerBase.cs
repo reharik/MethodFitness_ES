@@ -10,13 +10,16 @@ namespace MF.Core.Infrastructure
     public class HandlerBase
     {
         protected readonly IMongoRepository _mongoRepository;
+        private readonly IUIResponsePoster _uiResponsePoster;
         protected string _handlerType;
         private LastProcessedPosition _lastProcessedPosition;
         public Dictionary<Type, Action<IGESEvent>> Handles { get; set; }
+        public GESEvent _responseMessage;
 
-        public HandlerBase(IMongoRepository mongoRepository)
+        public HandlerBase(IMongoRepository mongoRepository, IUIResponsePoster uiResponsePoster)
         {
             _mongoRepository = mongoRepository;
+            _uiResponsePoster = uiResponsePoster;
 
             _handlerType = GetType().Name;
             Handles = new Dictionary<Type, Action<IGESEvent>>();
@@ -45,12 +48,13 @@ namespace MF.Core.Infrastructure
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                _responseMessage = new UINotification("Failure", ex.Message);
 
-                //TODO Publish a message with this error
             }
             finally
             {
-                //TODO Possibly publish message
+                if(_responseMessage!=null)
+                    _uiResponsePoster.PostEvent(_responseMessage,Guid.NewGuid());
             }
         }
 

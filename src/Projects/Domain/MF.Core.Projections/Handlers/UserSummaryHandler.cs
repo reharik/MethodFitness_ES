@@ -8,11 +8,12 @@ namespace MF.Core.Projections.Handlers
 {
     public class UserSummaryHandler : HandlerBase, IHandler
     {
-        private readonly IMongoRepository _repository;
+        private readonly IMongoRepository _mongoRepository;
 
-        public UserSummaryHandler(IMongoRepository repository) : base(repository)
+        public UserSummaryHandler(IMongoRepository mongoRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
-            _repository = repository;
+            _mongoRepository = mongoRepository;
             register(typeof(TrainerHired), trainerHired);
             register(typeof(UserArchived), userArchived);
             register(typeof(UserUnArchived), userUnArchived);
@@ -32,7 +33,7 @@ namespace MF.Core.Projections.Handlers
         private void userArchived(IGESEvent x)
         {
             var userArchived = (UserArchived)x;
-            var user = _repository.Get<UserSummaries>(u => u.Id == userArchived.UserId);
+            var user = _mongoRepository.Get<UserSummaries>(u => u.Id == userArchived.UserId);
             user.Archived = true;
             user.ArchivedDate = userArchived.ArchivedDate;
             _mongoRepository.Save(user);
@@ -41,7 +42,7 @@ namespace MF.Core.Projections.Handlers
         private void userUnArchived(IGESEvent x)
         {
             var userUnArchived = (UserUnArchived)x;
-            var user = _repository.Get<UserSummaries>(u => u.Id == userUnArchived.UserId);
+            var user = _mongoRepository.Get<UserSummaries>(u => u.Id == userUnArchived.UserId);
             user.Archived = false;
             user.ArchivedDate = userUnArchived.UnArchivedDate;
             _mongoRepository.Save(user);

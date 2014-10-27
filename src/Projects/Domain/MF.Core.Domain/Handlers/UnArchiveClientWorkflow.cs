@@ -12,8 +12,8 @@ namespace MF.Core.Domain.Handlers
     public class UnArchiveClientWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
-        public UnArchiveClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
-            : base(mongoRepository)
+        public UnArchiveClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
             _getEventStoreRepository = getEventStoreRepository;
             register(typeof(UnArchiveClient), archiveClient);

@@ -12,8 +12,8 @@ namespace MF.Core.Domain.Handlers
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
 
-        public SignUpTrainerGeneratedClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
-            : base(mongoRepository)
+        public SignUpTrainerGeneratedClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
             _getEventStoreRepository = getEventStoreRepository;
             register(typeof(SignUpTrainerGeneratedClient), signUpTrainerGeneratedClient);

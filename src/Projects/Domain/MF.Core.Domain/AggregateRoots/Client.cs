@@ -19,7 +19,8 @@ namespace MF.Core.Domain.AggregateRoots
                                         cmd.Address,
                                         cmd.TrainerId,
                                         cmd.SourceNotes,
-                                        cmd.StartDate));
+                                        cmd.StartDate,
+                                        cmd.Dob));
         }
 
         public void Handle(SignUpHouseGeneratedClient cmd)
@@ -31,7 +32,8 @@ namespace MF.Core.Domain.AggregateRoots
                                         cmd.TrainerId,
                                         cmd.Source,
                                         cmd.SourceNotes,
-                                        cmd.StartDate));
+                                        cmd.StartDate,
+                                        cmd.Dob));
         }
 
         public void Handle(UnArchiveClient unArchiveClient)

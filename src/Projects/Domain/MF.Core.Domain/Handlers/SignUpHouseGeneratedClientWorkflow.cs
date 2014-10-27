@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.GES.Interfaces;
@@ -12,19 +13,20 @@ namespace MF.Core.Domain.Handlers
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
 
-        public SignUpHouseGeneratedClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
-            : base(mongoRepository)
+        public SignUpHouseGeneratedClientWorkflow(IMongoRepository mongoRepository,
+            IGetEventStoreRepository getEventStoreRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
             _getEventStoreRepository = getEventStoreRepository;
-            register(typeof(SignUpHouseGeneratedClient), archiveUser);
+            register(typeof(SignUpHouseGeneratedClient), signUpHouseGeneratedClient);
         }
 
-        private void archiveUser(IGESEvent x)
+        private void signUpHouseGeneratedClient(IGESEvent x)
         {
             var vent = (SignUpHouseGeneratedClient)x;
             var item = new Client();
             item.Handle(vent);
-            _getEventStoreRepository.Save(item, Guid.NewGuid());
+            _getEventStoreRepository.Save(item, Guid.NewGuid(),vent.MetaData);
         }
     }
 }

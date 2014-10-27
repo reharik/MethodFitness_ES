@@ -31,7 +31,8 @@ namespace MF.Core.MessageBinders.MessageBinders
             Guid trainerId,
             string source,
             string sourceNotes,
-            DateTime startDate)
+            DateTime startDate,
+            DateTime dob)
         {
             var user = _mongoRepository.Get<Clients>(x => x.EmailAddress == emailAddress);
             if (user != null)
@@ -43,7 +44,7 @@ namespace MF.Core.MessageBinders.MessageBinders
             {
                 var trainerGeneratedClient = new SignUpTrainerGeneratedClient(new Contact(firstName, lastName, emailAddress, phone),
                     new Address(address1, address2, city, state, zip),
-                    trainerId, sourceNotes, startDate);
+                    trainerId, sourceNotes, startDate, dob);
                 PostEvent(trainerGeneratedClient, Guid.NewGuid());
             }
             else
@@ -51,7 +52,7 @@ namespace MF.Core.MessageBinders.MessageBinders
                 // validate email address.
                 var houseGeneratedClient = new SignUpHouseGeneratedClient(new Contact(firstName, lastName, emailAddress, phone),
                     new Address(address1,address2,city,state,zip), 
-                    trainerId, source, sourceNotes, startDate);
+                    trainerId, source, sourceNotes, startDate, dob);
                 PostEvent(houseGeneratedClient, Guid.NewGuid());
             }
         }

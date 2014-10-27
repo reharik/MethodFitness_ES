@@ -9,7 +9,8 @@ namespace MF.Core.Projections.Handlers
 {
     public class CalendarViewHandler : HandlerBase, IHandler
     {
-        public CalendarViewHandler(IMongoRepository mongoRepository) : base(mongoRepository)
+        public CalendarViewHandler(IMongoRepository mongoRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
             register(typeof(HalfHourSessionBooked), singleSessionBooked);
             register(typeof(FullHourSessionBooked), singleSessionBooked);

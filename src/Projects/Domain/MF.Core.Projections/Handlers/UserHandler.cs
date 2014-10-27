@@ -8,11 +8,12 @@ namespace MF.Core.Projections.Handlers
 {
     public class UserHandler : HandlerBase, IHandler
     {
-        private readonly IMongoRepository _repository;
+        private readonly IMongoRepository _mongoRepository;
 
-        public UserHandler(IMongoRepository repository) : base(repository)
+        public UserHandler(IMongoRepository mongoRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
-            _repository = repository;
+            _mongoRepository = mongoRepository;
             register(typeof(TrainerHired), trainerHired);
             register(typeof(UserLoggedIn), userLoggedIn);
             register(typeof(UserArchived), userArchived);
@@ -29,7 +30,7 @@ namespace MF.Core.Projections.Handlers
                     Token = userLoggedIn.Token,
                     Date = userLoggedIn.Now
                 };
-            _mongoRepository.Save(userLogins);
+            base._mongoRepository.Save(userLogins);
         }
 
         private void trainerHired(IGESEvent x)
@@ -49,25 +50,25 @@ namespace MF.Core.Projections.Handlers
             user.PhoneMobile = trainerHired.Contact.Phone;
             user.PhoneSecondary = trainerHired.Contact.PhoneSecondary;
             user.Dob = trainerHired.Dob;
-            _mongoRepository.Save(user);
+            base._mongoRepository.Save(user);
         }
 
         private void userArchived(IGESEvent x)
         {
             var userArchived = (UserArchived)x;
-            var user = _repository.Get<Users>(u => u.Id == userArchived.UserId);
+            var user = _mongoRepository.Get<Users>(u => u.Id == userArchived.UserId);
             user.Archived = true;
             user.ArchivedDate = userArchived.ArchivedDate;
-            _mongoRepository.Save(user);
+            base._mongoRepository.Save(user);
         }
 
         private void userUnArchived(IGESEvent x)
         {
             var userUnArchived = (UserUnArchived)x;
-            var user = _repository.Get<Users>(u => u.Id == userUnArchived.UserId);
+            var user = _mongoRepository.Get<Users>(u => u.Id == userUnArchived.UserId);
             user.Archived = false;
             user.ArchivedDate = userUnArchived.UnArchivedDate;
-            _mongoRepository.Save(user);
+            base._mongoRepository.Save(user);
         }
     }
 }

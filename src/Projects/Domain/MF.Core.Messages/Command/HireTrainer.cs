@@ -5,7 +5,7 @@ using MF.Core.Messages.Events;
 
 namespace MF.Core.Messages.Command
 {
-    public class HireTrainer : IGESEvent
+    public class HireTrainer : GESEvent
     {
         public HireTrainer(
          Contact contact,
@@ -24,7 +24,5 @@ namespace MF.Core.Messages.Command
         public Credentials Credentials { get; set; }
         public Address Address { get; set; }
         public DateTime Dob { get; private set; }
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
     }
 }

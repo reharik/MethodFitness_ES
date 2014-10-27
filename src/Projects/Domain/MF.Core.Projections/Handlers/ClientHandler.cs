@@ -1,6 +1,7 @@
 ﻿using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Infrastructure.SharedModels;
+using MF.Core.Messages;
 using MF.Core.Messages.Events;
 using MF.Core.ReadModel.Model;
 
@@ -8,7 +9,8 @@ namespace MF.Core.Projections.Handlers
 {
     public class ClientHandler : HandlerBase, IHandler
     {
-        public ClientHandler(IMongoRepository mongoRepository) : base(mongoRepository)
+        public ClientHandler(IMongoRepository mongoRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository,uiResponsePoster)
         {
             register(typeof(HouseGeneratedClientSignedUp), HandleHouseGenerated);
             register(typeof(TrainerGeneratedClientSignedUp), HandleTrainerGenerated);
@@ -28,7 +30,7 @@ namespace MF.Core.Projections.Handlers
             client.Source = clientSignedUp.Source;
             client.SourceNotes = clientSignedUp.SourceNotes;
             _mongoRepository.Save(client);
-
+            _responseMessage = new UINotification("Success", "Success");
         }
 
         private void HandleTrainerGenerated(IGESEvent x)
@@ -44,6 +46,7 @@ namespace MF.Core.Projections.Handlers
 //            client.Source = clientSignedUp.Source;
             client.SourceNotes = clientSignedUp.SourceNotes;
             _mongoRepository.Save(client);
+            _responseMessage = new UINotification("Success", "Success");
         }
 
         private void clientArchived(IGESEvent x)

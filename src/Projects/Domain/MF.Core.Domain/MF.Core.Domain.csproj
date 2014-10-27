@@ -75,7 +75,9 @@
     <Compile Include="DomainRegistry.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MF.Core.Infrastructure\MF.Core.Infrastructure.csproj">

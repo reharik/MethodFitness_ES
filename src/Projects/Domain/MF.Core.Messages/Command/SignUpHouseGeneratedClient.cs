@@ -5,15 +5,16 @@ using MF.Core.Messages.Events;
 
 namespace MF.Core.Messages.Command
 {
-    public class SignUpHouseGeneratedClient : IGESEvent
+    public class SignUpHouseGeneratedClient : GESEvent
     {
         public SignUpHouseGeneratedClient(
-           Contact contact,
+            Contact contact,
             Address address,
             Guid trainerId,
             string source,
             string sourceNotes,
-            DateTime startDate)
+            DateTime startDate,
+            DateTime dob)
         {
             Contact = contact;
             Address = address;
@@ -21,6 +22,7 @@ namespace MF.Core.Messages.Command
             Source = source;
             SourceNotes = sourceNotes;
             StartDate = startDate;
+            Dob = dob;
             EventType = GetType().Name;
         }
 
@@ -30,7 +32,6 @@ namespace MF.Core.Messages.Command
         public string Source { get; private set; }
         public string SourceNotes { get; private set; }
         public DateTime StartDate { get; private set; }
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
+        public DateTime Dob { get; private set; }
     }
 }

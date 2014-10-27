@@ -12,8 +12,8 @@ namespace MF.Core.Domain.Handlers
     public class ArchiveClientWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
-        public ArchiveClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
-            : base(mongoRepository)
+        public ArchiveClientWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
             _getEventStoreRepository = getEventStoreRepository;
             register(typeof(ArchiveClient),archiveClient);

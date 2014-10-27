@@ -4,7 +4,7 @@ using MF.Core.Infrastructure.SharedModels;
 
 namespace MF.Core.Messages.Events
 {
-    public class UserArchived : IGESEvent
+    public class UserArchived : GESEvent
     {
         public Guid UserId { get; private set; }
         public DateTime ArchivedDate { get; private set; }
@@ -19,7 +19,7 @@ namespace MF.Core.Messages.Events
         }
     }
 
-    public class UserUnArchived : IGESEvent
+    public class UserUnArchived : GESEvent
     {
         public Guid UserId { get; private set; }
         public DateTime UnArchivedDate { get; private set; }

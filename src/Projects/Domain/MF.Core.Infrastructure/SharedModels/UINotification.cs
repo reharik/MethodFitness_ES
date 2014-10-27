@@ -1,9 +1,8 @@
 using EventStore.ClientAPI;
-using MF.Core.Infrastructure.SharedModels;
 
-namespace MF.Core.Messages
+namespace MF.Core.Infrastructure.SharedModels
 {
-    public class UINotification : IGESEvent
+    public class UINotification : GESEvent
     {
         public UINotification(string notificationType, string message)
         {

@@ -8,12 +8,12 @@ namespace MF.Core.Projections.Handlers
 {
     public class ClientSummaryHandler : HandlerBase, IHandler
     {
-        private readonly IMongoRepository _repository;
+        private readonly IMongoRepository _mongoRepository;
 
-        public ClientSummaryHandler(IMongoRepository repository)
-            : base(repository)
+        public ClientSummaryHandler(IMongoRepository mongoRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
-            _repository = repository;
+            _mongoRepository = mongoRepository;
             register(typeof(HouseGeneratedClientSignedUp), HandleHouseGenerated);
             register(typeof(TrainerGeneratedClientSignedUp), HandleTrainerGenerated);
             register(typeof(ClientArchived), clientArchived);
@@ -46,7 +46,7 @@ namespace MF.Core.Projections.Handlers
         private void clientArchived(IGESEvent x)
         {
             var clientArchived = (ClientArchived)x;
-            var client = _repository.Get<ClientSummaries>(u => u.Id == clientArchived.ClientId);
+            var client = _mongoRepository.Get<ClientSummaries>(u => u.Id == clientArchived.ClientId);
             client.Archived = true;
             client.ArchivedDate = clientArchived.ArchivedDate;
             _mongoRepository.Save(client);
@@ -55,7 +55,7 @@ namespace MF.Core.Projections.Handlers
         private void clientUnArchived(IGESEvent x)
         {
             var clientUnArchived = (ClientUnArchived)x;
-            var client = _repository.Get<ClientSummaries>(u => u.Id == clientUnArchived.ClientId);
+            var client = _mongoRepository.Get<ClientSummaries>(u => u.Id == clientUnArchived.ClientId);
             client.Archived = false;
             client.ArchivedDate = clientUnArchived.UnArchivedDate;
             _mongoRepository.Save(client);

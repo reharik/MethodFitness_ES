@@ -4,7 +4,7 @@ using MF.Core.Infrastructure.SharedModels;
 
 namespace MF.Core.Messages.Events
 {
-    public class SingleSessionBooked
+    public class SingleSessionBooked : GESEvent
     {
         public Guid Id { get; protected set; }
         public TrainerDisplay TrainerDisplay { get; set; }
@@ -14,11 +14,9 @@ namespace MF.Core.Messages.Events
         public string StartTime { get; protected set; }
         public string EndTime { get; protected set; }
         public string Notes { get; protected set; }
-        public string EventType { get; protected set; }
-        public Position? OriginalPosition { get; set; }
     }
 
-    public class HalfHourSessionBooked : SingleSessionBooked, IGESEvent
+    public class HalfHourSessionBooked : SingleSessionBooked
     {
         public HalfHourSessionBooked(Guid id,
                                      string location,
@@ -41,7 +39,7 @@ namespace MF.Core.Messages.Events
         }
     }
 
-    public class FullHourSessionBooked : SingleSessionBooked, IGESEvent
+    public class FullHourSessionBooked : SingleSessionBooked
     {
         public FullHourSessionBooked(Guid id,
                                      string location,

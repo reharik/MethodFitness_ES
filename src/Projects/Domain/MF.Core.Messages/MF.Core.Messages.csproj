@@ -64,7 +64,6 @@
     <Compile Include="Command\HireTrainer.cs" />
     <Compile Include="Events\UserLoggedIn.cs" />
     <Compile Include="Events\TrainerHired.cs" />
-    <Compile Include="UINotification.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

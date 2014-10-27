@@ -13,8 +13,8 @@ namespace MF.Core.Domain.Handlers
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
 
-        public ArchiveUserWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
-            : base(mongoRepository)
+        public ArchiveUserWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
             _getEventStoreRepository = getEventStoreRepository;
             register(typeof(ArchiveUser), archiveUser);

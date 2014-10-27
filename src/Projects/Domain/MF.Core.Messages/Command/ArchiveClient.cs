@@ -4,7 +4,7 @@ using MF.Core.Infrastructure.SharedModels;
 
 namespace MF.Core.Messages.Command
 {
-    public class ArchiveClient : IGESEvent
+    public class ArchiveClient : GESEvent
     {
         public ArchiveClient(Guid clientId)
         {
@@ -13,11 +13,9 @@ namespace MF.Core.Messages.Command
         }
 
         public Guid ClientId { get; private set; }
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
     }
 
-    public class UnArchiveClient : IGESEvent
+    public class UnArchiveClient : GESEvent
     {
         public UnArchiveClient(Guid clientId)
         {
@@ -26,7 +24,5 @@ namespace MF.Core.Messages.Command
         }
 
         public Guid ClientId { get; private set; }
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
     }
 }

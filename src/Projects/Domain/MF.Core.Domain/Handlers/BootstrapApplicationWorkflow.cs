@@ -14,8 +14,8 @@ namespace MF.Core.Domain.Handlers
 {
     public class BootstrapApplicationWorkflow : HandlerBase, IHandler
     {
-        public BootstrapApplicationWorkflow(IMongoRepository mongoRepository)
-            : base(mongoRepository)
+        public BootstrapApplicationWorkflow(IMongoRepository mongoRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
             register(typeof(BootstrapApplication), bootstrap);
         }

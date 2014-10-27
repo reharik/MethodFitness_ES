@@ -5,7 +5,7 @@ using MF.Core.Messages.Events;
 
 namespace MF.Core.Messages.Command
 {
-    public class BookSingleSession : IGESEvent
+    public class BookSingleSession : GESEvent
     {
         public Guid Id { get; protected set; }
         public string Location { get; protected set; }
@@ -14,8 +14,6 @@ namespace MF.Core.Messages.Command
         public DateTime AppointmentDate { get; protected set; }
         public string StartTime { get; protected set; }
         public string Notes { get; protected set; }
-        public string EventType { get; protected set; }
-        public Position? OriginalPosition { get; set; }
     }
 
     public class BookHalfHourSession : BookSingleSession

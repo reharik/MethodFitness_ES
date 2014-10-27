@@ -12,8 +12,8 @@ namespace MF.Core.Domain.Handlers
     public class LoginUserWorkflow : HandlerBase, IHandler
     {
         private readonly IGetEventStoreRepository _getEventStoreRepository;
-        public LoginUserWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository)
-            : base(mongoRepository)
+        public LoginUserWorkflow(IMongoRepository mongoRepository, IGetEventStoreRepository getEventStoreRepository, IUIResponsePoster uiResponsePoster)
+            : base(mongoRepository, uiResponsePoster)
         {
             _getEventStoreRepository = getEventStoreRepository;
             register(typeof(LoginUser), loginUser);

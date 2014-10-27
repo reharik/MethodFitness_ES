@@ -25,7 +25,7 @@ namespace MF.Core.Infrastructure
         protected string _targetTypeName;
         protected Func<ResolvedEvent, bool> _eventFilter;
         private Position position;
-        private bool _isLive;
+        protected bool _isLive;
 
         public DispatcherBase(IGESConnection gesConnection, List<IHandler> eventHandlers)
         {
@@ -57,7 +57,7 @@ namespace MF.Core.Infrastructure
         public void StartDispatching()
         {
             _stopRequested = false;
-            //ok we might need to make IGESEvent an other dreaded baseclass because I want handlers to know 
+            //ok we might need to make GESEvent an other dreaded baseclass because I want handlers to know 
             // if the stream is live or catchup.  and the only way to convey that is on the event it's self
             _subscription = _gesConnection.SubscribeToAllFrom(position, false, HandleNewEvent, x=>_isLive=true, null, new UserCredentials("admin", "changeit"));
         }

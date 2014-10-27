@@ -5,7 +5,7 @@ using MF.Core.Messages.Events;
 
 namespace MF.Core.Messages.Command
 {
-    public class LoginUser : IGESEvent
+    public class LoginUser : GESEvent
     {
         public LoginUser(Guid id, Credentials credentials)
         {
@@ -16,7 +16,5 @@ namespace MF.Core.Messages.Command
 
         public Guid Id { get; set; }
         public Credentials Credentials { get; set; }
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
     }
 }

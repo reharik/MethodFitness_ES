@@ -75,7 +75,7 @@
     <Compile Include="HandlerBase.cs" />
     <Compile Include="GES\Interfaces\IGESConnection.cs" />
     <Compile Include="MessageBinderBase.cs" />
-    <Compile Include="SharedModels\IGESEvent.cs" />
+    <Compile Include="SharedModels\GESEvent.cs" />
     <Compile Include="GES\Interfaces\IGetEventStoreRepository.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="Mongo\IMongoDatabase.cs" />
@@ -89,6 +89,7 @@
     <Compile Include="GES\RegistrationEventRouter.cs" />
     <Compile Include="SharedModels\IReadModel.cs" />
     <Compile Include="SharedModels\LastProcessedPosition.cs" />
+    <Compile Include="SharedModels\UINotification.cs" />
     <Compile Include="UIResponsePoster.cs" />
   </ItemGroup>
   <ItemGroup>
