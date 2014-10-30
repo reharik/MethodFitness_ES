@@ -23,10 +23,7 @@ namespace MF.Core.Projections.Handlers
             var clientSignedUp = (HouseGeneratedClientSignedUp)x;
             var client = new Clients();
             client.Id = clientSignedUp.Id;
-            client.FirstName = clientSignedUp.Contact.FirstName;
-            client.LastName = clientSignedUp.Contact.LastName;
-            client.EmailAddress = clientSignedUp.Contact.EmailAddress;
-            client.Phone = clientSignedUp.Contact.Phone;
+            client.Contact = clientSignedUp.Contact;
             client.Source = clientSignedUp.Source;
             client.SourceNotes = clientSignedUp.SourceNotes;
             _mongoRepository.Save(client);
@@ -38,10 +35,7 @@ namespace MF.Core.Projections.Handlers
             var clientSignedUp = (TrainerGeneratedClientSignedUp)x;
             var client = new Clients();
             client.Id = clientSignedUp.Id;
-            client.FirstName = clientSignedUp.Contact.FirstName;
-            client.LastName = clientSignedUp.Contact.LastName;
-            client.EmailAddress = clientSignedUp.Contact.EmailAddress;
-            client.Phone = clientSignedUp.Contact.Phone;
+            client.Contact = clientSignedUp.Contact;
             //TODO this should be populated ... somewhere higher up.
 //            client.Source = clientSignedUp.Source;
             client.SourceNotes = clientSignedUp.SourceNotes;

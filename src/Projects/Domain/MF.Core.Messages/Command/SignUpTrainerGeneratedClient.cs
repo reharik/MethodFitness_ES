@@ -1,6 +1,7 @@
 ﻿using System;
 using EventStore.ClientAPI;
 using MF.Core.Infrastructure.SharedModels;
+using MF.Core.Infrastructure.SharedModels.CommonDtos;
 using MF.Core.Messages.Events;
 
 namespace MF.Core.Messages.Command

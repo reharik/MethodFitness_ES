@@ -26,9 +26,10 @@ namespace MF.Core.Infrastructure
             // tried to get this out of here and into one call but couldn't do it
             var actualTypeName = JObject.Parse(Encoding.UTF8.GetString(metadata)).Property(targetTypeName);
             //********** Application specific MetaData *************
-            var clientRoom = JObject.Parse(Encoding.UTF8.GetString(metadata)).Property("ClientRoom");
-            var returnEvent = JObject.Parse(Encoding.UTF8.GetString(metadata)).Property("ReturnEvent");
-            var metaData = new Dictionary<string, object> {{"ClientRoom", clientRoom}, {"ReturnEvent", returnEvent}};
+//            var clientId = JObject.Parse(Encoding.UTF8.GetString(metadata)).Property("ClientId");
+//            var clientRoom = JObject.Parse(Encoding.UTF8.GetString(metadata)).Property("ClientRoom");
+//            var returnEvent = JObject.Parse(Encoding.UTF8.GetString(metadata)).Property("ReturnEvent");
+            var metaData = new Dictionary<string, object>();// {{"ClientRoom", clientRoom}, {"ReturnEvent", returnEvent},{"ClientId",clientId}};
             //********** End Application specific MetaData *************
             var vent = (IGESEvent) JsonConvert.DeserializeObject(Encoding.UTF8.GetString(data), Type.GetType((string) actualTypeName));
             vent.MetaData = metaData;

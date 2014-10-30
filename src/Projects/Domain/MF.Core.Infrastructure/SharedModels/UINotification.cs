@@ -13,7 +13,5 @@ namespace MF.Core.Infrastructure.SharedModels
 
         public string NotificationType { get; private set; }
         public string Message { get; private set; }
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
     }
 }

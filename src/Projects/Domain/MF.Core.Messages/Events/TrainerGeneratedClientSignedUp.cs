@@ -1,34 +1,28 @@
 ﻿using System;
 using EventStore.ClientAPI;
 using MF.Core.Infrastructure.SharedModels;
+using MF.Core.Infrastructure.SharedModels.CommonDtos;
 
 namespace MF.Core.Messages.Events
 {
     public class TrainerGeneratedClientSignedUp : GESEvent
     {
-        private readonly Contact _contact;
         public Guid Id { get; private set; }
-        public Address Address { get; set; }
         public Contact Contact { get; set; }
         public Guid TrainerId { get; private set; }
         public string SourceNotes { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime Dob { get; private set; }
 
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
-
         public TrainerGeneratedClientSignedUp(Guid id,
           Contact contact,
-            Address address,
             Guid trainerId,
             string sourceNotes,
             DateTime startDate,
             DateTime dob)
         {
-            _contact = contact;
+            Contact = contact;
             Id = id;
-            Address = address;
 
             TrainerId = trainerId;
             SourceNotes = sourceNotes;

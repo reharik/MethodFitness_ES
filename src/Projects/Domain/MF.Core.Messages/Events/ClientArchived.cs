@@ -8,8 +8,6 @@ namespace MF.Core.Messages.Events
     {
         public Guid ClientId { get; private set; }
         public DateTime ArchivedDate { get; private set; }
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
 
         public ClientArchived(Guid clientId, DateTime archivedDate)
         {
@@ -23,8 +21,6 @@ namespace MF.Core.Messages.Events
     {
         public Guid ClientId { get; private set; }
         public DateTime UnArchivedDate { get; private set; }
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
 
         public ClientUnArchived(Guid clientId, DateTime unArchivedDate)
         {

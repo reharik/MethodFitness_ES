@@ -49,11 +49,9 @@
     <Compile Include="Command\SignUpHouseGeneratedClient.cs" />
     <Compile Include="Command\SignUpTrainerGeneratedClient.cs" />
     <Compile Include="Command\LoginUser.cs" />
-    <Compile Include="Events\Address.cs" />
     <Compile Include="Events\ApplicationStarted.cs" />
     <Compile Include="Events\ClientArchived.cs" />
     <Compile Include="Events\ClientDisplay.cs" />
-    <Compile Include="Events\Contact.cs" />
     <Compile Include="Events\Credentials.cs" />
     <Compile Include="Events\HalfHourSessionBooked.cs" />
     <Compile Include="Events\TrainerDisplay.cs" />

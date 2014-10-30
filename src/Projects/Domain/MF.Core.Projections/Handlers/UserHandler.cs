@@ -39,16 +39,8 @@ namespace MF.Core.Projections.Handlers
             var user = new Users();
             user.Id = trainerHired.Id;
             user.UserName = trainerHired.Credentials.UserName;
-            user.FirstName = trainerHired.Contact.FirstName;
-            user.LastName = trainerHired.Contact.LastName;
-            user.EmailAddress = trainerHired.Contact.EmailAddress;
-            user.Address1 = trainerHired.Address.Address1;
-            user.Address2 = trainerHired.Address.Address2;
-            user.City = trainerHired.Address.City;
-            user.State = trainerHired.Address.State;
-            user.ZipCode = trainerHired.Address.ZipCode;
-            user.PhoneMobile = trainerHired.Contact.Phone;
-            user.PhoneSecondary = trainerHired.Contact.PhoneSecondary;
+            user.Contact= trainerHired.Contact;
+            user.Address = trainerHired.Address;
             user.Dob = trainerHired.Dob;
             base._mongoRepository.Save(user);
         }

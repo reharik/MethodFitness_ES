@@ -1,6 +1,7 @@
 ﻿using System;
 using EventStore.ClientAPI;
 using MF.Core.Infrastructure.SharedModels;
+using MF.Core.Infrastructure.SharedModels.CommonDtos;
 
 namespace MF.Core.Messages.Events
 {
@@ -11,9 +12,6 @@ namespace MF.Core.Messages.Events
         public Contact Contact { get; private set; }
         public Credentials Credentials { get; private set; }
         public DateTime Dob { get; private set; }
-
-        public string EventType { get; private set; }
-        public Position? OriginalPosition { get; set; }
 
         public TrainerHired(Guid id,
            Credentials credentials,

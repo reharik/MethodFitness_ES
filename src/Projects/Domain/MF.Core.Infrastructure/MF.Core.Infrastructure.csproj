@@ -75,6 +75,8 @@
     <Compile Include="HandlerBase.cs" />
     <Compile Include="GES\Interfaces\IGESConnection.cs" />
     <Compile Include="MessageBinderBase.cs" />
+    <Compile Include="SharedModels\CommonDtos\Address.cs" />
+    <Compile Include="SharedModels\CommonDtos\Contact.cs" />
     <Compile Include="SharedModels\GESEvent.cs" />
     <Compile Include="GES\Interfaces\IGetEventStoreRepository.cs" />
     <Compile Include="IHandler.cs" />

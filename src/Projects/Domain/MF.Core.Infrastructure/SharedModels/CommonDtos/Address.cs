@@ -1,4 +1,4 @@
-﻿namespace MF.Core.Messages.Events
+﻿namespace MF.Core.Infrastructure.SharedModels.CommonDtos
 {
     public class Address
     {

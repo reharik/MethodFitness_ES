@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using EventStore.ClientAPI;
+using Newtonsoft.Json;
 
 namespace MF.Core.Infrastructure.SharedModels
 {
@@ -12,8 +13,11 @@ namespace MF.Core.Infrastructure.SharedModels
 
     public class GESEvent : IGESEvent
     {
+        [JsonIgnore]
         public string EventType { get; protected set; }
+        [JsonIgnore]
         public Position? OriginalPosition { get; set; }
+        [JsonIgnore]
         public Dictionary<string, object> MetaData { get; set; }
     }
 }

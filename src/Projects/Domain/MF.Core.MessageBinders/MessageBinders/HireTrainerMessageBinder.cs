@@ -2,6 +2,7 @@
 using EventStore.ClientAPI;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.Mongo;
+using MF.Core.Infrastructure.SharedModels.CommonDtos;
 using MF.Core.Messages.Command;
 using MF.Core.Messages.Events;
 using MF.Core.ReadModel.Model;

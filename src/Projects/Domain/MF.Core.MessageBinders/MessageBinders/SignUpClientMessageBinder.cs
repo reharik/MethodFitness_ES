@@ -2,6 +2,7 @@
 using EventStore.ClientAPI;
 using MF.Core.Infrastructure;
 using MF.Core.Infrastructure.Mongo;
+using MF.Core.Infrastructure.SharedModels.CommonDtos;
 using MF.Core.Messages.Command;
 using MF.Core.Messages.Events;
 using MF.Core.ReadModel.Model;
@@ -34,7 +35,7 @@ namespace MF.Core.MessageBinders.MessageBinders
             DateTime startDate,
             DateTime dob)
         {
-            var user = _mongoRepository.Get<Clients>(x => x.EmailAddress == emailAddress);
+            var user = _mongoRepository.Get<Clients>(x => x.Contact.EmailAddress == emailAddress);
             if (user != null)
             {
                 throw new Exception("Client with that email address already exists");
