@@ -26,7 +26,7 @@ namespace MF.Core.Projections.Handlers
             var userLogins = new UserLogins
                 {
                     UserName = userLoggedIn.UserName,
-                    Id = userLoggedIn.Id,
+                    Id = userLoggedIn.Id.ToString(),
                     Token = userLoggedIn.Token,
                     Date = userLoggedIn.Now
                 };
@@ -37,7 +37,7 @@ namespace MF.Core.Projections.Handlers
         {
             var trainerHired = (TrainerHired)x;
             var user = new Users();
-            user.Id = trainerHired.Id;
+            user.Id = trainerHired.Id.ToString();
             user.UserName = trainerHired.Credentials.UserName;
             user.Contact= trainerHired.Contact;
             user.Address = trainerHired.Address;
@@ -48,7 +48,7 @@ namespace MF.Core.Projections.Handlers
         private void userArchived(IGESEvent x)
         {
             var userArchived = (UserArchived)x;
-            var user = _mongoRepository.Get<Users>(u => u.Id == userArchived.UserId);
+            var user = _mongoRepository.Get<Users>(u => u.Id == userArchived.UserId.ToString());
             user.Archived = true;
             user.ArchivedDate = userArchived.ArchivedDate;
             base._mongoRepository.Save(user);
@@ -57,7 +57,7 @@ namespace MF.Core.Projections.Handlers
         private void userUnArchived(IGESEvent x)
         {
             var userUnArchived = (UserUnArchived)x;
-            var user = _mongoRepository.Get<Users>(u => u.Id == userUnArchived.UserId);
+            var user = _mongoRepository.Get<Users>(u => u.Id == userUnArchived.UserId.ToString());
             user.Archived = false;
             user.ArchivedDate = userUnArchived.UnArchivedDate;
             base._mongoRepository.Save(user);

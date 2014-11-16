@@ -24,6 +24,7 @@ namespace MF.Core.Projections.Handlers
         {
             var clientSignedUp = (HouseGeneratedClientSignedUp)x;
             var client = new ClientSummaries();
+            client.Id = clientSignedUp.Id.ToString();
             client.FirstName = clientSignedUp.Contact.FirstName;
             client.LastName = clientSignedUp.Contact.LastName;
             client.EmailAddress = clientSignedUp.Contact.EmailAddress;
@@ -34,8 +35,8 @@ namespace MF.Core.Projections.Handlers
         private void HandleTrainerGenerated(IGESEvent x)
         {
             var clientSignedUp = (TrainerGeneratedClientSignedUp)x;
-            var 
-                client = new ClientSummaries();
+            var client = new ClientSummaries();
+            client.Id = clientSignedUp.Id.ToString();
             client.FirstName = clientSignedUp.Contact.FirstName;
             client.LastName = clientSignedUp.Contact.LastName;
             client.EmailAddress = clientSignedUp.Contact.EmailAddress;
@@ -46,7 +47,7 @@ namespace MF.Core.Projections.Handlers
         private void clientArchived(IGESEvent x)
         {
             var clientArchived = (ClientArchived)x;
-            var client = _mongoRepository.Get<ClientSummaries>(u => u.Id == clientArchived.ClientId);
+            var client = _mongoRepository.Get<ClientSummaries>(u => u.Id == clientArchived.ClientId.ToString());
             client.Archived = true;
             client.ArchivedDate = clientArchived.ArchivedDate;
             _mongoRepository.Save(client);
@@ -55,7 +56,7 @@ namespace MF.Core.Projections.Handlers
         private void clientUnArchived(IGESEvent x)
         {
             var clientUnArchived = (ClientUnArchived)x;
-            var client = _mongoRepository.Get<ClientSummaries>(u => u.Id == clientUnArchived.ClientId);
+            var client = _mongoRepository.Get<ClientSummaries>(u => u.Id == clientUnArchived.ClientId.ToString());
             client.Archived = false;
             client.ArchivedDate = clientUnArchived.UnArchivedDate;
             _mongoRepository.Save(client);

@@ -6,7 +6,7 @@ namespace MF.Core.ReadModel.Model
 {
     public class Users : IReadModel
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         public string UserName { get; set; }
         public Contact Contact { get; set; }
         public Address Address { get; set; }

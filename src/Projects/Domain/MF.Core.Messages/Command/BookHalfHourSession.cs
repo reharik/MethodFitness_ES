@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using EventStore.ClientAPI;
 using MF.Core.Infrastructure.SharedModels;
 using MF.Core.Messages.Events;
@@ -18,6 +19,11 @@ namespace MF.Core.Messages.Command
 
     public class BookHalfHourSession : BookSingleSession
     {
+        public BookHalfHourSession(Dictionary<string,string> jsonDic)
+        {
+
+        }
+
         public BookHalfHourSession(string location,
                                    TrainerDisplay trainerDisplay,
                                    ClientDisplay clientDisplay,

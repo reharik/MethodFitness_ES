@@ -29,14 +29,14 @@ namespace MF.Core.Projections.Handlers
 
         private void HandleTrainerGenerated(IGESEvent x)
         {
-            var clientSignedUp = (TrainerGeneratedClientSignedUp) x;
-            var
-                client = new ClientSummaries();
-            client.FirstName = clientSignedUp.Contact.FirstName;
-            client.LastName = clientSignedUp.Contact.LastName;
-            client.EmailAddress = clientSignedUp.Contact.EmailAddress;
-            client.Phone = clientSignedUp.Contact.Phone;
-            _mongoRepository.Save(client);
+//            var clientSignedUp = (TrainerGeneratedClientSignedUp) x;
+//            var
+//                client = new ClientSummaries();
+//            client.FirstName = clientSignedUp.Contact.FirstName;
+//            client.LastName = clientSignedUp.Contact.LastName;
+//            client.EmailAddress = clientSignedUp.Contact.EmailAddress;
+//            client.Phone = clientSignedUp.Contact.Phone;
+//            _mongoRepository.Save(client);
         }
     }
 }

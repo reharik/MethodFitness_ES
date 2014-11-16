@@ -21,7 +21,7 @@ namespace MF.Core.Projections.Handlers
             var vent = (SingleSessionBooked)x;
             var item = new CalendarAppointments
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     TrainerId = vent.TrainerDisplay.TrainerId,
                     ClientDisplay = vent.ClientDisplay.ClientName,
                     StartTime = vent.StartTime,

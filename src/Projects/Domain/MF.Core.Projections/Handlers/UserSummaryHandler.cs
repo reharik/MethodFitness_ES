@@ -33,7 +33,7 @@ namespace MF.Core.Projections.Handlers
         private void userArchived(IGESEvent x)
         {
             var userArchived = (UserArchived)x;
-            var user = _mongoRepository.Get<UserSummaries>(u => u.Id == userArchived.UserId);
+            var user = _mongoRepository.Get<UserSummaries>(u => u.Id == userArchived.UserId.ToString());
             user.Archived = true;
             user.ArchivedDate = userArchived.ArchivedDate;
             _mongoRepository.Save(user);
@@ -42,7 +42,7 @@ namespace MF.Core.Projections.Handlers
         private void userUnArchived(IGESEvent x)
         {
             var userUnArchived = (UserUnArchived)x;
-            var user = _mongoRepository.Get<UserSummaries>(u => u.Id == userUnArchived.UserId);
+            var user = _mongoRepository.Get<UserSummaries>(u => u.Id == userUnArchived.UserId.ToString());
             user.Archived = false;
             user.ArchivedDate = userUnArchived.UnArchivedDate;
             _mongoRepository.Save(user);
