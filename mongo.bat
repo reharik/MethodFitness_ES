@@ -1,1 +1,1 @@
-"%ConEmuBaseDir%\ConEmuC.exe" /c"-new_console:d:c:\databases\mongo" mongo
+"%ConEmuBaseDir%\ConEmuC.exe" /c -new_console:d:%cd%\src\databases\mongo mongo
