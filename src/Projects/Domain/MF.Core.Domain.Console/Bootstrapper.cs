@@ -26,9 +26,9 @@ public class Bootstrapper
 
                 x.AddRegistry(new DomainRegistry());
                 x.AddRegistry(new InfrastructureRegistry());
-                                x.AddRegistry(new ReadModelRegistry());
+                x.AddRegistry(new ReadModelRegistry());
             });
-//            ObjectFactory.Container.AssertConfigurationIsValid();
+            ObjectFactory.Container.AssertConfigurationIsValid();
 
         }
     }
