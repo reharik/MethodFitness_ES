@@ -67,6 +67,7 @@ namespace MF.Core.Infrastructure.BaseClasses
 
         public void StopDispatching()
         {
+            _logger.LogInfo("Dispatcher stopped: {0}", DateTime.Now);
             _stopRequested = true;
             if (_subscription != null)
                 _subscription.Stop(TimeSpan.FromSeconds(2));
@@ -84,6 +85,7 @@ namespace MF.Core.Infrastructure.BaseClasses
 
         protected void HandleEvent(IGESEvent _event)
         {
+            _logger.LogInfo("Broadcasting event: {0}", _event.EventType);
             _broadcastBlock.Post(_event);
         }
     }
