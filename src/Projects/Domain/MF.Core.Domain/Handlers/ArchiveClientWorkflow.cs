@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MF.Core.Domain.AggregateRoots;
 using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.BaseClasses;
 using MF.Core.Infrastructure.GES.Interfaces;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Infrastructure.SharedModels;

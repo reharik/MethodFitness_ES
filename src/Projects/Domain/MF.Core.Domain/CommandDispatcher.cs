@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.BaseClasses;
 using MF.Core.Infrastructure.GES.Interfaces;
 
 namespace MF.Core.Domain
 {
     public class CommandDispatcher : DispatcherBase
     {
-        public CommandDispatcher(IGESConnection gesConnection, List<IHandler> eventHandlers) 
-            : base(gesConnection, eventHandlers)
+        public CommandDispatcher(IGESConnection gesConnection, List<IHandler> eventHandlers, ILogger logger)
+            : base(gesConnection, eventHandlers, logger)
         {
             _targetTypeName = "CommandTypeName";
 

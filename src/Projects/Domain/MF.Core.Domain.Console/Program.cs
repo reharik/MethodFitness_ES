@@ -1,5 +1,6 @@
 ﻿using System;
 using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.BaseClasses;
 using StructureMap;
 
 namespace MF.Core.Domain.Console

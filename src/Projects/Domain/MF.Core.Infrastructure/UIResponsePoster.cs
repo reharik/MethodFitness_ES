@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using EventStore.ClientAPI;
+using MF.Core.Infrastructure.BaseClasses;
 using MF.Core.Infrastructure.SharedModels;
 
 namespace MF.Core.Infrastructure

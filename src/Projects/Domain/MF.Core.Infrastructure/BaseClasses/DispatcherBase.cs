@@ -7,7 +7,7 @@ using System.Linq;
 using MF.Core.Infrastructure.GES.Interfaces;
 using MF.Core.Infrastructure.SharedModels;
 
-namespace MF.Core.Infrastructure
+namespace MF.Core.Infrastructure.BaseClasses
 {
     public interface IDispatcher
     {
@@ -18,6 +18,7 @@ namespace MF.Core.Infrastructure
     public class DispatcherBase : IDispatcher
     {
         private readonly List<IHandler> _eventHandlers;
+        private readonly ILogger _logger;
         protected IEventStoreConnection _gesConnection;
         private bool _stopRequested;
         private EventStoreAllCatchUpSubscription _subscription;
@@ -27,11 +28,12 @@ namespace MF.Core.Infrastructure
         private Position position;
         protected bool _isLive;
 
-        public DispatcherBase(IGESConnection gesConnection, List<IHandler> eventHandlers)
+        public DispatcherBase(IGESConnection gesConnection, List<IHandler> eventHandlers, ILogger logger)
         {
             _gesConnection = gesConnection.BuildConnection();
             _gesConnection.ConnectAsync();
             _eventHandlers = eventHandlers;
+            _logger = logger;
             // add all handlers to the broadcast block so they receive news of events
             RegisterHandlers();
             // gets last event processed to avoid re processing events after a shut down.
@@ -56,6 +58,7 @@ namespace MF.Core.Infrastructure
 
         public void StartDispatching()
         {
+            _logger.LogInfo("Dispatcher started: {0}",DateTime.Now);
             _stopRequested = false;
             //ok we might need to make GESEvent an other dreaded baseclass because I want handlers to know 
             // if the stream is live or catchup.  and the only way to convey that is on the event it's self

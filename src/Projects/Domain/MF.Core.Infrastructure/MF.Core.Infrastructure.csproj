@@ -33,6 +33,9 @@
     <Reference Include="EventStore.ClientAPI">
       <HintPath>..\..\..\Solutions\packages\EventStore.Client.3.0.0\lib\net40\EventStore.ClientAPI.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\Solutions\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\..\..\Solutions\packages\mongocsharpdriver.1.9.2\lib\net35\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -65,16 +68,17 @@
     <Compile Include="GES\AggregateBase.cs" />
     <Compile Include="GES\ConflictDetector.cs" />
     <Compile Include="GES\ConventionEventRouter.cs" />
-    <Compile Include="DispatcherBase.cs" />
+    <Compile Include="BaseClasses\DispatcherBase.cs" />
     <Compile Include="GES\Exceptions\AggregateDeletedException.cs" />
     <Compile Include="GES\Exceptions\AggregateNotFoundException.cs" />
     <Compile Include="GES\Exceptions\AggregateVersionException.cs" />
     <Compile Include="GES\Exceptions\HandlerForDomainEventNotFoundException.cs" />
     <Compile Include="GES\ExtensionMethods.cs" />
     <Compile Include="GES\GetEventStoreRepository.cs" />
-    <Compile Include="HandlerBase.cs" />
+    <Compile Include="BaseClasses\HandlerBase.cs" />
     <Compile Include="GES\Interfaces\IGESConnection.cs" />
-    <Compile Include="MessageBinderBase.cs" />
+    <Compile Include="BaseClasses\MessageBinderBase.cs" />
+    <Compile Include="ILogger.cs" />
     <Compile Include="SharedModels\CommonDtos\Address.cs" />
     <Compile Include="SharedModels\CommonDtos\Contact.cs" />
     <Compile Include="SharedModels\GESEvent.cs" />
@@ -93,6 +97,7 @@
     <Compile Include="SharedModels\LastProcessedPosition.cs" />
     <Compile Include="SharedModels\UINotification.cs" />
     <Compile Include="UIResponsePoster.cs" />
+    <Compile Include="UtilityExtensionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

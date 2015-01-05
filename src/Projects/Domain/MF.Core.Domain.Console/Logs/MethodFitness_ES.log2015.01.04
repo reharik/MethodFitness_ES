@@ -1,0 +1,4 @@
+251 2015-01-04 13:38:23,952 (RHarik-DeskTop)[1] INFO  MF.Core.Domain.CommandDispatcher [LogInfo(199)] - Dispatcher started: 01/04/2015 13:38:23 
+ ex_data 
+259 2015-01-04 13:39:05,941 (RHarik-DeskTop)[10] INFO  MF.Core.Domain.CommandDispatcher [LogInfo(199)] - Dispatcher started: 01/04/2015 13:39:05 
+ ex_data 

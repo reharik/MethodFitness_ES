@@ -1,7 +1,9 @@
 ﻿using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.BaseClasses;
 using MF.Core.ReadModel;
 using StructureMap;
 using StructureMap.Graph;
+using log4net.Config;
 
 namespace MF.Core.Domain.Console
 {
@@ -29,7 +31,7 @@ public class Bootstrapper
                 x.AddRegistry(new ReadModelRegistry());
             });
             ObjectFactory.Container.AssertConfigurationIsValid();
-
+            XmlConfigurator.Configure();
         }
     }
 }

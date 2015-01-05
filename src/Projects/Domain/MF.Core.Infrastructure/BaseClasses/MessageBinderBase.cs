@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using EventStore.ClientAPI;
 using MF.Core.Infrastructure.SharedModels;
 
-namespace MF.Core.Infrastructure
+namespace MF.Core.Infrastructure.BaseClasses
 {
     public class MessagePoster
     {

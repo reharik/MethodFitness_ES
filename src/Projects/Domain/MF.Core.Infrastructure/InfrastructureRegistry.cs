@@ -16,6 +16,7 @@ namespace MF.Core.Infrastructure
                 x.TheCallingAssembly();
                 x.WithDefaultConventions();
             });
+            For<ILogger>().AlwaysUnique().Use(s => s.ParentType == null ? new ConsoleLogger(s.RootType) : new ConsoleLogger(s.ParentType));
             For<IMongoDB>().Use(x => new Mongo.MongoDB("mongodb://localhost"));
             For<IMongoRepository>().Use(x => new MongoRepository(x.GetInstance<IMongoDB>().GetDatabase()));
             For<IEventStoreConnection>().Use(x => x.GetInstance<IGESConnection>().BuildConnection());
