@@ -31,7 +31,7 @@ namespace MF.Core.Infrastructure
 //            var returnEvent = JObject.Parse(Encoding.UTF8.GetString(metadata)).Property("ReturnEvent");
             var metaData = new Dictionary<string, object>();// {{"ClientRoom", clientRoom}, {"ReturnEvent", returnEvent},{"ClientId",clientId}};
             //********** End Application specific MetaData *************
-            var vent = (IGESEvent) JsonConvert.DeserializeObject(Encoding.UTF8.GetString(data), Type.GetType((string) actualTypeName));
+             var vent = (IGESEvent) JsonConvert.DeserializeObject(Encoding.UTF8.GetString(data), Type.GetType((string) actualTypeName));
             vent.MetaData = metaData;
             return vent;
         }

@@ -1,1 +1,1 @@
-"%ConEmuBaseDir%\ConEmuC.exe" /c -new_console:d:%cd%\src\databases\eventstore" EventStore.ClusterNode.exe
+"%ConEmuBaseDir%\ConEmuC.exe" /c -new_console:t:"EventStore":d:c:\databases\eventstore EventStore.ClusterNode.exe --StatsPeriodSec=600

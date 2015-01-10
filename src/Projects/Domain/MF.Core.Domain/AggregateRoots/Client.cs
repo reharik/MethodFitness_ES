@@ -46,6 +46,11 @@ namespace MF.Core.Domain.AggregateRoots
             RaiseEvent(new ClientArchived(Id, DateTime.Now));
         }
 
+        public void Handle(CorrectClientName correctClientName)
+        {
+            RaiseEvent(new ClientNameCorrected(correctClientName.ClientId,correctClientName.Contact));
+        }
+
         #endregion 
         #region Apply
    
@@ -68,6 +73,13 @@ namespace MF.Core.Domain.AggregateRoots
         {
             _isArchived = false;
         }
+
+        public void Apply(ClientNameCorrected vent)
+        {
+            return;
+        }
+
+        
         #endregion 
         #region Expect
      
@@ -97,6 +109,6 @@ namespace MF.Core.Domain.AggregateRoots
         
         #endregion
 
-        
+
     }
 }

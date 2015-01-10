@@ -50,12 +50,14 @@
     <Compile Include="Command\ArchiveUser.cs" />
     <Compile Include="Command\ArchiveClient.cs" />
     <Compile Include="Command\BookHalfHourSession.cs" />
+    <Compile Include="Command\CorrectClientName.cs" />
     <Compile Include="Command\SignUpHouseGeneratedClient.cs" />
     <Compile Include="Command\SignUpTrainerGeneratedClient.cs" />
     <Compile Include="Command\LoginUser.cs" />
     <Compile Include="Events\ApplicationStarted.cs" />
     <Compile Include="Events\ClientArchived.cs" />
     <Compile Include="Events\ClientDisplay.cs" />
+    <Compile Include="Events\ClientNameCorrected.cs" />
     <Compile Include="Events\Credentials.cs" />
     <Compile Include="Events\HalfHourSessionBooked.cs" />
     <Compile Include="Events\TrainerDisplay.cs" />

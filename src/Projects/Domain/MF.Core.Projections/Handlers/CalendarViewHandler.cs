@@ -1,5 +1,6 @@
 ﻿using System;
 using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.BaseClasses;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Infrastructure.SharedModels;
 using MF.Core.Messages.Events;

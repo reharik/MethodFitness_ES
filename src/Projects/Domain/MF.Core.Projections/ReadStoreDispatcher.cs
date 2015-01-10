@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.BaseClasses;
 using MF.Core.Infrastructure.GES.Interfaces;
 
 namespace MF.Core.Projections
@@ -8,8 +9,8 @@ namespace MF.Core.Projections
 
     public class ReadStoreDispatcher : DispatcherBase
     {
-        public ReadStoreDispatcher(IGESConnection gesConnection, List<IHandler> eventHandlers)
-            : base(gesConnection, eventHandlers)
+        public ReadStoreDispatcher(IGESConnection gesConnection, List<IHandler> eventHandlers, ILogger logger)
+            : base(gesConnection, eventHandlers, logger)
         {
             _targetTypeName = "EventTypeName";
             _eventFilter = x =>

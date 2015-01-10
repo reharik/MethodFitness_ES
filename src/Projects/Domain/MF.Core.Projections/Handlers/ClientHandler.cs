@@ -1,4 +1,5 @@
 ﻿using MF.Core.Infrastructure;
+using MF.Core.Infrastructure.BaseClasses;
 using MF.Core.Infrastructure.Mongo;
 using MF.Core.Infrastructure.SharedModels;
 using MF.Core.Messages;
@@ -16,6 +17,16 @@ namespace MF.Core.Projections.Handlers
             register(typeof(TrainerGeneratedClientSignedUp), HandleTrainerGenerated);
             register(typeof(ClientArchived), clientArchived);
             register(typeof(ClientUnArchived), clientUnArchived);
+            register(typeof(ClientNameCorrected), clientNameCorrected);
+        }
+
+        private void clientNameCorrected(IGESEvent x)
+        {
+            var vent = (ClientNameCorrected)x;
+            var client = _mongoRepository.Get<Clients>(u => u.Id == vent.ClientId.ToString());
+            client.Contact.FirstName = vent.Contact.FirstName;
+            client.Contact.LastName = vent.Contact.LastName;
+            _mongoRepository.Save(client);  
         }
 
         private void HandleHouseGenerated(IGESEvent x)
