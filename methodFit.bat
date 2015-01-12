@@ -1,6 +1,6 @@
-"%ConEmuBaseDir%\ConEmuC.exe" /c "%ProgramFiles(x86)%\Git\bin\sh.exe" --login -i  -new_console:t:"MEAN":d:"%cd%\..\MethodFitness_MEAN2"
+"%ConEmuBaseDir%\ConEmuC.exe" /c "%ProgramFiles(x86)%\Git\bin\sh.exe" --login -i  -new_console:t:"MEAN":d:%cd%\..\MethodFitness_MEAN2 grunt
 
-"%ConEmuBaseDir%\ConEmuC.exe" /c -new_console:t:"EventStore":d:c:\databases\eventstore EventStore.ClusterNode.exe --StatsPeriodSec=600 --run-projections=NONE
+"%ConEmuBaseDir%\ConEmuC.exe" /c -new_console:t:"EventStore":d:c:\databases\eventstore EventStore.ClusterNode.exe --StatsPeriodSec=6000 --run-projections=NONE
 "%ConEmuBaseDir%\ConEmuC.exe" /c -new_console:t:"Mongo\D":d:c:\databases\mongo mongod.exe --dbpath ..\mongoData
 "%ConEmuBaseDir%\ConEmuC.exe" /c -new_console:t:"Mongo":d:c:\databases\mongo mongo
 
