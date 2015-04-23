@@ -1,0 +1,1 @@
+src\Projects\MF.Service.Projections\bin\MF.ProjectionsService.exe uninstall -serviceName:"MF.ProjectionsService" -displayName:"MF.ProjectionsService" -description:"MF.ProjectionsService"
