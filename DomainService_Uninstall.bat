@@ -1,1 +1,1 @@
-src\Projects\MF.Service.Domain\bin\MF.DomainService.exe uninstall -serviceName:"MF.DomainService" -displayName:"MF.DomainService" -description:"MF.DomainService"
+src\Projects\MF.Service.Domain\bin\debug\MF.DomainService.exe uninstall -serviceName:"MF.DomainService" -displayName:"MF.DomainService" -description:"MF.DomainService"
